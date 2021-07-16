@@ -3,7 +3,7 @@ pipeline {
     agent  {label 'dst-preprod'}
     environment {
         EMAIL_RECIPIENTS = 'MoctarThiam.MBODJ@orange-sonatel.com, Madiagne.Sylla@orange-sonatel.com, mohamed.sall@orange-sonatel.com, Binetou.Diallo@orange-sonatel.com, babacar.fall4@orange-sonatel.com, mamadou.ndao@orange-sonatel.com'
-        IMAGE = 'registry.tools.orange-sonatel.com/dd/gdi-api'
+        IMAGE = 'registry.tools.orange-sonatel.com/dd/koleure-api'
         VERSION = readMavenPom().getVersion()
         NAME = readMavenPom().getArtifactId()
         MAILER_URL="smtp://10.100.56.56:25"
@@ -65,7 +65,7 @@ pipeline {
 
         stage(' Deploy IN Dev') {
             steps {
-                sh 'docker run --name=${NAME} -d --restart=always -e DATABASE_URL=$DATABASE_URL -e MAILER_URL=$MAILER_URL -e APP_ENV=dev -e APP_DEBUG=1 --memory-reservation=256M --memory=512M -p 2253:22 -p 8053:80 ${IMAGE}:${VERSION}'
+                sh 'docker run --name=${NAME} -d --restart=always -e DATABASE_URL=$DATABASE_URL -e MAILER_URL=$MAILER_URL -e APP_ENV=dev -e APP_DEBUG=1 --memory-reservation=256M --memory=512M -p 2232:22 -p 8032:80 ${IMAGE}:${VERSION}'
             }
         }
     }

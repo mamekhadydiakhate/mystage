@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>sn.sonatel.dd.gdi-api</groupId>
-    <artifactId>gdi-api</artifactId>
+    <groupId>sn.sonatel.dd.koleure-api</groupId>
+    <artifactId>koleure-api</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
-    <name>GDI - Api</name>
+    <name>KOLEURE - Api</name>
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <sourceDirectory>src</sourceDirectory>
@@ -249,14 +249,14 @@
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
         <site>
-            <id>wido-torch-publicite</id>
+            <id>koleure</id>
             <url>file:${site.deploy.url}</url>
         </site>
     </distributionManagement>
     <scm>
-        <connection>scm:git:http://${scm.git.url}/TOR/repos/backend.git</connection>
-        <developerConnection>scm:git:http://${scm.git.username}:${scm.git.password}@${scm.git.url}/TOR/repos/backend.git</developerConnection>
+        <connection>scm:git:http://${scm.git.url}/KOL/repos/backend.git</connection>
+        <developerConnection>scm:git:http://${scm.git.username}:${scm.git.password}@${scm.git.url}/KOL/repos/backend.git</developerConnection>
         <tag>v@{project.version}</tag>
-        <url>scm:git:http://${scm.git.url}/TOR/repos/backend.git</url>
+        <url>scm:git:http://${scm.git.url}/KOL/repos/backend.git</url>
     </scm>
 </project>
