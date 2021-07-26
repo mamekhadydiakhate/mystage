@@ -60,19 +60,31 @@ class Agent
     private $transfertAction;
 
     /**
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="agent")
+     */
+    private $document;
+
+    /**
      * @ORM\OneToMany(targetEntity=AyantDroit::class, mappedBy="agent")
      */
     private $ayantDroit;
 
     /**
-     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="agent")
+     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="agent")
      */
-    private $document;
+    private $paiements;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Courrier::class, mappedBy="agent")
+     */
+    private $courriers;
 
     public function __construct()
     {
-        $this->ayantDroit = new ArrayCollection();
         $this->document = new ArrayCollection();
+        $this->ayantDroit = new ArrayCollection();
+        $this->paiements = new ArrayCollection();
+        $this->courriers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,6 +188,37 @@ class Agent
         return $this;
     }
 
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocument(): Collection
+    {
+        return $this->document;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->document->contains($document)) {
+            $this->document[] = $document;
+            $document->setAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->document->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getAgent() === $this) {
+                $document->setAgent(null);
+            }
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection|AyantDroit[]
      */
@@ -207,29 +250,59 @@ class Agent
     }
 
     /**
-     * @return Collection|Document[]
+     * @return Collection|Paiement[]
      */
-    public function getDocument(): Collection
+    public function getPaiements(): Collection
     {
-        return $this->document;
+        return $this->paiements;
     }
 
-    public function addDocument(Document $document): self
+    public function addPaiement(Paiement $paiement): self
     {
-        if (!$this->document->contains($document)) {
-            $this->document[] = $document;
-            $document->setAgent($this);
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements[] = $paiement;
+            $paiement->setAgent($this);
         }
 
         return $this;
     }
 
-    public function removeDocument(Document $document): self
+    public function removePaiement(Paiement $paiement): self
     {
-        if ($this->document->removeElement($document)) {
+        if ($this->paiements->removeElement($paiement)) {
             // set the owning side to null (unless already changed)
-            if ($document->getAgent() === $this) {
-                $document->setAgent(null);
+            if ($paiement->getAgent() === $this) {
+                $paiement->setAgent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Courrier[]
+     */
+    public function getCourriers(): Collection
+    {
+        return $this->courriers;
+    }
+
+    public function addCourrier(Courrier $courrier): self
+    {
+        if (!$this->courriers->contains($courrier)) {
+            $this->courriers[] = $courrier;
+            $courrier->setAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourrier(Courrier $courrier): self
+    {
+        if ($this->courriers->removeElement($courrier)) {
+            // set the owning side to null (unless already changed)
+            if ($courrier->getAgent() === $this) {
+                $courrier->setAgent(null);
             }
         }
 

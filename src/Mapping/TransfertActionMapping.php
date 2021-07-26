@@ -31,4 +31,9 @@ class TransfertActionMapping extends BaseMapping{
             )
         );
     }
+
+    public function valideTransfertAction($transfertAction){
+        $transfertAction->setValidite(1);
+        return $transfertAction;
+    }
 }

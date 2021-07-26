@@ -33,8 +33,25 @@ class TransfertActoinController extends BaseController{
      * @Rest\Get("/searchTransfertAction")
      * @QMLogger(message="Recherche Societe Gestion Action")
      */
-    public function searchSociete(Request $request){
+    public function searchTransfertAction(Request $request){
         $search=$request->query->get('numeroTransfert','');
         return new JsonResponse($this->transfertActionManager->searchTransfertAction($search));
+    }
+
+    /**
+     * @Rest\Put("/validerTransfertAction/{id}")
+     * @QMLogger(message="Valider transfert d'action")
+     */
+    public function validerTransfertAction($id){
+        return new JsonResponse($this->transfertActionManager->validerTransfertAction($id));
+    }
+
+    /**
+     * @Rest\Get("/transfertsEffectues")
+     * @QMLogger(message="Consultation transferts effectues")
+     */
+    public function transfertsEffectues(Request $request){
+        $page=$request->query->get('page',1);
+        return new JsonResponse($this->transfertActionManager->consulterTransfertActionEffectues($page));
     }
 }

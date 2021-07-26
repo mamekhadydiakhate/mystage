@@ -28,6 +28,8 @@ class DocumentController extends BaseController{
      */
     public function ajouterDocument(Request $request){
         $data=$request->request->all();
+        $data['fichier']=$request->files->get('fichier');
+        $data['document_directory']=$this->getParameter('document_directory');
         return new JsonResponse($this->documentManager->addDocument($data));
     }
 

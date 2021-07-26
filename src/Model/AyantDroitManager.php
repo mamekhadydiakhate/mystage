@@ -28,10 +28,16 @@ class AyantDroitManager extends BaseManager{
         $data['statutLegal']=isset($data['statutLegalId'])?$this->em->getRepository(StatutLegal::class)->find($data['statutLegalId']):null;
         $data['lienFamilial']=isset($data['lienFamilialId'])?$this->em->getRepository(LienFamilial::class)->find($data['lienFamilialId']):null;
         $data['document']=isset($data['documentId'])?$this->em->getRepository(Document::class)->find($data['documentId']):null;
-
         $ayantDroit=$this->ayantDroitMapping->addAyantDroit($data);
         $this->em->persist($ayantDroit);
         $this->em->flush();
         return array("code"=>201,"status"=>true,"message"=>"Ayant droit créé avec succés");
+    }
+    public function searchAyantDroit($search){
+        $ayantDroit=$this->em->getRepository(AyantDroit::class)->searchAyantDroit($search);
+        if (!$ayantDroit){
+            return array("code"=>500,"status"=>false,"message"=>"Ayant droit inexistant");
+        }
+        return array("code"=>200,"status"=>false,"data"=>$this->ayantDroitMapping->hydrateAyantDroit($ayantDroit[0]));
     }
 }

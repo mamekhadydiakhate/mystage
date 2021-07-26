@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\StatutLegalRepository;
+use App\Repository\TypeCourrierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=StatutLegalRepository::class)
+ * @ORM\Entity(repositoryClass=TypeCourrierRepository::class)
  */
-class StatutLegal
+class TypeCourrier
 {
     /**
      * @ORM\Id
@@ -25,13 +25,13 @@ class StatutLegal
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=AyantDroit::class, mappedBy="statutLegal")
+     * @ORM\OneToMany(targetEntity=Courrier::class, mappedBy="typeCourrier")
      */
-    private $ayantDroits;
+    private $courriers;
 
     public function __construct()
     {
-        $this->ayantDroits = new ArrayCollection();
+        $this->courriers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,29 +52,29 @@ class StatutLegal
     }
 
     /**
-     * @return Collection|AyantDroit[]
+     * @return Collection|Courrier[]
      */
-    public function getAyantDroits(): Collection
+    public function getCourriers(): Collection
     {
-        return $this->ayantDroits;
+        return $this->courriers;
     }
 
-    public function addAyantDroit(AyantDroit $ayantDroit): self
+    public function addCourrier(Courrier $courrier): self
     {
-        if (!$this->ayantDroits->contains($ayantDroit)) {
-            $this->ayantDroits[] = $ayantDroit;
-            $ayantDroit->setStatutLegal($this);
+        if (!$this->courriers->contains($courrier)) {
+            $this->courriers[] = $courrier;
+            $courrier->setTypeCourrier($this);
         }
 
         return $this;
     }
 
-    public function removeAyantDroit(AyantDroit $ayantDroit): self
+    public function removeCourrier(Courrier $courrier): self
     {
-        if ($this->ayantDroits->removeElement($ayantDroit)) {
+        if ($this->courriers->removeElement($courrier)) {
             // set the owning side to null (unless already changed)
-            if ($ayantDroit->getStatutLegal() === $this) {
-                $ayantDroit->setStatutLegal(null);
+            if ($courrier->getTypeCourrier() === $this) {
+                $courrier->setTypeCourrier(null);
             }
         }
 

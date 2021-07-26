@@ -84,12 +84,24 @@ class User extends BaseUser
      */
     private $documents;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="user")
+     */
+    private $paiements;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Courrier::class, mappedBy="user")
+     */
+    private $courriers;
+
 
     public function __construct()
     {
     	parent::__construct();
      $this->traces = new ArrayCollection();
      $this->documents = new ArrayCollection();
+     $this->paiements = new ArrayCollection();
+     $this->courriers = new ArrayCollection();
  
     }
 
@@ -250,6 +262,66 @@ class User extends BaseUser
             // set the owning side to null (unless already changed)
             if ($document->getUser() === $this) {
                 $document->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Paiement[]
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paiements;
+    }
+
+    public function addPaiement(Paiement $paiement): self
+    {
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements[] = $paiement;
+            $paiement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Paiement $paiement): self
+    {
+        if ($this->paiements->removeElement($paiement)) {
+            // set the owning side to null (unless already changed)
+            if ($paiement->getUser() === $this) {
+                $paiement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Courrier[]
+     */
+    public function getCourriers(): Collection
+    {
+        return $this->courriers;
+    }
+
+    public function addCourrier(Courrier $courrier): self
+    {
+        if (!$this->courriers->contains($courrier)) {
+            $this->courriers[] = $courrier;
+            $courrier->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourrier(Courrier $courrier): self
+    {
+        if ($this->courriers->removeElement($courrier)) {
+            // set the owning side to null (unless already changed)
+            if ($courrier->getUser() === $this) {
+                $courrier->setUser(null);
             }
         }
 

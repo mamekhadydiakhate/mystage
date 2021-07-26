@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AyantDroitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,12 +60,6 @@ class AyantDroit
     private $validite;
 
     /**
-     * @ORM\OneToOne(targetEntity=StatutLegal::class, cascade={"persist", "remove"})
-     */
-    private $statutLegal;
-
-
-    /**
      * @ORM\OneToOne(targetEntity=Document::class, cascade={"persist", "remove"})
      */
     private $document;
@@ -77,6 +73,22 @@ class AyantDroit
      * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="ayantDroit")
      */
     private $agent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=StatutLegal::class, inversedBy="ayantDroits")
+     */
+    private $statutLegal;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="ayantDroit")
+     */
+    private $paiements;
+
+    public function __construct()
+    {
+        $this->paiements = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -179,18 +191,6 @@ class AyantDroit
         return $this;
     }
 
-    public function getStatutLegal(): ?StatutLegal
-    {
-        return $this->statutLegal;
-    }
-
-    public function setStatutLegal(?StatutLegal $statutLegal): self
-    {
-        $this->statutLegal = $statutLegal;
-
-        return $this;
-    }
-
     public function getDocument(): ?Document
     {
         return $this->document;
@@ -226,4 +226,47 @@ class AyantDroit
 
         return $this;
     }
+
+    public function getStatutLegal(): ?StatutLegal
+    {
+        return $this->statutLegal;
+    }
+
+    public function setStatutLegal(?StatutLegal $statutLegal): self
+    {
+        $this->statutLegal = $statutLegal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Paiement[]
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paiements;
+    }
+
+    public function addPaiement(Paiement $paiement): self
+    {
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements[] = $paiement;
+            $paiement->setAyantDroit($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Paiement $paiement): self
+    {
+        if ($this->paiements->removeElement($paiement)) {
+            // set the owning side to null (unless already changed)
+            if ($paiement->getAyantDroit() === $this) {
+                $paiement->setAyantDroit(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

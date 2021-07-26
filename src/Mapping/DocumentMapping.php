@@ -1,12 +1,21 @@
 <?php
 namespace App\Mapping;
 
+use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Entity\Document;
+use App\Service\BaseService;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class DocumentMapping extends BaseMapping{
+    public function __construct(\Swift_Mailer $mailer, BaseService $baseService, EntityManagerInterface $em, ValidatorInterface $validator, SerializerInterface $serializer, UserPasswordEncoderInterface $encoder)
+    {
+        parent::__construct($mailer, $baseService, $em, $validator, $serializer, $encoder);
+    }
 
     public function setDocumentData($document,$data){
-        $document->setLibelle(isset($data['libelle'])?$data['libelle']:$document->getUser());
+        $document->setLibelle(isset($data['libelle'])?$data['libelle']:$document->getLibelle());
         $document->setUser(isset($data['user'])?$data['user']:$document->getUser());
         $document->setTypeDocument(isset($data['typeDocument'])?$data['typeDocument']:$document->getTypeDocument());
         $document->setAgent(isset($data['agent'])?$data['agent']:$document->getAgent());
@@ -23,6 +32,14 @@ class DocumentMapping extends BaseMapping{
     public function addDocument($data){
         $document=new Document();
         $document=$this->setDocumentData($document,$data);
+        if (isset($data['fichier'])&& is_file($data['fichier'])){
+            $doc=$this->baseService->uploadFile($data['fichier'],$data['document_directory']);
+            if ($doc['isValid']==true){
+                $document->setFichier($doc['filename']);
+            }else{
+                return array("code"=>500,"status"=>false,"message"=>"Fichier invalide!");
+            }
+        }
         return $document;
     }
 

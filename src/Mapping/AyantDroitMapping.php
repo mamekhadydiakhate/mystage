@@ -30,7 +30,6 @@ class AyantDroitMapping extends BaseMapping
     }
 
     public function hydrateAyantDroit($ayantDroit){
-        $ayantDroit=new AyantDroit();
         return array(
             $this->ID_KEY=>$ayantDroit->getId(),
             $this->NOM_KEY=>$ayantDroit->getNom(),

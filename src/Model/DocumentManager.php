@@ -29,6 +29,9 @@ class DocumentManager extends BaseManager{
         $data['jugement']=isset($data['jugementId'])?$this->em->getRepository(Jugement::class)->find($data['jugementId']):null;
         $data['notaire']=isset($data['notaireId'])?$this->em->getRepository(Notaire::class)->find($data['notaireId']):null;
         $document=$this->documentMapping->addDocument($data);
+        if (is_array($document)){
+            return $document;
+        }
         $this->em->persist($document);
         $this->em->flush();
         return array("code"=>201,"status"=>true,"message"=>"Document créé avec succés");

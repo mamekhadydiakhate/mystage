@@ -34,4 +34,29 @@ class TransfertActionManager extends BaseManager{
         }
         return array("code"=>200,"status"=>true,"data"=>$this->transfertActionMapping->hydrateTransfertAction($transfertAction[0]));
     }
+
+    public function validerTransfertAction($id){
+        $transfertAction=$this->em->getRepository(TransfertAction::class)->find($id);
+        if (!$transfertAction){
+            return array("code"=>500,"status"=>false,"message"=>"Transfert action inexistant");
+        }
+        $transfertAction=$this->transfertActionMapping->valideTransfertAction($transfertAction);
+        $this->em->persist($transfertAction);
+        $this->em->flush();
+        return array("code"=>200,"status"=>true,"message"=>"Transfert d'action validé avec succes");
+    }
+
+    public function consulterTransfertActionEffectues($page){
+        $limit=getenv("LIMIT");
+        $transfertActions=$this->em->getRepository(TransfertAction::class)->findBy(["validite"=>1],[],10,($page - 1) * $limit);
+        $total=$this->em->getRepository(TransfertAction::class)->count(["validite"=>1]);
+        if (!$transfertActions){
+            return array("code"=>500,"status"=>false,"message"=>"Transfert action inexistant");
+        }
+        $tabTransferts=array();
+       foreach ($transfertActions as $transfertAction){
+           $tabTransferts[]=$this->transfertActionMapping->hydrateTransfertAction($transfertAction);
+       }
+        return array("code"=>200,"status"=>true,'total'=>$total,"data"=>$tabTransferts);
+    }
 }

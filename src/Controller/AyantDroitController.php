@@ -31,4 +31,12 @@ class AyantDroitController extends BaseController
         $data=json_decode($request->getContent(),true);
         return new JsonResponse($this->ayantDroitManager->addAyantDroit($data));
     }
+    /**
+     * @Rest\Get("/searchAyantDroit")
+     * @QMLogger(message="Recherche ayant droit")
+     */
+    public function searchAyantDroit(Request $request){
+        $search=$request->query->get("email",'');
+        return new JsonResponse($this->ayantDroitManager->searchAyantDroit($search));
+    }
 }

@@ -47,4 +47,14 @@ class AyantDroitRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function searchAyantDroit($value){
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('a.email LIKE :value')
+            ->setParameter('value',"%$value%")
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -66,97 +66,7 @@ class BaseService
         }
 
     }
-
-    public function checkDatas($data, $repo, $repo2)
-    {
-        if($data)
-        {
-            $entity = $repo->find($data);
-            if(!$entity)
-            {
-                return array($data => 'error');
-            }
-            return $repo2->findBy(['interimaire' => $entity]);
-        }
-        return  $repo2->findAll();
-    }
-
-    public function monthToFrench($month = null)
-    {
-        if($month){
-            $theMonth = $month;
-        }else{
-            $theMonth = date("F", strtotime('m'));
-        }
-        $english_months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-        $french_months = array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
-        return str_replace($english_months, $french_months, $theMonth );
-    }
-
-    public function boucleStatByContrat($arrays, $number)
-    {
-        foreach ($arrays as $contrat)
-        {
-            $contrat->getInterimaire() ? $number++ : $number = $number + 0;
-        }
-        return $number;
-    }
-
-    public function traitementStat($firstday, $lastday, $key, $datas, $mapping, $structure = null, $agence = null)
-    {
-        $totalInterims = $this->em->getRepository(Interimaire::class)->countInterim();
-        $newInterims = $this->em->getRepository(Interimaire::class)->countnewInterim($firstday, $lastday, $structure);
-        $finInterims = $this->em->getRepository(Interimaire::class)->nbInterimFinContrat($lastday, $structure, $agence);
-        //dd($finInterims);
-        $data = $mapping->hydrateStatInterim($totalInterims, $newInterims, $finInterims, $key);
-
-        array_push($datas, $data);
-        return $datas;
-    }
-
-    public function convertMonth($num)
-    {
-        switch ($num){
-            case 1: $num = 'Jan';
-                break;
-            case 2: $num = 'Fev';
-                break;
-            case 3: $num = 'Mars';
-                break;
-            case 4: $num = 'Avr';
-                break;
-            case 5: $num = 'Mai';
-                break;
-            case 6: $num = 'Jui';
-                break;
-            case 7: $num = 'Jul';
-                break;
-            case 8: $num = 'Aou';
-                break;
-            case 9: $num = 'Sep';
-                break;
-            case 10: $num = 'Oct';
-                break;
-            case 11: $num = 'Nov';
-                break;
-            case 12: $num = 'Dec';
-        }
-        return $num;
-    }
-
-    public function makeHistory($libelle, $mapping)
-    {
-        $userRepo=$this->em->getRepository(User::class);
-        $histo['actionneur']=ConnectedUserService::getConnectedUser($this->tokenStorage,$userRepo);
-        $histo['action']= $this->em->getRepository(Action::class)->findOneBy(["libelle"=>$libelle]);
-        if($histo['action'] != null){
-            $history=$mapping->addHistorique($histo);
-            $this->em->persist($history);
-            $this->em->flush();
-        }
-    }
-
-    public function setSqlAdvancedSearch($data){
+     public function setSqlAdvancedSearch($data){
         $i=0;
         $req='';
         $join=array();
@@ -241,43 +151,6 @@ class BaseService
             $cle='s';
         }
         return $cle;
-    }
-
-    public function convertMonthOnNumber($nom)
-    {
-        switch ($nom){
-            case 'janvier': $num = 1;
-                break;
-            case 'fevrier': $num = 2;
-                break;
-            case 'mars': $num = 3;
-                break;
-            case 'avril': $num = 4;
-                break;
-            case 'mai': $num = 5;
-                break;
-            case 'juin': $num = 6;
-                break;
-            case 'juillet': $num = 7;
-                break;
-            case 'aout': $num = 8;
-                break;
-            case 'septembre': $num = 9;
-                break;
-            case 'octobre': $num = 10;
-                break;
-            case 'novembre': $num = 11;
-                break;
-            case 'decembre': $num = 12;
-        }
-        return $num;
-    }
-
-    public function monthToFrenchName(int$month)
-    {
-        $english_months = array(01, 02, 03, 04, 05, 06, 07, 8, 9, 10, 11, 12);
-        $french_months = array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre');
-        return str_replace($english_months, $french_months, $month );
     }
 
 }
