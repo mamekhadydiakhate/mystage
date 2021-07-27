@@ -40,15 +40,15 @@ class UserManager extends BaseManager
             return array("code"=>500,"status"=>false,"message"=>$err['detail']);
         }
         $this->em->persist($user);
-        /*$data = array(
+         $data = array(
             'to' => $user->getEmail(),
-            'cc'=>   array( 'malick.coly1@orange-sonatel.com','thiernoamadou.guiro@orange-sonatel.com','astou.lo@orange-sonatel.com','mohamed.sall@orange-sonatel.com','binetou.diallo@orange-sonatel.com',"babacar.fall4@orange-sonatel.com",'mamadou.ndao@orange-sonatel.com'),
-            'subject' => 'Données de connexion à la plateforme GDI',
+            //'cc'=>   array( 'malick.coly1@orange-sonatel.com','thiernoamadou.guiro@orange-sonatel.com','astou.lo@orange-sonatel.com','mohamed.sall@orange-sonatel.com','binetou.diallo@orange-sonatel.com',"babacar.fall4@orange-sonatel.com",'mamadou.ndao@orange-sonatel.com'),
+            'subject' => 'Données de connexion à la plateforme KOLEURE',
             'body' => 'Bonjour '.$user->getPrenom().' '.$user->getNom().',
-            <br><br>Merci de recevoir vos données d\'autentification à la plateforme GDI qui vous permettront de vous connecter !'. '<br>
+            <br><br>Merci de recevoir vos données d\'autentification à la plateforme KOLEURE qui vous permettront de vous connecter !'. '<br>
             <strong>Email: </strong>' . $user->getEmail() . ' <br><strong>Password: </strong>' .  $allDataUser['password'].'<br><br><br><strong>Cordialement !</strong>'
         );
-        $this->baseService->sendMail($data);*/
+        $this->baseService->sendMail($data);
         $this->em->flush();
         return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 201,  $this->MESSAGE_KEY => 'Utilisateur créé avec succes!');
     }
