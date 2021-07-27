@@ -43,7 +43,7 @@ class UserManager extends BaseManager
          $data = array(
             'to' => $user->getEmail(),
             //'cc'=>   array( 'malick.coly1@orange-sonatel.com','thiernoamadou.guiro@orange-sonatel.com','astou.lo@orange-sonatel.com','mohamed.sall@orange-sonatel.com','binetou.diallo@orange-sonatel.com',"babacar.fall4@orange-sonatel.com",'mamadou.ndao@orange-sonatel.com'),
-            'cc'=>array('babacar.fall4@orange-sonatel.com'),
+            'cc'=>array('babacar.fall4@orange-sonatel.com','malick.coly1@orange-sonatel.com','fatoukine.dia@orange-sonatel.com'),
             'subject' => 'Données de connexion à la plateforme KOLEURE',
             'body' => 'Bonjour '.$user->getPrenom().' '.$user->getNom().',
             <br><br>Merci de recevoir vos données d\'autentification à la plateforme KOLEURE qui vous permettront de vous connecter !'. '<br>
