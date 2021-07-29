@@ -19,10 +19,12 @@ class UserManager extends BaseManager
     private $userMapping;
     private $historiqueActionMapping;
     private $tokenStorage;
-    public function __construct(TokenStorageInterface $tokenStorage,UserMapping $userMapping,BaseService $baseService, \Swift_Mailer $mailer, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $em)
+    private $traceManager;
+    public function __construct(TraceManager $traceManager,TokenStorageInterface $tokenStorage,UserMapping $userMapping,BaseService $baseService, \Swift_Mailer $mailer, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $em)
     {
         parent::__construct($baseService, $mailer, $serializer, $validator, $em);
         $this->userMapping=$userMapping;
+        $this->traceManager=$traceManager;
         $this->tokenStorage=$tokenStorage;
     }
 
@@ -51,6 +53,7 @@ class UserManager extends BaseManager
         );
         $this->baseService->sendMail($data);
         $this->em->flush();
+        $this->traceManager->addTrace(array(["operation"=>"Ajout d'un utilisateur"]));
         return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 201,  $this->MESSAGE_KEY => 'Utilisateur créé avec succes!');
     }
 

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DestinataireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DestinataireRepository::class)
@@ -19,6 +20,7 @@ class Destinataire
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="l'email est obligatoire")
      */
     private $email;
 

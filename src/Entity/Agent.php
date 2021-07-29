@@ -6,6 +6,7 @@ use App\Repository\AgentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AgentRepository::class)
@@ -26,16 +27,19 @@ class Agent
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="le nom est obligatoire")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\NotBlank(message="le nombre d'actions est obligatoire")
      */
     private $nombreAction;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank(message="le commentaire est obligatoire")
      */
     private $commentaire;
 
@@ -78,6 +82,11 @@ class Agent
      * @ORM\OneToMany(targetEntity=Courrier::class, mappedBy="agent")
      */
     private $courriers;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $prenom;
 
     public function __construct()
     {
@@ -305,6 +314,18 @@ class Agent
                 $courrier->setAgent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(?string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
