@@ -50,7 +50,7 @@ class TraceRepository extends ServiceEntityRepository
 
     public function traceBetween($id,$start,$end,$page,$limit){
         return $this->createQueryBuilder('t')
-            ->where('h.date >= :start')->andWhere('h.date <= :end')
+            ->where('t.date >= :start')->andWhere('t.date <= :end')
             ->andWhere('t.user =:id')
             ->setParameters(array('start' => $start, 'end' => $end,'id'=>$id))
             ->setFirstResult(($page - 1) * $limit)
@@ -60,7 +60,7 @@ class TraceRepository extends ServiceEntityRepository
     }
     public function countTraceBetween($id,$start,$end){
         return $this->createQueryBuilder('t')
-            ->where('h.date >= :start')->andWhere('h.date <= :end')
+            ->where('t.date >= :start')->andWhere('t.date <= :end')
             ->andWhere('t.user =:id')
             ->setParameters(array('start' => $start, 'end' => $end,'id'=>$id))
             ->getQuery()
