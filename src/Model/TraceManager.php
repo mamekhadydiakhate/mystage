@@ -50,8 +50,8 @@ class TraceManager extends BaseManager{
     }
 
     public function traceBetween($page,$id,$data){
-        $start=new \DateTime($data['start']);
-        $end=new \DateTime($data['end']);
+        $start=new \DateTime($data['debut']);
+        $end=new \DateTime($data['fin']);
         $traces=$this->em->getRepository(Trace::class)->traceBetween($id,$start,$end,$page,$this->LIMIT);
         if (!$traces){
             return array("status"=>false,"code"=>500,"message"=>"Aucune trace disponible");

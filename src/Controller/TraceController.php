@@ -38,7 +38,7 @@ class TraceController extends BaseController{
     }
 
     /**
-     * @Rest\Get("/tracesDates/{id}")
+     * @Rest\Post("/tracesDates/{id}")
      * @QMLogger(message="Toutes les traces entre 2 dates")
      */
     public function getTracesEntre(Request $request,$id){
