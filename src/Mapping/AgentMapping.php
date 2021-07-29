@@ -8,6 +8,7 @@ class AgentMapping extends BaseMapping{
 
     public function setAgentData($data,$agent){
         $agent->setNom(isset($data['nom'])?$data['nom']:$agent->getNom());
+        $agent->setPrenom(isset($data['prenom'])?$data['prenom']:$agent->getPrenom());
         $agent->setValidite(isset($data['validite'])?$data['validite']:$agent->getValidite());
         $agent->setNumeroDossier(isset($data['numeroDossier'])?$data['numeroDossier']:$agent->getNumeroDossier());
         $agent->setNombreAction(isset($data['nombreAction'])?$data['nombreAction']:$agent->getNombreAction());
@@ -27,6 +28,7 @@ class AgentMapping extends BaseMapping{
             $this->ID_KEY=>$agent->getId(),
             $this->MATRICULE_KEY=>$agent->getMatricule(),
             $this->NOM_KEY=>$agent->getNom(),
+            $this->PRENOM_KEY=>$agent->getPrenom(),
             "commentaire"=>$agent->getCommentaire(),
             "nombreAction"=>$agent->getNombreAction(),
             "numeroDossier"=>$agent->getNumeroDossier(),
