@@ -21,7 +21,8 @@ class TraceMapping extends BaseMapping{
                 $this->PRENOM_KEY=>$trace->getUser()?$trace->getUser()->getPrenom():null,
                 $this->PRENOM_KEY=>$trace->getUser()?$trace->getUser()->getNom():null,
             ),
-            "adresseIp"=>$trace->getAddresseIp()
+            "adresseIp"=>$trace->getAddresseIp(),
+                "date"=>$trace->getDate()?date_format($trace->getDate(),'Y-m-d'):null,
         );
         }
         return $tabTraces;
