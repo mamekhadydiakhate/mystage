@@ -31,8 +31,8 @@ class TraceManager extends BaseManager{
         $this->em->flush();
     }
 
-    public function getUserTraces($id){
-        $traces=$this->em->getRepository(Trace::class)->findBy(["user"=>$id]);
+    public function getUserTraces($id,$page){
+        $traces=$this->em->getRepository(Trace::class)->findBy(["user"=>$id],["id"=>"DESC"],$this->LIMIT,($page - 1) * $this->LIMIT);
         if (!$traces){
             return array("status"=>false,"code"=>500,"message"=>"Aucune trace pour cet utilisateur");
         }
@@ -40,13 +40,23 @@ class TraceManager extends BaseManager{
 
     }
 
-    public function getAllTraces($id,$page){
-        $limit=getenv('LIMIT');
-        $traces=$this->em->getRepository(Trace::class)->findBy([],["id"=>"DESC"],$limit,($page - 1) * $limit);
+    public function getAllTraces($page){
+        $traces=$this->em->getRepository(Trace::class)->findBy([],["id"=>"DESC"],$this->LIMIT,($page - 1) * $this->LIMIT);
         if (!$traces){
             return array("status"=>false,"code"=>500,"message"=>"Aucune trace disponible");
         }
         return array("status"=>true,"code"=>200,"data"=>$this->traceMapping->hydrateTraces($traces));
 
+    }
+
+    public function traceBetween($page,$id,$data){
+        $start=new \DateTime($data['start']);
+        $end=new \DateTime($data['end']);
+        $traces=$this->em->getRepository(Trace::class)->traceBetween($id,$start,$end,$page,$this->LIMIT);
+        if (!$traces){
+            return array("status"=>false,"code"=>500,"message"=>"Aucune trace disponible");
+        }
+        $total=$this->em->getRepository(Trace::class)->countTraceBetween($id,$start,$end);
+        return array("status"=>true,"code"=>200,"total"=>$total,"data"=>$this->traceMapping->hydrateTraces($traces));
     }
 }

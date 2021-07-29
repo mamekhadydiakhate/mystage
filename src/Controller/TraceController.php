@@ -21,10 +21,29 @@ class TraceController extends BaseController{
     }
 
     /**
-     * @Rest\Post("/userTrace/{id}")
+     * @Rest\Get("/userTrace/{id}")
      * @QMLogger(message="Traces d'un utilisateur")
      */
-    public function getUserTraces($id){
-        return new JsonResponse($this->traceManager->getUserTraces($id));
+    public function getUserTraces($id,Request $request){
+        $page=$request->query->get('page',1);
+        return new JsonResponse($this->traceManager->getUserTraces($id,$page));
+    }
+    /**
+     * @Rest\Get("/traces")
+     * @QMLogger(message="Toutes les traces")
+     */
+    public function getAllTraces(Request $request){
+        $page=$request->query->get('page',1);
+        return new JsonResponse($this->traceManager->getAllTraces($page));
+    }
+
+    /**
+     * @Rest\Get("/tracesEntre/{id}")
+     * @QMLogger(message="Toutes les traces")
+     */
+    public function getTracesEntre(Request $request,$id){
+        $page=$request->query->get('page',1);
+        $data=json_decode($request->getContent(),true);
+        return new JsonResponse($this->traceManager->traceBetween($page,$id,$data));
     }
 }
