@@ -60,10 +60,11 @@ class TraceRepository extends ServiceEntityRepository
     }
     public function countTraceBetween($id,$start,$end){
         return $this->createQueryBuilder('t')
+            ->select('count(t.id)')
             ->where('t.date >= :start')->andWhere('t.date <= :end')
             ->andWhere('t.user =:id')
             ->setParameters(array('start' => $start, 'end' => $end,'id'=>$id))
             ->getQuery()
-            ->getResult();
+            ->getSingleScalarResult();
     }
 }
