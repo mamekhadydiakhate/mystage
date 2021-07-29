@@ -38,8 +38,8 @@ class TraceController extends BaseController{
     }
 
     /**
-     * @Rest\Get("/tracesEntre/{id}")
-     * @QMLogger(message="Toutes les traces")
+     * @Rest\Get("/tracesDates/{id}")
+     * @QMLogger(message="Toutes les traces entre 2 dates")
      */
     public function getTracesEntre(Request $request,$id){
         $page=$request->query->get('page',1);
