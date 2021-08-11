@@ -18,4 +18,8 @@ class SocieteGestionActionMapping extends BaseMapping
         $societeGestionAction->setLibelle($libelle);
         return $societeGestionAction;
     }
+
+    public function updateSocieteGestionAction($data,$societe){
+     return $this->setSocieteGestionActionData($data,$societe);
+    }
 }

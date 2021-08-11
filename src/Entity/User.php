@@ -64,7 +64,7 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Le profil est obligatoire")
+     * @Assert\NotBlank(message="Le service est obligatoire")
      */
     private $service;
 

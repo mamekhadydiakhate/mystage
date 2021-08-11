@@ -56,4 +56,21 @@ class SocieteGestionActionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function listSociete($page,$limit){
+        return $this->createQueryBuilder('s')
+            ->select('s.id,s.libelle')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countSociete(){
+        return $this->createQueryBuilder('s')
+            ->select('count(s.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 }

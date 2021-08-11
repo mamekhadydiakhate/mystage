@@ -38,4 +38,24 @@ class SocieteGestionActionController extends BaseController{
         return new JsonResponse($this->societeGestionActionManager->rechercheSocieteGestionAction($search));
     }
 
+    /**
+     * @Rest\Get("/listSocietes")
+     * @QMLogger(message="Liste des societe de gestion d'action")
+     */
+    public function listSociete(Request $request){
+        $page=$request->query->get('page',1);
+        $limit=$request->query->get('page',getenv('LIMIT'));
+        return new JsonResponse($this->societeGestionActionManager->listeSocieteGestionAction($page,$limit));
+    }
+
+
+    /**
+     * @Rest\Get("/updateSociete/{id}")
+     * @QMLogger(message="Modififer societe de gestion d'action")
+     */
+    public function updateSociete(Request $request,$id){
+        $data=json_decode($request->getContent(),true);
+        return new JsonResponse($this->societeGestionActionManager->updateSocieteGestionAction($data,$id));
+    }
+
 }
