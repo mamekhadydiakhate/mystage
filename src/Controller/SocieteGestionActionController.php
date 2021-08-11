@@ -44,13 +44,13 @@ class SocieteGestionActionController extends BaseController{
      */
     public function listSociete(Request $request){
         $page=$request->query->get('page',1);
-        $limit=$request->query->get('page',getenv('LIMIT'));
+        $limit=$request->query->get('limit',getenv('LIMIT'));
         return new JsonResponse($this->societeGestionActionManager->listeSocieteGestionAction($page,$limit));
     }
 
 
     /**
-     * @Rest\Get("/updateSociete/{id}")
+     * @Rest\Put("/updateSociete/{id}")
      * @QMLogger(message="Modififer societe de gestion d'action")
      */
     public function updateSociete(Request $request,$id){
