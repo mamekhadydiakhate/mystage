@@ -58,4 +58,14 @@ class SocieteGestionActionController extends BaseController{
         return new JsonResponse($this->societeGestionActionManager->updateSocieteGestionAction($data,$id));
     }
 
+
+
+    /**
+     * @Rest\Get("/deleteSociete/{id}")
+     * @QMLogger(message="Supprimer societe de gestion d'action")
+     */
+    public function deleteSocieteGestionAction($id){
+        return new JsonResponse($this->societeGestionActionManager->deleteSocieteGestionAction($id));
+    }
+
 }

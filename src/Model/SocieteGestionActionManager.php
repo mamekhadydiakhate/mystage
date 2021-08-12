@@ -54,4 +54,14 @@ class SocieteGestionActionManager extends BaseManager
         $this->em->flush();
         return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200,"Societe modifiée avec succes");
     }
+
+    public function deleteSocieteGestionAction($id){
+        $societeGestionAction=$this->em->getRepository(SocieteGestionAction::class)->find($id);
+        if (!$societeGestionAction){
+            return array($this->SUCCESS_KEY => false, $this->CODE_KEY => 500,$this->MESSAGE_KEY => 'Societe inexistante');
+        }
+        $this->em->remove($societeGestionAction);
+        $this->em->flush();
+        return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200,"Societe supprimée avec succes");
+    }
 }
