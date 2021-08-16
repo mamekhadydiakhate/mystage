@@ -27,7 +27,7 @@ class CourrierController extends BaseController{
      * @QMLogger(message="Ajout courrier")
      */
     public function ajouterCourrier(Request $request){
-        $data=json_decode($request->getContent(),true);
+        $data=$request->request->all();
         $data['fichier']=$request->files->get('fichier');
         $data['document_directory']=$this->getParameter('document_directory');
         return new JsonResponse($this->courrierManager->addCourrier($data));

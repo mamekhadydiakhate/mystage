@@ -21,9 +21,9 @@ class CourrierManager extends BaseManager{
     }
 
     public function addCourrier($data){
-        $data['agent']=$this->em->getRepository(Agent::class)->find($data['agentId']);
-        $data['user']=$this->em->getRepository(User::class)->find($data['userId']);
-        $data['typeCourrier']=$this->em->getRepository(TypeCourrier::class)->find($data['typeCourrierId']);
+        $data['agent']=isset($data['agentId'])?$this->em->getRepository(Agent::class)->find($data['agentId']):null;
+        $data['user']=isset($data['userId'])?$this->em->getRepository(User::class)->find($data['userId']):null;
+        $data['typeCourrier']=isset($data['typeCourrierId'])?$this->em->getRepository(TypeCourrier::class)->find($data['typeCourrierId']):null;
         $courrier=$this->courrierMapping->addCourrier($data);
         if (is_array($courrier)){
             return $courrier;
