@@ -52,7 +52,6 @@ class CourrierMapping extends BaseMapping{
     }
 
     public function hydrateCourrier($courrier){
-        $courrier=new Courrier();
         return array(
             $this->ID_KEY=>$courrier->getId(),
             "numeroCaseCocheeJugementCuratelle"=>$courrier->getNumeroCaseCocheeJugementCuratelle(),
