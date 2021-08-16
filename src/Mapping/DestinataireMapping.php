@@ -18,6 +18,10 @@ class DestinataireMapping extends BaseMapping{
         return $this->setDestinataireData($data,$destinataire);
     }
 
+    public function updateDestinataire($data,$destinataire){
+        return $this->setDestinataireData($data,$destinataire);
+    }
+
     public function hydrateDestinataire($destinataire){
         return array(
             $this->ID_KEY=>$destinataire->getId(),

@@ -36,4 +36,36 @@ class DestinataireManager extends BaseManager{
         }
         return array("code"=>200,"status"=>false,"data"=>$this->destinataireMapping->hydrateDestinataire($destinataire[0]));
     }
+
+    public function detailsDestinataire($id){
+        $destinataire=$this->em->getRepository(Destinataire::class)->find($id);
+        if (!$destinataire){
+            return array("code"=>500,"status"=>false,$this->MESSAGE_KEY=>"Destinataire introuvable");
+        }
+        return array("code"=>200,"status"=>false,"data"=>$this->destinataireMapping->hydrateDestinataire($destinataire));
+    }
+
+
+    public function updateDestinataire($id,$data){
+        $destinataire=$this->em->getRepository(Destinataire::class)->find($id);
+        if (!$destinataire){
+            return array("code"=>500,"status"=>false,$this->MESSAGE_KEY=>"Destinataire introuvable");
+        }
+        $destinataire=$this->destinataireMapping->updateDestinataire($data,$destinataire);
+        $this->em->persist($destinataire);
+        $this->em->flush();
+        return array("code"=>200,"status"=>false,"message"=>"Destinataire modifié avec succes");
+    }
+
+    public function listDestinataire($page,$limit){
+        $destinataires=$this->em->getRepository(Destinataire::class)->findBy([],[],$limit,($page - 1) * $limit);
+        if (!$destinataires){
+            return array("code"=>500,"status"=>false,$this->MESSAGE_KEY=>"Destinataire introuvable");
+        }
+        $tabDestinataires=[];
+        foreach ($destinataires as $destinataire){
+            $tabDestinataires[]=$this->destinataireMapping->hydrateDestinataire($destinataire);
+        }
+        return array("code"=>200,"status"=>false,"data"=>$tabDestinataires);
+    }
 }

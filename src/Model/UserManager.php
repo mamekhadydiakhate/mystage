@@ -81,7 +81,7 @@ class UserManager extends BaseManager
     {
         $limit=getenv("LIMIT");
         $users =$this->em->getRepository(User::class)->listUsers($page,$limit);
-        if (!$users){
+        if (sizeof($users)==0){
             return array($this->SUCCESS_KEY => false, $this->CODE_KEY => 500, $this->MESSAGE_KEY=>"Aucun utilisateur");
         }
         $totalItems=$this->em->getRepository(User::class)->countUsers();

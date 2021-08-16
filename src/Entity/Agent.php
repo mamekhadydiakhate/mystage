@@ -54,11 +54,6 @@ class Agent
     private $validite;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $numeroDossier;
-
-    /**
      * @ORM\ManyToOne(targetEntity=TransfertAction::class, inversedBy="agents")
      */
     private $transfertAction;
@@ -169,18 +164,6 @@ class Agent
     public function setValidite(?int $validite): self
     {
         $this->validite = $validite;
-
-        return $this;
-    }
-
-    public function getNumeroDossier(): ?int
-    {
-        return $this->numeroDossier;
-    }
-
-    public function setNumeroDossier(?int $numeroDossier): self
-    {
-        $this->numeroDossier = $numeroDossier;
 
         return $this;
     }

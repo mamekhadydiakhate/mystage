@@ -39,4 +39,31 @@ class DestinataireController extends BaseController{
         return new JsonResponse($this->destinataireManager->searchDestinataire($search));
     }
 
+    /**
+     * @Rest\Get("/listDestinataire")
+     * @QMLogger(message="Liste des destinataires")
+     */
+    public function listDestinataire(Request $request){
+        $page=$request->query->get('page',1);
+        $limit=$request->query->get('limit',getenv('LIMIT'));
+        return new JsonResponse($this->destinataireManager->listDestinataire($page,$limit));
+    }
+
+
+    /**
+     * @Rest\Get("/destinataire/{id}")
+     * @QMLogger(message="Details destinataire")
+     */
+    public function detailsDestinataire($id){
+        return new JsonResponse($this->destinataireManager->detailsDestinataire($id));
+    }
+
+    /**
+     * @Rest\Get("/updateDestinataire/{id}")
+     * @QMLogger(message="Mofidifier destinataire")
+     */
+    public function updateDestinataire($id){
+        return new JsonResponse($this->destinataireManager->updateDestinataire($id));
+    }
+
 }
