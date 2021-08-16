@@ -52,8 +52,9 @@ class AgentController extends BaseController{
      * @Rest\Put("/agent/{id}")
      * @QMLogger(message="Update agent")
      */
-    public function updateAgent($id){
-        return new JsonResponse($this->agentManager->updateAgent($id));
+    public function updateAgent($id,Request $request){
+        $data=json_decode($request->getContent(),true);
+        return new JsonResponse($this->agentManager->updateAgent($id,$data));
     }
 
 
