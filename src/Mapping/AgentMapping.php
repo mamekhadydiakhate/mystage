@@ -23,6 +23,10 @@ class AgentMapping extends BaseMapping{
         $agent=new Agent();
         return $this->setAgentData($data,$agent);
     }
+
+    public function updateAgent($data,$agent){
+        return $this->setAgentData($data,$agent);
+    }
     public function hydrateAgent($agent){
         return array(
             $this->ID_KEY=>$agent->getId(),

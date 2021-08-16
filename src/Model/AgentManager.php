@@ -34,4 +34,36 @@ class AgentManager extends BaseManager
         }
         return array("code"=>200,"status"=>true,"data"=>$this->agentMapping->hydrateAgent($agent[0]));
     }
+
+    public function detailsAgent($id){
+        $agent=$this->em->getRepository(Agent::class)->find($id);
+        if (!$agent){
+            return array("code"=>500,"status"=>false,$this->MESSAGE_KEY=>"Agent inexistant");
+        }
+        return array("code"=>200,"status"=>true,"data"=>$this->agentMapping->hydrateAgent($agent));
+    }
+
+
+    public function updateAgent($id,$data){
+        $agent=$this->em->getRepository(Agent::class)->find($id);
+        if (!$agent){
+            return array("code"=>500,"status"=>false,$this->MESSAGE_KEY=>"Agent inexistant");
+        }
+        $agent=$this->agentMapping->updateAgent($data,$agent);
+        $this->em->persist($agent);
+        $this->em->flush();
+        return array("code"=>200,"status"=>true,"message"=>"Agent modifié avec succes");
+    }
+
+    public function listAgent($page,$limit){
+        $agents=$this->em->getRepository(Agent::class)->findBy([],[],$limit,($page - 1) * $limit);
+        if (!$agents){
+            return array("code"=>500,"status"=>false,$this->MESSAGE_KEY=>"Agents inexistants");
+        }
+        $tabAgents=[];
+        foreach ($agents as $agent){
+            $tabAgents[]=$this->agentMapping->hydrateAgent($agent);
+        }
+        return array("code"=>200,"status"=>true,"data"=>$tabAgents);
+    }
 }

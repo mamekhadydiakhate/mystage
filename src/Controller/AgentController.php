@@ -39,5 +39,32 @@ class AgentController extends BaseController{
         $search=$request->query->get('matricule','');
         return new JsonResponse($this->agentManager->searchAgent($search));
     }
+    /**
+     * @Rest\Get("/agent/{id}")
+     * @QMLogger(message="Details agent")
+     */
+    public function detailsAgent($id){
+        return new JsonResponse($this->agentManager->detailsAgent($id));
+    }
+
+
+    /**
+     * @Rest\Put("/agent/{id}")
+     * @QMLogger(message="Update agent")
+     */
+    public function updateAgent($id){
+        return new JsonResponse($this->agentManager->updateAgent($id));
+    }
+
+
+    /**
+     * @Rest\Get("/listAgents")
+     * @QMLogger(message="Liste agent")
+     */
+    public function listAgents(Request $request){
+        $page=$request->query->get('page',1);
+        $limit=$request->query->get('limit',getenv('LIMIT'));
+        return new JsonResponse($this->agentManager->listAgent($page,$limit));
+    }
 
 }
