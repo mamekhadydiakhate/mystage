@@ -51,7 +51,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         //here
         return $this->createQueryBuilder('u')
             ->select('u.id,u.prenom,u.nom,u.email,u.service,u.matricule')
-             ->setFirstResult(($page - 1) * $limit)
+            ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
