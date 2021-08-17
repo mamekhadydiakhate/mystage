@@ -30,7 +30,6 @@ class User extends BaseUser
 	 *     match=true,
 	 *     message="Votre mot de passe doit contenir au moins 8 caractères, un majuscule et un caractere speciale"
 	 * )
-     * @Assert\NotBlank(message="Le mot de passe ne doit pas etre vide")
      */
     protected $password;
 

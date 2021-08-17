@@ -20,7 +20,6 @@ class AgentController extends BaseController{
         $this->agentManager=$agentManager;
     }
 
-
     /**
      * @Rest\Post("/agent")
      * @QMLogger(message="Ajout agent")
@@ -29,7 +28,6 @@ class AgentController extends BaseController{
         $data=json_decode($request->getContent(),true);
         return new JsonResponse($this->agentManager->addAgent($data));
     }
-
 
     /**
      * @Rest\Get("/agent")
@@ -47,7 +45,6 @@ class AgentController extends BaseController{
         return new JsonResponse($this->agentManager->detailsAgent($id));
     }
 
-
     /**
      * @Rest\Put("/agent/{id}")
      * @QMLogger(message="Update agent")
@@ -56,7 +53,6 @@ class AgentController extends BaseController{
         $data=json_decode($request->getContent(),true);
         return new JsonResponse($this->agentManager->updateAgent($id,$data));
     }
-
 
     /**
      * @Rest\Get("/listAgents")
