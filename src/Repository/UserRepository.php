@@ -43,6 +43,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         //here
         return $this->createQueryBuilder('u')
             ->select('count(u.id)')
+            ->where('u.enabled = :true')
+            ->setParameter('true',true)
             ->getQuery()
             ->getSingleScalarResult();
     }

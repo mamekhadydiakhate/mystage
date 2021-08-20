@@ -77,9 +77,8 @@ class UserManager extends BaseManager
         return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200, $this->MESSAGE_KEY=>"Utilisateur modifié avec succes");
     }
 
-    public function listUsers($page)
+    public function listUsers($page,$limit)
     {
-        $limit=getenv("LIMIT");
         $users =$this->em->getRepository(User::class)->listUsers($page,$limit);
         if (sizeof($users)==0){
             return array($this->SUCCESS_KEY => false, $this->CODE_KEY => 500, $this->MESSAGE_KEY=>"Aucun utilisateur");

@@ -126,8 +126,9 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
      * @QMLogger(message="Liste utilisateurs")
      */
     public function listUsers(Request $request){
-        $page=$request->query->get('page',1);
-        return new JsonResponse($this->userManager->listUsers($page));
+        $page = $request->query->get('page', 1);
+        $limit = $request->query->get('limit', getenv('LIMIT'));
+        return new JsonResponse($this->userManager->listUsers($page,$limit));
     }
 
     /**
