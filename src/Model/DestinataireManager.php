@@ -48,6 +48,7 @@ class DestinataireManager extends BaseManager{
 
     public function updateDestinataire($id,$data){
         $destinataire=$this->em->getRepository(Destinataire::class)->find($id);
+        isset($data['roleDestinataireId'])?$data['roleDestinataire']=$this->em->getRepository(RoleDestinataire::class)->find($data['roleDestinataireId']):'';
         if (!$destinataire){
             return array("code"=>500,"status"=>false,$this->MESSAGE_KEY=>"Destinataire introuvable");
         }

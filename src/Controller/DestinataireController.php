@@ -62,8 +62,9 @@ class DestinataireController extends BaseController{
      * @Rest\Get("/updateDestinataire/{id}")
      * @QMLogger(message="Mofidifier destinataire")
      */
-    public function updateDestinataire($id){
-        return new JsonResponse($this->destinataireManager->updateDestinataire($id));
+    public function updateDestinataire($id,Request $request){
+        $data=json_decode($request->getContent(),true);
+        return new JsonResponse($this->destinataireManager->updateDestinataire($id,$data));
     }
 
 }
