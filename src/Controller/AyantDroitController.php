@@ -39,4 +39,32 @@ class AyantDroitController extends BaseController
         $search=$request->query->get("email",'');
         return new JsonResponse($this->ayantDroitManager->searchAyantDroit($search));
     }
+
+
+    /**
+     * @Rest\Get("/listAyantDroit")
+     * @QMLogger(message="Liste des ayants droit")
+     */
+    public function listAyantDroit(Request $request){
+        $page=$request->query->get("page",1);
+        $limit=$request->query->get("limit",getenv('LIMIT'));
+        return new JsonResponse($this->ayantDroitManager->listAyantDroit($page,$limit));
+    }
+    /**
+     * @Rest\Get("/ayantDroit/{id}")
+     * @QMLogger(message="Detail d'un ayant droit")
+     */
+    public function detailsAyantDroit($id){
+        return new JsonResponse($this->ayantDroitManager->detailsAyantDroit($id));
+    }
+
+
+    /**
+     * @Rest\Put("/ayantDroit/{id}")
+     * @QMLogger(message="Modification d'un ayant droit")
+     */
+    public function updateAyantDroit($id,Request $request){
+        $data=json_decode($request->getContent(),true);
+        return new JsonResponse($this->ayantDroitManager->updateAyantDroit($id,$data));
+    }
 }

@@ -13,6 +13,10 @@ class AyantDroitMapping extends BaseMapping
         return $this->setAyantDroitData($data,$ayantDroit);
     }
 
+    public function updateAyantDroit($data,$ayantDroit){
+        return $this->setAyantDroitData($data,$ayantDroit);
+    }
+
     public function setAyantDroitData($data,$ayantDroit){
         $ayantDroit->setValidite(isset($data['validite'])?$data['validite']:$ayantDroit->getValidite());
         $ayantDroit->setNom(isset($data['nom'])?$data['nom']:$ayantDroit->getNom());

@@ -57,4 +57,20 @@ class AyantDroitRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function listAyantDroit($page,$limit){
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+    public function countListAyantDroit($page,$limit){
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }
