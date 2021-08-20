@@ -51,7 +51,7 @@ class AyantDroitMapping extends BaseMapping
                 $this->ID_KEY=>$ayantDroit->getStatutLegal()?$ayantDroit->getStatutLegal()->getId():null,
                 $this->LIBELLE_KEY=>$ayantDroit->getStatutLegal()?$ayantDroit->getStatutLegal()->getLibelle():null
             ),
-          //  $this->DATENAISANCE_KEY=>$ayantDroit->getDateNaissance()?date_format($ayantDroit->getDateNaissance(),'Y-m-d'):null
+            $this->DATENAISANCE_KEY=>$ayantDroit->getDateNaissance()?date_format($ayantDroit->getDateNaissance(),'Y-m-d'):null
         );
     }
 }

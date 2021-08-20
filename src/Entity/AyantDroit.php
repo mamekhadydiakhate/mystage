@@ -33,7 +33,7 @@ class AyantDroit
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="datetime", nullable=true)
      * @Assert\NotBlank(message="la date de naissance est obligatoire")
      */
     private $dateNaissance;
@@ -126,12 +126,12 @@ class AyantDroit
         return $this;
     }
 
-    public function getDateNaissance(): ?string
+    public function getDateNaissance(): ?\DateTimeInterface
     {
         return $this->dateNaissance;
     }
 
-    public function setDateNaissance(?string $dateNaissance): self
+    public function setDateNaissance(?\DateTimeInterface $dateNaissance): self
     {
         $this->dateNaissance = $dateNaissance;
 
