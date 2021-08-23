@@ -24,7 +24,7 @@ class AyantDroitMapping extends BaseMapping
         $ayantDroit->setEmail(isset($data['email'])?$data['email']:$ayantDroit->getEmail());
         $ayantDroit->setTel1(isset($data['tel1'])?$data['tel1']:$ayantDroit->getTel1());
         $ayantDroit->setTel2(isset($data['tel2'])?$data['tel2']:$ayantDroit->getTel2());
-        $ayantDroit->setDateNaissance(isset($data['dateNaissance'])?$data['dateNaissance']:$ayantDroit->getDateNaissance());
+        $ayantDroit->setDateNaissance(isset($data['dateNaissance'])?new \DateTime($data['dateNaissance']):$ayantDroit->getDateNaissance());
         $ayantDroit->setSexe(isset($data['sexe'])?$data['sexe']:$ayantDroit->getSexe());
         $ayantDroit->setStatutLegal(isset($data['statutLegal'])?$data['statutLegal']:$ayantDroit->getStatutLegal());
         $ayantDroit->setLienFamilial(isset($data['lienFamilial'])?$data['lienFamilial']:$ayantDroit->getLienFamilial());
