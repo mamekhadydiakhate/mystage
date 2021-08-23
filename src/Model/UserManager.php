@@ -30,10 +30,10 @@ class UserManager extends BaseManager
 
     public function addUser($userData)
     {
-        $userData['profil'] = isset($userData['profilId']) ?$this->em->getRepository(Profil::class)->find($userData['profilId']): null;
+        $userData['profile'] = isset($userData['profilId']) ?$this->em->getRepository(Profil::class)->find($userData['profilId']): null;
         $allDataUser=$this->userMapping->createUser($userData);
         $user = $allDataUser['user'];
-        $userData['profil']?$user->addRole("ROLE_". $userData['profil']->getLibelle()):'';
+        $userData['profile']?$user->addRole("ROLE_". $userData['profile']->getLibelle()):'';
         $errors = $this->validator->validate($user);
         if ($errors->count()>0){
             $err = json_decode( $this->serializer->serialize($errors, 'json'),true);
@@ -60,9 +60,8 @@ class UserManager extends BaseManager
     public function updateUser($id, $userData)
     {
         $userToUpdate =$this->em->getRepository(User::class)->find($id);
-       /* if (isset($userData['profilId'])){
-            $userData['profil']=$this->em->getRepository(Profil::class)->find($userData['profilId']);
-        }*/
+     isset($userData['profilId'])?$userData['profile']=$this->em->getRepository(Profil::class)->find($userData['profilId']):'';
+
         if (!$userToUpdate) {
             return array($this->SUCCESS_KEY => false, $this->CODE_KEY => 500, $this->DATA_KEY => array($this->MESSAGE_KEY => 'Utilisateur inexistant!'));
         }

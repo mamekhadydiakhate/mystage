@@ -122,7 +122,7 @@ class UserMapping extends BaseMapping {
         $matricule = isset($data['matricule']) ? $data['matricule'] : $user->getMatricule();
         $user->setEmail($email);
         $user->setService(isset($data['service'])?$data['service']:null);
-        $user->setProfil( isset($data['profil'])? $data['profil']:$user->getProfil());
+        $user->setProfil( isset($data['profile'])? $data['profile']:$user->getProfil());
         $user->setNom($nom);
         $user->setPrenom($prenom);
         $user->setMatricule($matricule);
