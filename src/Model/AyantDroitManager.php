@@ -63,7 +63,7 @@ class AyantDroitManager extends BaseManager{
         $ayantDroit=$this->ayantDroitMapping->updateAyantDroit($data,$ayantDroit);
         $this->em->persist($ayantDroit);
         $this->em->flush();
-        return array("code"=>200,"status"=>false,"message"=>"Ayant droit modifie avec succes");
+        return array("code"=>200,"status"=>true,"message"=>"Ayant droit modifie avec succes");
     }
 
     public function listAyantDroit($page,$limit){
