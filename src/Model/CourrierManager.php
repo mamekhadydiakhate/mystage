@@ -41,4 +41,15 @@ class CourrierManager extends BaseManager{
         }
         return array("code"=>200,"status"=>true,"data"=>$this->courrierMapping->hydrateCourrier($courrier));
     }
+    public function listeCourrier($page,$limit){
+        $courriers=$this->em->getRepository(Courrier::class)->findBy([],[],$limit,($page - 1) * $limit);
+        if (!$courriers){
+            return array("code"=>500,"status"=>false,"message"=>"Courriers inexistants");
+        }
+        $tabCourriers=array();
+        foreach ($courriers as $courrier){
+            $tabCourriers[]=$this->courrierMapping->hydrateCourrier($courrier);
+        }
+        return array("code"=>200,"status"=>true,"data"=>$tabCourriers);
+    }
 }
