@@ -47,4 +47,12 @@ class StatutLegalRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function listStatutLegal(){
+        return $this->createQueryBuilder('s')
+            ->select('s.id, s.libelle')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

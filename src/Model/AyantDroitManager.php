@@ -77,4 +77,23 @@ class AyantDroitManager extends BaseManager{
         }
         return array("code"=>200,"status"=>false,"data"=>$tabAyantDroit);
     }
+
+    public function listLiensFamilial(){
+        $liens=$this->em->getRepository(LienFamilial::class)->listLiensFamilial();
+        if (!$liens){
+            return array("code"=>500,"status"=>false,"message"=>"Liens familiales inexistants");
+        }
+        return array("code"=>200,"status"=>true,"data"=>$liens);
+
+    }
+    public function listStatutLegal(){
+
+        $statuts=$this->em->getRepository(StatutLegal::class)->listStatutLegal();
+        if (!$statuts){
+            return array("code"=>500,"status"=>false,"message"=>"Statut legales inexistants");
+        }
+        return array("code"=>200,"status"=>true,"data"=>$statuts);
+
+
+    }
 }

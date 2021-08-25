@@ -47,4 +47,12 @@ class LienFamilialRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function listLiensFamilial(){
+        return $this->createQueryBuilder('l')
+            ->select('l.id, l.libelle')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

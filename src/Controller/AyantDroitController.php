@@ -67,4 +67,18 @@ class AyantDroitController extends BaseController
         $data=json_decode($request->getContent(),true);
         return new JsonResponse($this->ayantDroitManager->updateAyantDroit($id,$data));
     }
+    /**
+     * @Rest\Put("/listLiensFamilial")
+     * @QMLogger(message="Liste des liens familiales")
+     */
+    public function listLiensFamilial(){
+        return new JsonResponse($this->ayantDroitManager->listLiensFamilial());
+    }
+    /**
+     * @Rest\Put("/listStatutLegal")
+     * @QMLogger(message="Liste des statut legales")
+     */
+    public function listStatutLegal(){
+        return new JsonResponse($this->ayantDroitManager->listStatutLegal());
+    }
 }
