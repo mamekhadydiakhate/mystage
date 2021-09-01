@@ -33,20 +33,15 @@ class PaiementMapping extends BaseMapping{
             "dateEmission"=>$paiement->getDateEmission()?date_format($paiement->getDateEmission(),'Y-m-d'):null,
             "dateReception"=>$paiement->getDateReception()?date_format($paiement->getDateReception(),'Y-m-d'):null,
             "validite"=>$paiement->getValidite(),
-            "user"=>array(
-                $this->ID_KEY=>$paiement->getUser()?$paiement->getUser()->getId():null,
-                $this->NOM_KEY=>$paiement->getUser()?$paiement->getUser()->getNom():null,
-                $this->PRENOM_KEY=>$paiement->getUser()?$paiement->getUser()->getPrenom():null,
-            ),
-            "ayantDroit"=>array(
-                $this->ID_KEY=>$paiement->getAyantDroit()?$paiement->getAyantDroit()->getId():null,
-                $this->NOM_KEY=>$paiement->getAyantDroit()?$paiement->getAyantDroit()->getNom():null,
-                $this->PRENOM_KEY=>$paiement->getAyantDroit()?$paiement->getAyantDroit()->getPrenom():null,
-            ),
-            "agent"=>array(
-                $this->ID_KEY=>$paiement->getAgent()?$paiement->getAgent()->getId():null,
-                $this->NOM_KEY=>$paiement->getAgent()?$paiement->getAgent()->getNom():null,
-            )
+            "userId"=>$paiement->getUser()?$paiement->getUser()->getId():null,
+            "userNom"=>$paiement->getUser()?$paiement->getUser()->getNom():null,
+            "userPrenom"=>$paiement->getUser()?$paiement->getUser()->getPrenom():null,
+            "ayantDroitId"=>$paiement->getAyantDroit()?$paiement->getAyantDroit()->getId():null,
+            "ayantDroitNom"=>$paiement->getAyantDroit()?$paiement->getAyantDroit()->getNom():null,
+            "ayantDroitPrenom"=>$paiement->getAyantDroit()?$paiement->getAyantDroit()->getPrenom():null,
+            "agentId"=>$paiement->getAyantDroit()?$paiement->getAyantDroit()->getId():null,
+            "agentNom"=>$paiement->getAyantDroit()?$paiement->getAyantDroit()->getNom():null,
+
         );
     }
 

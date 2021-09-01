@@ -20,6 +20,7 @@ class AyantDroitMapping extends BaseMapping
     public function setAyantDroitData($data,$ayantDroit){
         $ayantDroit->setValidite(isset($data['validite'])?$data['validite']:$ayantDroit->getValidite());
         $ayantDroit->setNom(isset($data['nom'])?$data['nom']:$ayantDroit->getNom());
+        $ayantDroit->setIsMandataire(isset($data['isMandataire'])?$data['isMandataire']:$ayantDroit->getIsMandataire());
         $ayantDroit->setPrenom(isset($data['prenom'])?$data['prenom']:$ayantDroit->getPrenom());
         $ayantDroit->setEmail(isset($data['email'])?$data['email']:$ayantDroit->getEmail());
         $ayantDroit->setTel1(isset($data['tel1'])?$data['tel1']:$ayantDroit->getTel1());
@@ -28,7 +29,7 @@ class AyantDroitMapping extends BaseMapping
         $ayantDroit->setSexe(isset($data['sexe'])?$data['sexe']:$ayantDroit->getSexe());
         $ayantDroit->setStatutLegal(isset($data['statutLegal'])?$data['statutLegal']:$ayantDroit->getStatutLegal());
         $ayantDroit->setLienFamilial(isset($data['lienFamilial'])?$data['lienFamilial']:$ayantDroit->getLienFamilial());
-        $ayantDroit->setDocument(isset($data['document'])?$data['document']:$ayantDroit->getDocument());
+        //$ayantDroit->setDocument(isset($data['document'])?$data['document']:$ayantDroit->getDocument());
         $ayantDroit->setAgent(isset($data['agent'])?$data['agent']:$ayantDroit->getAgent());
         return $ayantDroit;
     }
@@ -39,18 +40,14 @@ class AyantDroitMapping extends BaseMapping
             $this->NOM_KEY=>$ayantDroit->getNom(),
             $this->PRENOM_KEY=>$ayantDroit->getPrenom(),
             "document"=>$ayantDroit->getDocument(),
-            "lienFamilial"=>array(
-                $this->ID_KEY=>$ayantDroit->getLienFamilial()?$ayantDroit->getLienFamilial()->getId():null,
-                $this->LIBELLE_KEY=>$ayantDroit->getLienFamilial()?$ayantDroit->getLienFamilial()->getLibelle():null,
-            ),
+            "lienFamilialId"=>$ayantDroit->getLienFamilial()?$ayantDroit->getLienFamilial()->getId():null,
+            "lienFamilialLibelle"=>$ayantDroit->getLienFamilial()?$ayantDroit->getLienFamilial()->getLibelle():null,
             "sexe"=>$ayantDroit->getSexe(),
             "tel1"=>$ayantDroit->getTel1(),
             "tel2"=>$ayantDroit->getTel2(),
              $this->VALIDITE_KEY=>$ayantDroit->getValidite(),
-            "statutLegal"=>array(
-                $this->ID_KEY=>$ayantDroit->getStatutLegal()?$ayantDroit->getStatutLegal()->getId():null,
-                $this->LIBELLE_KEY=>$ayantDroit->getStatutLegal()?$ayantDroit->getStatutLegal()->getLibelle():null
-            ),
+            "statutLegalId"=>$ayantDroit->getStatutLegal()?$ayantDroit->getStatutLegal()->getId():null,
+            "statutLegalLibelle"=>$ayantDroit->getStatutLegal()?$ayantDroit->getStatutLegal()->getId():null,
             $this->DATENAISANCE_KEY=>$ayantDroit->getDateNaissance()?date_format($ayantDroit->getDateNaissance(),'Y-m-d'):null
         );
     }

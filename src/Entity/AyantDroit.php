@@ -91,6 +91,11 @@ class AyantDroit
      */
     private $paiements;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $isMandataire;
+
     public function __construct()
     {
         $this->paiements = new ArrayCollection();
@@ -272,6 +277,18 @@ class AyantDroit
                 $paiement->setAyantDroit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsMandataire(): ?string
+    {
+        return $this->isMandataire;
+    }
+
+    public function setIsMandataire(?string $isMandataire): self
+    {
+        $this->isMandataire = $isMandataire;
 
         return $this;
     }

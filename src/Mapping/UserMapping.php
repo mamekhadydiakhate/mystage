@@ -47,7 +47,8 @@ class UserMapping extends BaseMapping {
             $this->USERNAME_KEY=>$user->getUsername(),
             //$this->TELEPHONE_KEY=>$user->getTelephone(),
             $this->MATRICULE_KEY=>$user->getMatricule(),
-            "service"=>$user->getService()
+            "service"=>$user->getService(),
+          "etat"=>$user->isEnabled()==true?"Actif":"Inactif"
           /*  "fonction"=>$user->getFonction(),
             "isManager"=>$user->getIsManager(),
             $this->PROFIL_KEY=>array(
@@ -68,6 +69,7 @@ class UserMapping extends BaseMapping {
             $this->PRENOM_KEY=>$user->getPrenom(),
             $this->EMAIL_KEY=>$user->getEmail(),
             $this->MATRICULE_KEY=>$user->getMatricule(),
+           "etat"=>$user->isEnabled()==true?"Actif":"Inactif"
           /*  $this->PROFIL_KEY=>array(
                 "id"=> $user->getProfil()?$user->getProfil()->getId():null,
                 $this->LIBELLE_KEY=> $user->getProfil()?$user->getProfil()->getLibelle():null,

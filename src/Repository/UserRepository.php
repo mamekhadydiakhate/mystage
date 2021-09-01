@@ -54,8 +54,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->createQueryBuilder('u')
             ->select('u.id,u.prenom,u.nom,u.email,u.service,u.matricule,p.id as idProfil, p.libelle as profil')
             ->innerJoin('u.profil','p')
-            ->where('u.enabled = :true')
-            ->setParameter('true',true)
             ->setFirstResult(($page - 1) * $limit)
             ->setMaxResults($limit)
             ->getQuery()

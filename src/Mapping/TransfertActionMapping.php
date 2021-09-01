@@ -25,10 +25,8 @@ class TransfertActionMapping extends BaseMapping{
             "validite"=>$transfertAction->getValidite(),
             "numeroTransfert"=>$transfertAction->getNumeroTransfert(),
             "nombreAction"=>$transfertAction->getNombreAction(),
-            "societeGestionAction"=>array(
-                "id"=>$transfertAction->getSocieteGestionAction()?$transfertAction->getSocieteGestionAction()->getId():null,
-                $this->LIBELLE_KEY=>$transfertAction->getSocieteGestionAction()?$transfertAction->getSocieteGestionAction()->getLibelle():null,
-            )
+            "societeGestionActionId"=>$transfertAction->getSocieteGestionAction()?$transfertAction->getSocieteGestionAction()->getId():null,
+            "societeGestionActionLibelle"=>$transfertAction->getSocieteGestionAction()?$transfertAction->getSocieteGestionAction()->getLibelle():null,
         );
     }
 

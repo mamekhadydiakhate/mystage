@@ -27,7 +27,7 @@ class AyantDroitManager extends BaseManager{
         $data['agent']=isset($data['agentId'])?$this->em->getRepository(Agent::class)->find($data['agentId']):null;
         $data['statutLegal']=isset($data['statutLegalId'])?$this->em->getRepository(StatutLegal::class)->find($data['statutLegalId']):null;
         $data['lienFamilial']=isset($data['lienFamilialId'])?$this->em->getRepository(LienFamilial::class)->find($data['lienFamilialId']):null;
-        $data['document']=isset($data['documentId'])?$this->em->getRepository(Document::class)->find($data['documentId']):null;
+      //  $data['document']=isset($data['documentId'])?$this->em->getRepository(Document::class)->find($data['documentId']):null;
         $ayantDroit=$this->ayantDroitMapping->addAyantDroit($data);
         $this->em->persist($ayantDroit);
         $this->em->flush();
