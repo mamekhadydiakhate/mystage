@@ -45,6 +45,7 @@ class AyantDroitMapping extends BaseMapping
             "sexe"=>$ayantDroit->getSexe(),
             "tel1"=>$ayantDroit->getTel1(),
             "tel2"=>$ayantDroit->getTel2(),
+             "isMandataire"=>$ayantDroit->getIsMandataire(),
              $this->VALIDITE_KEY=>$ayantDroit->getValidite(),
             "statutLegalId"=>$ayantDroit->getStatutLegal()?$ayantDroit->getStatutLegal()->getId():null,
             "statutLegalLibelle"=>$ayantDroit->getStatutLegal()?$ayantDroit->getStatutLegal()->getId():null,
