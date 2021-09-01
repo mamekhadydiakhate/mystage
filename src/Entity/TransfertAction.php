@@ -44,9 +44,15 @@ class TransfertAction
      */
     private $agents;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateTransfert;
+
     public function __construct()
     {
         $this->agents = new ArrayCollection();
+        $this->dateTransfert=new \DateTime("now");
     }
 
     public function getId(): ?int
@@ -128,6 +134,18 @@ class TransfertAction
                 $agent->setTransfertAction(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateTransfert(): ?\DateTimeInterface
+    {
+        return $this->dateTransfert;
+    }
+
+    public function setDateTransfert(?\DateTimeInterface $dateTransfert): self
+    {
+        $this->dateTransfert = $dateTransfert;
 
         return $this;
     }

@@ -27,6 +27,7 @@ class TransfertActionMapping extends BaseMapping{
             "nombreAction"=>$transfertAction->getNombreAction(),
             "societeGestionActionId"=>$transfertAction->getSocieteGestionAction()?$transfertAction->getSocieteGestionAction()->getId():null,
             "societeGestionActionLibelle"=>$transfertAction->getSocieteGestionAction()?$transfertAction->getSocieteGestionAction()->getLibelle():null,
+            "dateTransfert"=>$transfertAction->getDateTransfert()?date_format($transfertAction->getDateTransfert(),'Y-m-d'):null,
         );
     }
 
