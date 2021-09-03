@@ -59,4 +59,12 @@ class TransfertActionManager extends BaseManager{
        }
         return array("code"=>200,"status"=>true,'total'=>$total,"data"=>$tabTransferts);
     }
+
+    public function detailsTransfert($id){
+        $transfertAction=$this->em->getRepository(TransfertAction::class)->find($id);
+        if (!$transfertAction){
+            return array("code"=>500,"status"=>false,"message"=>"Transfert action inexistant");
+        }
+        return array("code"=>200,"status"=>true,"data"=>$this->transfertActionMapping->hydrateTransfertAction($transfertAction));
+    }
 }

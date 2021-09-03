@@ -63,4 +63,12 @@ class PaiementManager extends BaseManager{
         }
         return array("code"=>200,"status"=>true,'total'=>$total,"data"=>$tabPaiements);
     }
+
+    public function detailPaiement($id){
+        $paiement=$this->em->getRepository(Paiement::class)->find($id);
+        if (!$paiement){
+            return array("code"=>500,"status"=>false,"message"=>"Paiement inexistant");
+        }
+        return array("code"=>200,"status"=>true,"data"=>$this->paiementMapping->hydratePaiement($paiement));
+    }
 }

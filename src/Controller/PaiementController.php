@@ -56,4 +56,12 @@ class PaiementController extends BaseController{
         $page=$request->query->get('page',1);
         return new JsonResponse($this->paiementManager->paiementEffectues($page));
     }
+
+    /**
+     * @Rest\Get("/detailsPaiement/{id}")
+     * @QMLogger(message="Details paiements")
+     */
+    public function detailPaiement($id){
+        return new JsonResponse($this->paiementManager->detailPaiement($id));
+    }
 }

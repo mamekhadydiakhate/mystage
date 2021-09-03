@@ -54,4 +54,12 @@ class TransfertActionController extends BaseController{
         $page=$request->query->get('page',1);
         return new JsonResponse($this->transfertActionManager->consulterTransfertActionEffectues($page));
     }
+
+    /**
+     * @Rest\Get("/detailsTransfert/{id}")
+     * @QMLogger(message="Details transferts")
+     */
+    public function detailsTransfert($id){
+        return new JsonResponse($this->transfertActionManager->detailsTransfert($id));
+    }
 }
