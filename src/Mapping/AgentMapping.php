@@ -36,7 +36,7 @@ class AgentMapping extends BaseMapping{
             $this->NOM_KEY=>$agent->getNom(),
             $this->PRENOM_KEY=>$agent->getPrenom(),
             "commentaire"=>$agent->getCommentaire(),
-            "statutAction"=>$agent->getStatutAction(),
+            "statutAction"=>$agent->getStatutActions(),
             "sensibilite"=>$agent->getSensibilite(),
             "nombreAction"=>$agent->getNombreAction(),
            // "numeroDossier"=>$agent->getNumeroDossier(),

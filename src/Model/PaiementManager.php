@@ -59,8 +59,8 @@ class PaiementManager extends BaseManager{
 
     public function paiementEffectues($page){
         $limit=getenv("LIMIT");
-        $paiements=$this->em->getRepository(Paiement::class)->findBy(["validite"=>1],[],10,($page - 1) * $limit);
-        $total=$this->em->getRepository(Paiement::class)->count(["validite"=>1]);
+        $paiements=$this->em->getRepository(Paiement::class)->findBy(["validite"=>Paiement::PAIEMENT_VALIDE],[],10,($page - 1) * $limit);
+        $total=$this->em->getRepository(Paiement::class)->count(["validite"=>Paiement::PAIEMENT_VALIDE]);
         if (!$paiements){
             return array("code"=>500,"status"=>false,"message"=>"Paiements inexistants");
         }
