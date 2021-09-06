@@ -53,7 +53,7 @@ class PaiementManager extends BaseManager{
         $paiemnt=$this->paiementMapping->updateEtatPaiement($paiemnt,$validite);
         $this->em->persist($paiemnt);
         $this->em->flush();
-        return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200,$this->MESSAGE_KEY =>'Paiement valide avec succes');
+        return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200,$this->MESSAGE_KEY =>"Paiement $etat avec succes");
 
     }
 
