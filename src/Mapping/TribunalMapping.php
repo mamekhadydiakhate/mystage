@@ -8,7 +8,7 @@ class TribunalMapping extends BaseMapping{
 
     public function setTribunalMapping($data,$tribunal){
         $tribunal->setNom(isset($data['nom'])?$data['nom']:$tribunal->getNom());
-        $tribunal->setAdress(isset($data['adress'])?$data['adress']:$tribunal->getAdresse());
+        $tribunal->setAdress(isset($data['adresse'])?$data['adresse']:$tribunal->getAdresse());
         return $tribunal;
     }
 

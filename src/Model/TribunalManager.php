@@ -21,7 +21,7 @@ class TribunalManager extends BaseManager{
         $tribunal = $this->tribunalMapping->addTribunal($data);
         $this->em->persist($tribunal);
         $this->em->flush();
-        return array("status"=>201,"code"=>201,"message"=>"Tribunal créé avec succés");
+        return array("status"=>true,"code"=>201,"message"=>"Tribunal créé avec succés");
     }
 
     public function updateTribunal($data,$id){
@@ -54,6 +54,6 @@ class TribunalManager extends BaseManager{
         }
         $this->em->remove($tribunal);
         $this->em->flush();
-        return array("status"=>true,"code"=>200,"message"=>"Tribunal inexistant");
+        return array("status"=>true,"code"=>200,"message"=>"Tribunal supprimé avec succés!");
     }
 }
