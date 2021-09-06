@@ -10,7 +10,7 @@ class AgentMapping extends BaseMapping{
         $agent->setNom(isset($data['nom'])?$data['nom']:$agent->getNom());
         $agent->setPrenom(isset($data['prenom'])?$data['prenom']:$agent->getPrenom());
         $agent->setValidite(isset($data['validite'])?$data['validite']:$agent->getValidite());
-        $agent->setStatutActions(isset($data['statutActions'])?$data['statutActions']:$agent->getStatutActions());
+        $agent->setStatutActions(isset($data['statutAction'])?$data['statutAction']:$agent->getStatutActions());
         $agent->setSensibilite(isset($data['sensibilite'])?$data['sensibilite']:$agent->getSensibilite());
        // $agent->setNumeroDossier(isset($data['numeroDossier'])?$data['numeroDossier']:$agent->getNumeroDossier());
         $agent->setNombreAction(isset($data['nombreAction'])?$data['nombreAction']:$agent->getNombreAction());
