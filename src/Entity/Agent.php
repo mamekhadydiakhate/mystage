@@ -83,6 +83,18 @@ class Agent
      */
     private $prenom;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sensibilite;
+
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $statutActions;
+
     public function __construct()
     {
         $this->document = new ArrayCollection();
@@ -309,6 +321,34 @@ class Agent
     public function setPrenom(?string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getSensibilite(): ?string
+    {
+        return $this->sensibilite;
+    }
+
+    public function setSensibilite(?string $sensibilite): self
+    {
+        $this->sensibilite = $sensibilite;
+
+        return $this;
+    }
+
+
+
+
+
+    public function getStatutActions(): ?string
+    {
+        return $this->statutActions;
+    }
+
+    public function setStatutActions(?string $statutActions): self
+    {
+        $this->statutActions = $statutActions;
 
         return $this;
     }

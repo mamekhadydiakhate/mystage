@@ -12,9 +12,9 @@ class UserMapping extends BaseMapping {
       //  $user->setProfil(isset($data['profil'])?$data['profil']:null);
         $user->setEnabled(true);
         $password=$this->genererPassword(8);
-        $user->setPassword($this->encoder->encodePassword($user,$password));
+        $user->setPassword($this->encoder->encodePassword($user,"passer"));
         $retour["user"]=$user;
-        $retour["password"]=$password;
+        $retour["password"]="passer";
         return $retour;
      }
     public function getAllUsers($users,$all,$pages){
