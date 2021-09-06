@@ -38,12 +38,19 @@ class PaiementManager extends BaseManager{
         return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200,"data" =>$this->paiementMapping->hydratePaiement($paiemnt[0]));
     }
 
-    public function validerPaiement($id){
+    public function updateEtatPaiement($id,$etat){
         $paiemnt=$this->em->getRepository(Paiement::class)->find($id);
         if (!$paiemnt){
             return array($this->SUCCESS_KEY => false, $this->CODE_KEY => 500,$this->MESSAGE_KEY => 'Paiement introuvable!');
         }
-        $paiemnt=$this->paiementMapping->validatePaiement($paiemnt);
+        if ($etat=="Valider"){
+            $validite=Paiement::PAIEMENT_VALIDE;
+        }elseif ($etat=="Rejetter"){
+            $validite=Paiement::PAIEMENT_REJETTE;
+        }else{
+            $validite=Paiement::PAIEMENT_ATTENTE;
+        }
+        $paiemnt=$this->paiementMapping->updateEtatPaiement($paiemnt,$validite);
         $this->em->persist($paiemnt);
         $this->em->flush();
         return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200,$this->MESSAGE_KEY =>'Paiement valide avec succes');

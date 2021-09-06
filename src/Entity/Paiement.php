@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Paiement
 {
+    const PAIEMENT_ATTENTE="En attente";
+    const PAIEMENT_VALIDE="Validé";
+    const PAIEMENT_REJETTE="Rejetté";
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -43,7 +46,7 @@ class Paiement
     private $fichier;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string",length=255, nullable=true)
      */
     private $validite;
 
@@ -132,12 +135,12 @@ class Paiement
         return $this;
     }
 
-    public function getValidite(): ?int
+    public function getValidite(): ?string
     {
         return $this->validite;
     }
 
-    public function setValidite(?int $validite): self
+    public function setValidite(?string $validite): self
     {
         $this->validite = $validite;
 

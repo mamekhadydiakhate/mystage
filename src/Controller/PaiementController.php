@@ -41,11 +41,12 @@ class PaiementController extends BaseController{
     }
 
     /**
-     * @Rest\Put("/validerPaiement/{id}")
+     * @Rest\Put("/updateEtatPaiement/{id}")
      * @QMLogger(message="Valider paiement")
      */
-    public function validatePaiement($id){
-        return new JsonResponse($this->paiementManager->validerPaiement($id));
+    public function validatePaiement($id,Request $request){
+        $etat=$request->query->get("validite","Attente");
+        return new JsonResponse($this->paiementManager->updateEtatPaiement($id,$etat));
     }
 
     /**

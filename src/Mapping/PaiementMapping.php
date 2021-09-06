@@ -21,7 +21,9 @@ class PaiementMapping extends BaseMapping{
 
     public function addPaiement($data){
         $paiement=new Paiement();
-        return $this->setPaiementData($data,$paiement);
+        $paiement= $this->setPaiementData($data,$paiement);
+        $paiement->setValidite(Paiement::PAIEMENT_ATTENTE);
+        return $paiement;
     }
 
     public function hydratePaiement($paiement){
@@ -45,8 +47,8 @@ class PaiementMapping extends BaseMapping{
         );
     }
 
-    public function validatePaiement($paiement){
-        $paiement->setValidite(1);
-        return$paiement;
+    public function updateEtatPaiement($paiement,$etat){
+        $paiement->setValidite($etat);
+        return $paiement;
     }
 }
