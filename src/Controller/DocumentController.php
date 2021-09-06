@@ -42,4 +42,13 @@ class DocumentController extends BaseController{
         return new JsonResponse($this->documentManager->searchDocument($search));
     }
 
+
+    /**
+     * @Rest\Get("/documentsByAgent/{id}")
+     * @QMLogger(message="Recherche document")
+     */
+    public function documentsByAgent(Request $request,$id){
+        return new JsonResponse($this->documentManager->documentsByAgent($id));
+    }
+
 }

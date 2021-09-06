@@ -58,4 +58,13 @@ class DocumentRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function documentsByAgent($id){
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->where('d.agent = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult();
+    }
 }

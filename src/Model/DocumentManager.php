@@ -45,4 +45,17 @@ class DocumentManager extends BaseManager{
         }
         return array("code"=>200,"status"=>true,"data"=>$this->documentMapping->hydrateDocument($document[0]));
     }
+
+
+    public function documentsByAgent($id){
+        $documents=$this->em->getRepository(Document::class)->documentsByAgent($id);
+        if (!$documents){
+            return array("code"=>500,"status"=>false,"message"=>"Document inexistant");
+        }
+        $tabDoc=array();
+        foreach ($documents as $document){
+            $tabDoc[]=$this->documentMapping->hydrateDocument($document);
+        }
+        return array("code"=>200,"status"=>true,"data"=>$tabDoc);
+    }
 }
