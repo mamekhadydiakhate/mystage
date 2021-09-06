@@ -81,4 +81,13 @@ class AyantDroitController extends BaseController
     public function listStatutLegal(){
         return new JsonResponse($this->ayantDroitManager->listStatutLegal());
     }
+    /**
+     * @Rest\Get("/ayantsDroit/{id}")
+     * @QMLogger(message="Liste des ayants droits d'un agent")
+     */
+    public function ayantsDroitByAgent(Request $request,$id){
+        $page=$request->query->get("page",1);
+        $limit=$request->query->get("limit",getenv('LIMIT'));
+        return new JsonResponse($this->ayantDroitManager->ayantsDroitByAgent($page,$limit,$id));
+    }
 }

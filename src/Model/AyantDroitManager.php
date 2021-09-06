@@ -78,6 +78,19 @@ class AyantDroitManager extends BaseManager{
         return array("code"=>200,"status"=>false,"data"=>$tabAyantDroit);
     }
 
+
+    public function ayantsDroitByAgent($page,$limit,$id){
+        $ayantDroits=$this->em->getRepository(AyantDroit::class)->ayantsDroitByAgent($page,$limit,$id);
+        if (!$ayantDroits){
+            return array("code"=>500,"status"=>false,"message"=>"Ayants droit inexistants");
+        }
+        $tabAyantDroit=array();
+        foreach ($ayantDroits as $ayantDroit){
+            $tabAyantDroit[]=$this->ayantDroitMapping->hydrateAyantDroit($ayantDroit);
+        }
+        return array("code"=>200,"status"=>false,"data"=>$tabAyantDroit);
+    }
+
     public function listLiensFamilial(){
         $liens=$this->em->getRepository(LienFamilial::class)->listLiensFamilial();
         if (!$liens){

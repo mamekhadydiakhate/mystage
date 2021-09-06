@@ -65,6 +65,16 @@ class AyantDroitRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function ayantsDroitByAgent($page,$limit,$id){
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('a.agent = :id')
+            ->setParameter('id',$id)
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
     public function countListAyantDroit($page,$limit){
         return $this->createQueryBuilder('a')
             ->select('a')
