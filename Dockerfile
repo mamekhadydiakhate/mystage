@@ -10,3 +10,6 @@ COPY . /var/www/html
 #RUN useradd -d /var/www/html root
 #RUN echo 'root:sonatel@221' | chpasswd
 
+RUN chown -R www-data:www-data  /var/www/html
+RUN chmod o+rwx /var/www/html/public/uploads/documents
+
