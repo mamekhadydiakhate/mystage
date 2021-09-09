@@ -71,10 +71,6 @@ class AyantDroit
      */
     private $document;
 
-    /**
-     * @ORM\OneToOne(targetEntity=LienFamilial::class, cascade={"persist", "remove"})
-     */
-    private $lienFamilial;
 
     /**
      * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="ayantDroit")
@@ -95,6 +91,11 @@ class AyantDroit
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $isMandataire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=LienFamilial::class)
+     */
+    private $lienFamilial;
 
     public function __construct()
     {
@@ -215,18 +216,6 @@ class AyantDroit
         return $this;
     }
 
-    public function getLienFamilial(): ?LienFamilial
-    {
-        return $this->lienFamilial;
-    }
-
-    public function setLienFamilial(?LienFamilial $lienFamilial): self
-    {
-        $this->lienFamilial = $lienFamilial;
-
-        return $this;
-    }
-
     public function getAgent(): ?Agent
     {
         return $this->agent;
@@ -289,6 +278,18 @@ class AyantDroit
     public function setIsMandataire(?string $isMandataire): self
     {
         $this->isMandataire = $isMandataire;
+
+        return $this;
+    }
+
+    public function getLienFamilial(): ?LienFamilial
+    {
+        return $this->lienFamilial;
+    }
+
+    public function setLienFamilial(?LienFamilial $lienFamilial): self
+    {
+        $this->lienFamilial = $lienFamilial;
 
         return $this;
     }
