@@ -55,7 +55,7 @@ class CourrierMapping extends BaseMapping{
         return array(
             $this->ID_KEY=>$courrier->getId(),
             "numeroCaseCocheeJugementCuratelle"=>$courrier->getNumeroCaseCocheeJugementCuratelle(),
-           "numeroCaseCocheeCertificat" =>$courrier->getNumeroCaseCocheeCertificat(),
+            "numeroCaseCocheeCertificat" =>$courrier->getNumeroCaseCocheeCertificat(),
             "nouvelleNumerotationCourrier"=>$courrier->getNouvelleNumerotationCourrier(),
             "numeroCourrier"=>$courrier->getNumeroCourrier(),
             "notification72heures"=>$courrier->getNotification72heures(),
@@ -68,7 +68,7 @@ class CourrierMapping extends BaseMapping{
             "pieceIdentite"=>$courrier->getPieceIdentite(),
             "referenceSaisineDfc"=>$courrier->getReferenceSaisineDfc(),
             "generateurCourrier"=>$courrier->getGenerateurCourrier(),
-           "commentaire"=>$courrier->getCommentaire(),
+            "commentaire"=>$courrier->getCommentaire(),
             "validite"=>$courrier->getValidite(),
             "objetCourrier"=>$courrier->getObjetCourrier(),
             'attestationNonRevocation'=>$courrier->getAttestationNonRevocation(),
