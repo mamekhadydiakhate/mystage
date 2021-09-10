@@ -96,6 +96,6 @@ class CourrierMapping extends BaseMapping{
                 $this->PRENOM_KEY=>$mandataire->getPrenom()
             );
         }
-        return $mandataire;
+        return $crr;
     }
 }
