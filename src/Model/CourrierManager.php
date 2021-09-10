@@ -49,9 +49,10 @@ class CourrierManager extends BaseManager{
             return array("code"=>500,"status"=>false,"message"=>"Courriers inexistants");
         }
         $tabCourriers=array();
+        $total=$this->em->getRepository(Courrier::class)->count([]);
         foreach ($courriers as $courrier){
             $tabCourriers[]=$this->courrierMapping->hydrateCourrier($courrier);
         }
-        return array("code"=>200,"status"=>true,"data"=>$tabCourriers);
+        return array("code"=>200,"status"=>true,"data"=>$tabCourriers,"total"=>$total);
     }
 }
