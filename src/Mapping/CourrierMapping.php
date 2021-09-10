@@ -2,6 +2,7 @@
 
 namespace App\Mapping;
 
+use App\Entity\AyantDroit;
 use App\Entity\Courrier;
 
 class CourrierMapping extends BaseMapping{
@@ -51,8 +52,9 @@ class CourrierMapping extends BaseMapping{
         return $courrier;
     }
 
-    public function hydrateCourrier($courrier){
-        return array(
+    public function hydrateCourrier($courrier,$mandataire=null){
+        $mandataire = new AyantDroit();
+        $crr= array(
             $this->ID_KEY=>$courrier->getId(),
             "numeroCaseCocheeJugementCuratelle"=>$courrier->getNumeroCaseCocheeJugementCuratelle(),
             "numeroCaseCocheeCertificat" =>$courrier->getNumeroCaseCocheeCertificat(),
@@ -67,7 +69,7 @@ class CourrierMapping extends BaseMapping{
             "courrierEnvoye"=>$courrier->getCourrierEnvoye(),
             "pieceIdentite"=>$courrier->getPieceIdentite(),
             "referenceSaisineDfc"=>$courrier->getReferenceSaisineDfc(),
-            "generateurCourrier"=>$courrier->getGenerateurCourrier(),
+             "generateurCourrier"=>$courrier->getGenerateurCourrier(),
             "commentaire"=>$courrier->getCommentaire(),
             "validite"=>$courrier->getValidite(),
             "objetCourrier"=>$courrier->getObjetCourrier(),
@@ -88,5 +90,12 @@ class CourrierMapping extends BaseMapping{
                 'matricule'=>$courrier->getAgent()?$courrier->getAgent()->getMatricule():null,
             ),
         );
+        if($mandataire){
+            $crr["mandataire"]=array(
+                $this->ID_KEY=>$mandataire->getId(),
+                $this->NOM_KEY=>$mandataire->getNom(),
+                $this->PRENOM_KEY=>$mandataire->getPrenom()
+            );
+        }
     }
 }

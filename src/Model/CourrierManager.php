@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Entity\Agent;
+use App\Entity\AyantDroit;
 use App\Entity\Courrier;
 use App\Entity\TypeCourrier;
 use App\Entity\User;
@@ -39,7 +40,8 @@ class CourrierManager extends BaseManager{
         if (!$courrier){
             return array("code"=>500,"status"=>false,"message"=>"Courrier inexistant");
         }
-        return array("code"=>200,"status"=>true,"data"=>$this->courrierMapping->hydrateCourrier($courrier));
+        $mandataire=$this->em->getRepository(AyantDroit::class)->findOneBy(['agent'=>true,"isMantadaire"=>true]);
+        return array("code"=>200,"status"=>true,"data"=>$this->courrierMapping->hydrateCourrier($courrier,$mandataire));
     }
     public function listeCourrier($page,$limit){
         $courriers=$this->em->getRepository(Courrier::class)->findBy([],[],$limit,($page - 1) * $limit);
