@@ -112,4 +112,13 @@ class UserManager extends BaseManager
         return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200, $this->DATA_KEY => $user[0]);
     }
 
+    public function listEmailUsers()
+    {
+        $user = $this->em->getRepository(User::class)->listEmailUsers();
+         if (!$user) {
+            return array($this->SUCCESS_KEY => false, $this->CODE_KEY => 500,  $this->MESSAGE_KEY => 'Utilisateurs inexistant!');
+        }
+        return array($this->SUCCESS_KEY => true, $this->CODE_KEY => 200, $this->DATA_KEY => $user);
+    }
+
 }

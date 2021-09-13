@@ -158,5 +158,12 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
         $search=$request->query->get('matricule','');
         return new JsonResponse($this->userManager->searchUser($search));
     }
+    /**
+     * @Rest\Get("/listEmails")
+     * @QMLogger(message="Liste des emails")
+     */
+    public function listEmails(){
+        return new JsonResponse($this->userManager->listEmailUsers());
+    }
 
 }

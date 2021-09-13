@@ -88,7 +88,7 @@ class AyantDroitManager extends BaseManager{
         foreach ($ayantDroits as $ayantDroit){
             $tabAyantDroit[]=$this->ayantDroitMapping->hydrateAyantDroit($ayantDroit);
         }
-        return array("code"=>200,"status"=>false,"data"=>$tabAyantDroit);
+        return array("code"=>200,"status"=>true,"data"=>$tabAyantDroit);
     }
 
     public function listLiensFamilial(){
