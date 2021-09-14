@@ -30,4 +30,14 @@ class SignatureCachetManager extends BaseManager{
 
     }
 
+    public function listSignaturesCachet(){
+        $signaturesCachets=$this->em->getRepository(SignatureCachet::class)->findAll();
+        if (!$signaturesCachets){
+            return array("code"=>500,"status"=>false,"message"=>"Aucune signature cachet!");
+        }
+          $tabSignatureCachet=$this->signatureCachetMapping->listSignaturesCachet($signaturesCachets);
+        return array("code"=>200,"status"=>true,"data"=>$tabSignatureCachet);
+
+    }
+
 }

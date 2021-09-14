@@ -31,4 +31,12 @@ class SignatureCachetController extends BaseController{
         $data['document_directory']=$this->getParameter('document_directory');
         return new JsonResponse($this->signatureCachetManager->addSignatureCachet($data));
     }
+
+    /**
+     * @Rest\Get("/listSignaturesCachet")
+     * @QMLogger(message="Ajout signature cachet")
+     */
+    public function listSignaturesCachet(){
+         return new JsonResponse($this->signatureCachetManager->listSignaturesCachet());
+    }
 }

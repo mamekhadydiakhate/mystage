@@ -24,14 +24,9 @@ class TypeCourrier
      */
     private $libelle;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Courrier::class, mappedBy="typeCourrier")
-     */
-    private $courriers;
 
     public function __construct()
     {
-        $this->courriers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,33 +46,4 @@ class TypeCourrier
         return $this;
     }
 
-    /**
-     * @return Collection|Courrier[]
-     */
-    public function getCourriers(): Collection
-    {
-        return $this->courriers;
-    }
-
-    public function addCourrier(Courrier $courrier): self
-    {
-        if (!$this->courriers->contains($courrier)) {
-            $this->courriers[] = $courrier;
-            $courrier->setTypeCourrier($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCourrier(Courrier $courrier): self
-    {
-        if ($this->courriers->removeElement($courrier)) {
-            // set the owning side to null (unless already changed)
-            if ($courrier->getTypeCourrier() === $this) {
-                $courrier->setTypeCourrier(null);
-            }
-        }
-
-        return $this;
-    }
 }

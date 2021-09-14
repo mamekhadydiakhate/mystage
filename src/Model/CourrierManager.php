@@ -55,4 +55,12 @@ class CourrierManager extends BaseManager{
         }
         return array("code"=>200,"status"=>true,"data"=>$tabCourriers,"total"=>$total);
     }
+    public function listObjetsCourrier(){
+        $objetsCourriers=$this->em->getRepository(TypeCourrier::class)->findAll();
+        if (!$objetsCourriers){
+            return array("code"=>500,"status"=>false,"message"=>"Objets courriers inexistants!");
+        }
+              $tabObjetsCourriers[]=$this->courrierMapping->hydrateObjetCourrier($objetsCourriers);
+         return array("code"=>200,"status"=>true,"data"=>$tabObjetsCourriers);
+    }
 }

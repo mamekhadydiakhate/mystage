@@ -98,4 +98,15 @@ class CourrierMapping extends BaseMapping{
         }
         return $crr;
     }
+
+    public function hydrateObjetCourrier($tab){
+        $tabObjetsCourriers=array();
+        foreach ($tab as $obj){
+            $tabObjetsCourriers[]=array(
+                $this->ID_KEY=>$obj->getId(),
+                $this->LIBELLE_KEY=>$obj->getLibelle()
+            );
+        }
+        return $tabObjetsCourriers;
+    }
 }

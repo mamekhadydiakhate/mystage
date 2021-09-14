@@ -19,4 +19,20 @@ class SignatureCachetMapping extends BaseMapping{
         }
         return $signatureCachet;
     }
+
+    public function listSignaturesCachet($signaturesCachets){
+        foreach ($signaturesCachets as $signaturesCachet){
+            $tab[]=array(
+                $this->ID_KEY=>$signaturesCachet->getId(),
+                "fichier"=>"public/uploads/documents/".$signaturesCachet->getLibelle(),
+                "user"=>array(
+                    $this->ID_KEY=>$signaturesCachet->getUser()?$signaturesCachet->getUser()->getId():null,
+                    $this->PRENOM_KEY=>$signaturesCachet->getUser()?$signaturesCachet->getUser()->getPrenom():null,
+                    $this->NOM_KEY=>$signaturesCachet->getUser()?$signaturesCachet->getUser()->getNom():null,
+                )
+
+            );
+        }
+        return $tab;
+    }
 }

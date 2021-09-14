@@ -48,4 +48,12 @@ class CourrierController extends BaseController{
         $limit=$request->query->get('limit',getenv('LIMIT'));
         return new JsonResponse($this->courrierManager->listeCourrier($page,$limit));
     }
+    /**
+     * @Rest\Get("/listObjetsCourrier")
+     * @QMLogger(message="Liste Objets Courrier")
+     */
+    public function listObjetsCourrier(){
+
+        return new JsonResponse($this->courrierManager->listObjetsCourrier());
+    }
 }
