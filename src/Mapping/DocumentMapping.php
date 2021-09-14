@@ -44,9 +44,10 @@ class DocumentMapping extends BaseMapping{
     }
 
     public function hydrateDocument($document){
-        return array(
+         return array(
             $this->ID_KEY=>$document->getId(),
             $this->LIBELLE_KEY=>$document->getLibelle(),
+            "fichier"=>$document->getFichier()?"public/uploads/documents/".$document->getFichier():null,
             "numeroDocument"=>$document->getNumeroDocument(),
             "typeDocument"=>array(
                 $this->ID_KEY=>$document->getTypeDocument()?$document->getTypeDocument()->getId():null,
