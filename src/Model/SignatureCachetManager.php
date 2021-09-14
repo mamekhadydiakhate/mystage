@@ -24,6 +24,9 @@ class SignatureCachetManager extends BaseManager{
         if (is_array($signatureCachet)){
             return $signatureCachet;
         }
+        if (is_array($this->manageErrors($signatureCachet))){
+            return $this->manageErrors($signatureCachet);
+        }
         $this->em->persist($signatureCachet);
         $this->em->flush();
         return array("code"=>201,"status"=>true,"message"=>"Signature cachet créé avec succés");
