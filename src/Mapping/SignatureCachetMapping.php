@@ -24,7 +24,7 @@ class SignatureCachetMapping extends BaseMapping{
         foreach ($signaturesCachets as $signaturesCachet){
             $tab[]=array(
                 $this->ID_KEY=>$signaturesCachet->getId(),
-                "fichier"=>"public/uploads/documents/".$signaturesCachet->getLibelle(),
+                "fichier"=>$signaturesCachet->getLibelle()?"public/uploads/documents/".$signaturesCachet->getLibelle():null,
                 "user"=>array(
                     $this->ID_KEY=>$signaturesCachet->getUser()?$signaturesCachet->getUser()->getId():null,
                     $this->PRENOM_KEY=>$signaturesCachet->getUser()?$signaturesCachet->getUser()->getPrenom():null,
