@@ -71,6 +71,8 @@ class JugementController extends BaseController{
     public function addJugementDocAgent(Request $request){
         $data=$request->request->all();
         $data['fichier']=$request->files->get('fichier');
+        $data['document_directory']=$this->getParameter('document_directory');
+
         return new JsonResponse($this->jugementManager->addJugementDocAgent($data));
     }
 
