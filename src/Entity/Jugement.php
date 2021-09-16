@@ -91,7 +91,7 @@ class Jugement
         return $this->numeroJugement;
     }
 
-    public function setNumeroJugement(int $numeroJugement): self
+    public function setNumeroJugement(?int $numeroJugement): self
     {
         $this->numeroJugement = $numeroJugement;
 
