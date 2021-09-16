@@ -64,4 +64,14 @@ class JugementController extends BaseController{
         return new JsonResponse($this->jugementManager->updateJugement($data,$id));
     }
 
+    /**
+     * @Rest\Post("/addJugementDocAgent")
+     * @QMLogger(message="Ajout Jugement Document")
+     */
+    public function addJugementDocAgent(Request $request){
+        $data=$request->request->all();
+        $data['fichier']=$request->files->get('fichier');
+        return new JsonResponse($this->jugementManager->addJugementDocAgent($data));
+    }
+
 }
