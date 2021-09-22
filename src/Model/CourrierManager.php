@@ -56,13 +56,18 @@ class CourrierManager extends BaseManager{
             }else{
                 $tabDoc[]=array("libelle"=>"Certificat d'administration légale","statut"=>"Non conforme");
             }
-        }if ($majeurs){
+        }else{
+            $tabDoc[]=array("libelle"=>"Certificat d'administration légale","statut"=>"Non requis");
+        }
+        if ($majeurs){
             $jc=$this->em->getRepository(Document::class)-> findDocsTypeAgent($id,"Jugement de curatelle");
             if ($jc){
                 $tabDoc[]=$this->documentMapping->hydrateDocument($jc[0]);
             }else{
                 $tabDoc[]=array("libelle"=>"Jugement de curatelle","statut"=>"Non conforme");
             }
+        }else{
+            $tabDoc[]=array("libelle"=>"Jugement de curatelle","statut"=>"Non requis");
         }
         return array("code"=>200,"status"=>true,"data"=>$this->courrierMapping->hydrateCourrier($courrier,$mandataire,$tabDoc));
     }
