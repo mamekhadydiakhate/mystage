@@ -2,8 +2,10 @@
 
 namespace App\Mapping;
 
+use App\Entity\Agent;
 use App\Entity\AyantDroit;
 use App\Entity\Courrier;
+use App\Entity\Document;
 
 class CourrierMapping extends BaseMapping{
 
@@ -52,7 +54,7 @@ class CourrierMapping extends BaseMapping{
         return $courrier;
     }
 
-    public function hydrateCourrier($courrier,$mandataire=null){
+    public function hydrateCourrier($courrier,$mandataire=null,$documentCourriers=null){
         $crr= array(
             $this->ID_KEY=>$courrier->getId(),
             "numeroCaseCocheeJugementCuratelle"=>$courrier->getNumeroCaseCocheeJugementCuratelle(),
@@ -68,7 +70,7 @@ class CourrierMapping extends BaseMapping{
             "courrierEnvoye"=>$courrier->getCourrierEnvoye(),
             "pieceIdentite"=>$courrier->getPieceIdentite(),
             "referenceSaisineDfc"=>$courrier->getReferenceSaisineDfc(),
-             "generateurCourrier"=>$courrier->getGenerateurCourrier(),
+            "generateurCourrier"=>$courrier->getGenerateurCourrier(),
             "commentaire"=>$courrier->getCommentaire(),
             "validite"=>$courrier->getValidite(),
             "objetCourrier"=>$courrier->getObjetCourrier(),
@@ -96,6 +98,14 @@ class CourrierMapping extends BaseMapping{
                 $this->PRENOM_KEY=>$mandataire->getPrenom()
             );
         }
+        if($documentCourriers){
+            $tabTypes=array("Certificat d'administration légale"=>"Mineure",""=>"");
+            foreach ($documentCourriers as $docCourr){
+                foreach ($tabTypes as $key=>$value){
+                 //   $crr['documents'][]=$this->hydrateDocumentCourrier($docCourr, $courrier->getAgent())
+                }
+            }
+        }
         return $crr;
     }
 
@@ -109,4 +119,57 @@ class CourrierMapping extends BaseMapping{
         }
         return $tabObjetsCourriers;
     }
+
+    public function hydrateDocumentCourrier($documentCourriers,$agent,$type,$statut){
+        $etatDoc="Non requis";
+         foreach ($documentCourriers as $document){
+             $doc= array(
+                 $this->ID_KEY=>$document->getId(),
+                 $this->LIBELLE_KEY=>$document->getLibelle(),
+                 "fichier"=>$document->getFichier()?"public/uploads/documents/".$document->getFichier():null,
+                 "numeroDocument"=>$document->getNumeroDocument(),
+                 "typeDocument"=>array(
+                     $this->ID_KEY=>$document->getTypeDocument()?$document->getTypeDocument()->getId():null,
+                     $this->LIBELLE_KEY=>$document->getTypeDocument()?$document->getTypeDocument()->getLibelle():null,
+                 ),
+                 "user"=>array(
+                     $this->ID_KEY=>$document->getUser()?$document->getUser()->getId():null,
+                     $this->NOM_KEY=>$document->getUser()?$document->getUser()->getNom():null,
+                     $this->PRENOM_KEY=>$document->getUser()?$document->getUser()->getPrenom():null
+                 ),
+                 "agent"=>array(
+                     $this->ID_KEY=>$document->getAgent()?$document->getAgent()->getId():null,
+                     $this->NOM_KEY=>$document->getAgent()?$document->getAgent()->getNom():null,
+                     $this->MATRICULE_KEY=>$document->getAgent()?$document->getAgent()->getMatricule():null
+                 ),
+                 "notaire"=>array(
+                     $this->ID_KEY=>$document->getNotaire()?$document->getNotaire()->getId():null,
+                     $this->NOM_KEY=>$document->getNotaire()?$document->getNotaire()->getNom():null,
+                     $this->PRENOM_KEY=>$document->getNotaire()?$document->getNotaire()->getPrenom():null
+                 ),
+                 "jugement"=>array(
+                     $this->ID_KEY=>$document->getJugement()?$document->getJugement()->getId():null,
+                     $this->NOM_KEY=>$document->getJugement()?$document->getJugement()->getNom():null,
+                     "numeroJugement"=>$document->getJugement()?$document->getJugement()->getNumeroJugement():null
+                 ),
+                 "dateDelivrance"=>$document->getDateDelivrance()?date_format($document->getDateDelivrance(),'Y-m-d'):null,
+                 "dateValidite"=>$document->getDateValidite()?date_format($document->getDateValidite(),'Y-m-d'):null,
+                 "dateExpiration"=>$document->getDateExpiration()?date_format($document->getDateExpiration(),'Y-m-d'):null,
+             );
+           if( $document->getTypeDocument()==$type){
+               $bool=false;
+              foreach ($agent->getAyantDroit() as $ayantDroit){
+                  if ($ayantDroit->getStatutLegal()==$statut){
+                      $bool=true;
+                  }
+              }
+               $etatDoc=$bool==true?"Requis":"Non requis";
+           }
+             $doc['statut']=$etatDoc;
+             $tabDocs[]=$doc;
+        }
+
+        return $tabDocs;
+    }
+
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DocumentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +74,16 @@ class Document
      * @ORM\ManyToOne(targetEntity=Agent::class, inversedBy="document")
      */
     private $agent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=DocumentAyantDroit::class, mappedBy="document")
+     */
+    private $documentAyantDroits;
+
+    public function __construct()
+    {
+        $this->documentAyantDroits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -206,6 +218,36 @@ class Document
     public function setAgent(?Agent $agent): self
     {
         $this->agent = $agent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DocumentAyantDroit[]
+     */
+    public function getDocumentAyantDroits(): Collection
+    {
+        return $this->documentAyantDroits;
+    }
+
+    public function addDocumentAyantDroit(DocumentAyantDroit $documentAyantDroit): self
+    {
+        if (!$this->documentAyantDroits->contains($documentAyantDroit)) {
+            $this->documentAyantDroits[] = $documentAyantDroit;
+            $documentAyantDroit->setDocument($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocumentAyantDroit(DocumentAyantDroit $documentAyantDroit): self
+    {
+        if ($this->documentAyantDroits->removeElement($documentAyantDroit)) {
+            // set the owning side to null (unless already changed)
+            if ($documentAyantDroit->getDocument() === $this) {
+                $documentAyantDroit->setDocument(null);
+            }
+        }
 
         return $this;
     }

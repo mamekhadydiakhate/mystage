@@ -97,9 +97,15 @@ class AyantDroit
      */
     private $lienFamilial;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DocumentAyantDroit::class, mappedBy="ayantDroit")
+     */
+    private $documentAyantDroits;
+
     public function __construct()
     {
         $this->paiements = new ArrayCollection();
+        $this->documentAyantDroits = new ArrayCollection();
     }
 
 
@@ -290,6 +296,36 @@ class AyantDroit
     public function setLienFamilial(?LienFamilial $lienFamilial): self
     {
         $this->lienFamilial = $lienFamilial;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DocumentAyantDroit[]
+     */
+    public function getDocumentAyantDroits(): Collection
+    {
+        return $this->documentAyantDroits;
+    }
+
+    public function addDocumentAyantDroit(DocumentAyantDroit $documentAyantDroit): self
+    {
+        if (!$this->documentAyantDroits->contains($documentAyantDroit)) {
+            $this->documentAyantDroits[] = $documentAyantDroit;
+            $documentAyantDroit->setAyantDroit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocumentAyantDroit(DocumentAyantDroit $documentAyantDroit): self
+    {
+        if ($this->documentAyantDroits->removeElement($documentAyantDroit)) {
+            // set the owning side to null (unless already changed)
+            if ($documentAyantDroit->getAyantDroit() === $this) {
+                $documentAyantDroit->setAyantDroit(null);
+            }
+        }
 
         return $this;
     }

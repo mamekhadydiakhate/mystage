@@ -5,9 +5,11 @@ namespace App\Model;
 use App\Entity\Agent;
 use App\Entity\AyantDroit;
 use App\Entity\Courrier;
+use App\Entity\Document;
 use App\Entity\TypeCourrier;
 use App\Entity\User;
 use App\Mapping\CourrierMapping;
+use App\Mapping\DocumentMapping;
 use App\Service\BaseService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -15,9 +17,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CourrierManager extends BaseManager{
     private $courrierMapping;
-    public function __construct(CourrierMapping $courrierMapping,BaseService $baseService, \Swift_Mailer $mailer, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $em)
+    private $documentMapping;
+    public function __construct(CourrierMapping $courrierMapping,DocumentMapping $documentMapping,BaseService $baseService, \Swift_Mailer $mailer, SerializerInterface $serializer, ValidatorInterface $validator, EntityManagerInterface $em)
     {
         $this->courrierMapping=$courrierMapping;
+        $this->documentMapping=$documentMapping;
         parent::__construct($baseService, $mailer, $serializer, $validator, $em);
     }
 
@@ -40,8 +44,27 @@ class CourrierManager extends BaseManager{
         if (!$courrier){
             return array("code"=>500,"status"=>false,"message"=>"Courrier inexistant");
         }
+        $documentCourriers=$this->em->getRepository(Document::class)->findBy(["agent"=>$id]);
         $mandataire=$this->em->getRepository(AyantDroit::class)->findOneBy(['agent'=>true,"isMantadaire"=>true]);
-        return array("code"=>200,"status"=>true,"data"=>$this->courrierMapping->hydrateCourrier($courrier,$mandataire));
+        $mineurs=$this->em->getRepository(AyantDroit::class)->getAyantDroit($id,"Mineur");
+        $majeurs=$this->em->getRepository(AyantDroit::class)->getAyantDroit($id,"Majeur incapable");
+        $tabDoc=array();
+        if ($mineurs){
+            $cal=$this->em->getRepository(Document::class)-> findDocsTypeAgent($id,"Certificat d'administration légale");
+            if ($cal){
+                $tabDoc[]=$this->documentMapping->hydrateDocument($cal[0]);
+            }else{
+                $tabDoc[]=array("libelle"=>"Certificat d'administration légale","statut"=>"Non conforme");
+            }
+        }if ($majeurs){
+            $jc=$this->em->getRepository(Document::class)-> findDocsTypeAgent($id,"Jugement de curatelle");
+            if ($jc){
+                $tabDoc[]=$this->documentMapping->hydrateDocument($jc[0]);
+            }else{
+                $tabDoc[]=array("libelle"=>"Jugement de curatelle","statut"=>"Non conforme");
+            }
+        }
+        return array("code"=>200,"status"=>true,"data"=>$this->courrierMapping->hydrateCourrier($courrier,$mandataire,$documentCourriers));
     }
     public function listeCourrier($page,$limit){
         $courriers=$this->em->getRepository(Courrier::class)->findBy([],[],$limit,($page - 1) * $limit);

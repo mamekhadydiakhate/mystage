@@ -19,6 +19,19 @@ class DocumentRepository extends ServiceEntityRepository
         parent::__construct($registry, Document::class);
     }
 
+    public function findDocsTypeAgent($idA,$typDoc)
+    {
+        return $this->createQueryBuilder('d')
+            ->innerJoin('d.typeDocument','td')
+            ->innerJoin('d.agent','a')
+            ->andWhere('a.id = :val')
+            ->andWhere('td.libelle = :lib')
+            ->setParameter('val', $idA)
+            ->setParameter('lib', $typDoc)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Document[] Returns an array of Document objects
     //  */
