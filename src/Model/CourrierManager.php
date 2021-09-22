@@ -64,7 +64,7 @@ class CourrierManager extends BaseManager{
                 $tabDoc[]=array("libelle"=>"Jugement de curatelle","statut"=>"Non conforme");
             }
         }
-        return array("code"=>200,"status"=>true,"data"=>$this->courrierMapping->hydrateCourrier($courrier,$mandataire,$documentCourriers));
+        return array("code"=>200,"status"=>true,"data"=>$this->courrierMapping->hydrateCourrier($courrier,$mandataire,$tabDoc));
     }
     public function listeCourrier($page,$limit){
         $courriers=$this->em->getRepository(Courrier::class)->findBy([],[],$limit,($page - 1) * $limit);
