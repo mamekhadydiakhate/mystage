@@ -19,6 +19,21 @@ class AyantDroitRepository extends ServiceEntityRepository
         parent::__construct($registry, AyantDroit::class);
     }
 
+    public function getAyantDroit($idAgent,$statutLegal)
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.agent','ag')
+            ->innerJoin('a.statutLegal','st')
+            ->andWhere('ag.id = :val')
+            ->andWhere('st.libelle = :lib')
+            ->setParameter('val', $idAgent)
+            ->setParameter('lib', $statutLegal)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
     // /**
     //  * @return AyantDroit[] Returns an array of AyantDroit objects
     //  */

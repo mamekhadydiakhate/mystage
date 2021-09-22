@@ -45,7 +45,7 @@ class CourrierManager extends BaseManager{
             return array("code"=>500,"status"=>false,"message"=>"Courrier inexistant");
         }
         $documentCourriers=$this->em->getRepository(Document::class)->findBy(["agent"=>$id]);
-        $mandataire=$this->em->getRepository(AyantDroit::class)->findOneBy(['agent'=>true,"isMantadaire"=>true]);
+        $mandataire=$this->em->getRepository(AyantDroit::class)->findOneBy(['agent'=>true,"isMandataire"=>true]);
         $mineurs=$this->em->getRepository(AyantDroit::class)->getAyantDroit($id,"Mineur");
         $majeurs=$this->em->getRepository(AyantDroit::class)->getAyantDroit($id,"Majeur incapable");
         $tabDoc=array();

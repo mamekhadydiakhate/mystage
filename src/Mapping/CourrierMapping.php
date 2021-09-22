@@ -99,12 +99,8 @@ class CourrierMapping extends BaseMapping{
             );
         }
         if($documentCourriers){
-            $tabTypes=array("Certificat d'administration légale"=>"Mineure",""=>"");
-            foreach ($documentCourriers as $docCourr){
-                foreach ($tabTypes as $key=>$value){
-                 //   $crr['documents'][]=$this->hydrateDocumentCourrier($docCourr, $courrier->getAgent())
-                }
-            }
+            $crr['documents']=$documentCourriers;
+
         }
         return $crr;
     }
