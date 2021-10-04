@@ -1,26 +1,30 @@
 <?php
 namespace App\Controller;
 
-use App\Model\UserManager;
-use App\Repository\GroupeRepository;
-use App\Repository\UserRepository;
-use App\Service\AccessControlService;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
 use Exception;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Monolog\Logger;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Model\UserManager;
 use App\Annotation\QMLogger;
+use App\Repository\UserRepository;
+use App\Repository\GroupeRepository;
+use App\Service\AccessControlService;
 use Psr\Container\ContainerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations\Get;
+use Symfony\Component\Routing\Route as entree;
+use FOS\RestBundle\Controller\Annotations\Post;
+use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UserController extends BaseController {
     private $userManager;
@@ -107,22 +111,25 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
 
     /**
      * @Rest\Post("/addUser")
+     * @Route("/addUser", name="user_add", methods={"POST","GET"})
      * @QMLogger(message="Ajout utilisateur")
      */
-    public function addUser(Request $request){
+    public function post(Request $request){
         $data=json_decode($request->getContent(),true);
-        return new JsonResponse($this->userManager->addUser($data));
+        return new JsonResponse($this->userManager->post($data));
     }
     /**
      * @Rest\Get("/user/{id}")
+     * @Route("/user/{id}", name="liste_user{id}", methods={"GET"})
      * @QMLogger(message="Details utilisateur")
      */
-    public function detailsUser($id){
-        return new JsonResponse($this->userManager->detailsUser($id));
+    public function get($id){
+        return new JsonResponse($this->userManager->get($id));
     }
 
     /**
      * @Rest\Get("/users")
+     * @Route("/users", name="liste_users", methods={"GET"})
      * @QMLogger(message="Liste utilisateurs")
      */
     public function listUsers(Request $request){
@@ -134,6 +141,7 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
     /**
      * @Rest\Post("/user/{id}")
      * @QMLogger(message="Modifier utilisateur")
+     * @Route("/put_user", name="put_user", methods={"PUT"})
      */
     public function modifierUtilisateur(Request $request,$id){
         $data=json_decode($request->getContent(),true);

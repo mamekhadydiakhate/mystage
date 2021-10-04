@@ -1,17 +1,22 @@
 <?php
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Profil;
+use App\Entity\Workflow;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Ldap\Ldap;
 use FOS\UserBundle\Model\User as BaseUser;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="utilisateur")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="matricule", message="Le matricule {{ value }} existe deja. Veuillez en choisir un nouveau")
+ * @UniqueEntity(fields="email", message="Le Email {{ value }} existe deja. Veuillez en choisir un nouveau")
+ * @UniqueEntity(fields="username", message="Le username {{ value }} existe deja. Veuillez en choisir un nouveau")
  */
 class User extends BaseUser 
 {
@@ -25,11 +30,6 @@ class User extends BaseUser
 
     /**
      * @var string The hashed password
-     * @Assert\Regex(
-	 *     pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=_!*()@%&]).{8,}$/",
-	 *     match=true,
-	 *     message="Votre mot de passe doit contenir au moins 8 caractères, un majuscule et un caractere speciale"
-	 * )
      */
     protected $password;
 
@@ -45,63 +45,47 @@ class User extends BaseUser
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Le nom est obligatoire")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Le prenom est obligatoire")
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Le matricule est obligatoire")
      */
     private $matricule;
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Le service est obligatoire")
      */
     private $service;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Profil::class, inversedBy="users")
-     * @Assert\NotBlank(message="Le profil est obligatoire")
+     * @ORM\ManyToOne(targetEntity=profil::class, inversedBy="users")
      */
     private $profil;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trace::class, mappedBy="user")
+     * @ORM\ManyToOne(targetEntity=workflow::class, inversedBy="users")
      */
-    private $traces;
+    private $workflow;
 
     /**
-     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Activite::class, mappedBy="user")
      */
-    private $documents;
+    private $activites;
 
     /**
-     * @ORM\OneToMany(targetEntity=Paiement::class, mappedBy="user")
+     * @ORM\ManyToOne(targetEntity=AdminPP::class, inversedBy="user")
      */
-    private $paiements;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Courrier::class, mappedBy="user")
-     */
-    private $courriers;
-
+    private $adminPP;
 
     public function __construct()
     {
-    	parent::__construct();
-     $this->traces = new ArrayCollection();
-     $this->documents = new ArrayCollection();
-     $this->paiements = new ArrayCollection();
-     $this->courriers = new ArrayCollection();
- 
+        parent::__construct();
+        $this->activites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,137 +179,80 @@ class User extends BaseUser
         return $this;
     }
 
-    public function getProfil(): ?Profil
+    public function getProfile(): ?string
     {
-        return $this->profil;
+        return $this->profile;
     }
 
-    public function setProfil(?Profil $profil): self
+   
+
+    public function setProfil(?profil $profil): self
     {
         $this->profil = $profil;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Trace[]
-     */
-    public function getTraces(): Collection
+    public function getProfil(): ?profil
     {
-        return $this->traces;
+        return $this->profil;
     }
 
-    public function addTrace(Trace $trace): self
+    public function getWorkflow(): ?workflow
     {
-        if (!$this->traces->contains($trace)) {
-            $this->traces[] = $trace;
-            $trace->setUser($this);
+        return $this->workflow;
+    }
+
+    public function setWorkflow(?workflow $workflow): self
+    {
+        $this->workflow = $workflow;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Activite[]
+     */
+    public function getActivites(): Collection
+    {
+        return $this->activites;
+    }
+
+    public function addActivite(Activite $activite): self
+    {
+        if (!$this->activites->contains($activite)) {
+            $this->activites[] = $activite;
+            $activite->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeTrace(Trace $trace): self
+    public function removeActivite(Activite $activite): self
     {
-        if ($this->traces->removeElement($trace)) {
+        if ($this->activites->removeElement($activite)) {
             // set the owning side to null (unless already changed)
-            if ($trace->getUser() === $this) {
-                $trace->setUser(null);
+            if ($activite->getUser() === $this) {
+                $activite->setUser(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|Document[]
-     */
-    public function getDocuments(): Collection
+    public function getAdminPP(): ?AdminPP
     {
-        return $this->documents;
+        return $this->adminPP;
     }
 
-    public function addDocument(Document $document): self
+    public function setAdminPP(?AdminPP $adminPP): self
     {
-        if (!$this->documents->contains($document)) {
-            $this->documents[] = $document;
-            $document->setUser($this);
-        }
+        $this->adminPP = $adminPP;
 
         return $this;
     }
 
-    public function removeDocument(Document $document): self
-    {
-        if ($this->documents->removeElement($document)) {
-            // set the owning side to null (unless already changed)
-            if ($document->getUser() === $this) {
-                $document->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Paiement[]
-     */
-    public function getPaiements(): Collection
-    {
-        return $this->paiements;
-    }
-
-    public function addPaiement(Paiement $paiement): self
-    {
-        if (!$this->paiements->contains($paiement)) {
-            $this->paiements[] = $paiement;
-            $paiement->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removePaiement(Paiement $paiement): self
-    {
-        if ($this->paiements->removeElement($paiement)) {
-            // set the owning side to null (unless already changed)
-            if ($paiement->getUser() === $this) {
-                $paiement->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Courrier[]
-     */
-    public function getCourriers(): Collection
-    {
-        return $this->courriers;
-    }
-
-    public function addCourrier(Courrier $courrier): self
-    {
-        if (!$this->courriers->contains($courrier)) {
-            $this->courriers[] = $courrier;
-            $courrier->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCourrier(Courrier $courrier): self
-    {
-        if ($this->courriers->removeElement($courrier)) {
-            // set the owning side to null (unless already changed)
-            if ($courrier->getUser() === $this) {
-                $courrier->setUser(null);
-            }
-        }
-
-        return $this;
-    }
+   
 
   
 }

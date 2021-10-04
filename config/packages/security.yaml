@@ -75,4 +75,5 @@ security:
         - { path: ^/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/check-email, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/test, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-       # - { path: ^/,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }

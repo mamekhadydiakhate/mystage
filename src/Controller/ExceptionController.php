@@ -63,8 +63,8 @@ class ExceptionController extends Controller
             file_put_contents($chemin, $this->twig->render('@Twig/Exception/exception_full.html.twig', $templateData));
             // mailer
             //contact admin
-            $to = array("binetou.diallo@orange-sonatel.com");
-            $cc = array("mohamed.sall@orange-sonatel.com", "mamadou.ndao@orange-sonatel.com","babacar.fall4@orange-sonatel.com");
+            $to = array("ddiatou1@gmail.com");
+            $cc = array("vieva03@gmail.com");
             $subject = 'Erreur de Traitement';
             $this->sendMailError($mailer, $subject, $messageOutput, $to, $cc, $chemin);
         }

@@ -30,12 +30,6 @@ class Profil
     private $libelle;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Le code est obligatoire")
-     */
-    private $code;
-
-    /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="profil")
      */
     private $users;
@@ -44,6 +38,8 @@ class Profil
     {
         $this->users = new ArrayCollection();
     }
+    
+
 
     public function getId(): ?int
     {
@@ -58,18 +54,6 @@ class Profil
     public function setLibelle(?string $libelle): self
     {
         $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
-
-    public function setCode(?string $code): self
-    {
-        $this->code = $code;
 
         return $this;
     }
@@ -103,4 +87,6 @@ class Profil
 
         return $this;
     }
+
+   
 }

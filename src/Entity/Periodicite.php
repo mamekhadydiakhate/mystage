@@ -20,18 +20,23 @@ class Periodicite
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="datetime")
      */
-    private $libelle;
+    private $dateDebut;
 
     /**
-     * @ORM\OneToMany(targetEntity=RoleDestinataire::class, mappedBy="periodicite")
+     * @ORM\Column(type="date")
      */
-    private $roleDestinataire;
+    private $dateFin;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="periodicite")
+     */
+    private $evenements;
 
     public function __construct()
     {
-        $this->roleDestinataire = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -39,42 +44,54 @@ class Periodicite
         return $this->id;
     }
 
-    public function getLibelle(): ?string
+    public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->libelle;
+        return $this->dateDebut;
     }
 
-    public function setLibelle(?string $libelle): self
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
-        $this->libelle = $libelle;
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->dateFin;
+    }
+
+    public function setDateFin(\DateTimeInterface $dateFin): self
+    {
+        $this->dateFin = $dateFin;
 
         return $this;
     }
 
     /**
-     * @return Collection|RoleDestinataire[]
+     * @return Collection|Evenement[]
      */
-    public function getRoleDestinataire(): Collection
+    public function getEvenements(): Collection
     {
-        return $this->roleDestinataire;
+        return $this->evenements;
     }
 
-    public function addRoleDestinataire(RoleDestinataire $roleDestinataire): self
+    public function addEvenement(Evenement $evenement): self
     {
-        if (!$this->roleDestinataire->contains($roleDestinataire)) {
-            $this->roleDestinataire[] = $roleDestinataire;
-            $roleDestinataire->setPeriodicite($this);
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->setPeriodicite($this);
         }
 
         return $this;
     }
 
-    public function removeRoleDestinataire(RoleDestinataire $roleDestinataire): self
+    public function removeEvenement(Evenement $evenement): self
     {
-        if ($this->roleDestinataire->removeElement($roleDestinataire)) {
+        if ($this->evenements->removeElement($evenement)) {
             // set the owning side to null (unless already changed)
-            if ($roleDestinataire->getPeriodicite() === $this) {
-                $roleDestinataire->setPeriodicite(null);
+            if ($evenement->getPeriodicite() === $this) {
+                $evenement->setPeriodicite(null);
             }
         }
 
