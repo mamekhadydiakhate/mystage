@@ -1,4 +1,1 @@
-User_add:
-    path: user_add
-    controller: App\Controller\UserlController::Post
 

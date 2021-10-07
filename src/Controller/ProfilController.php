@@ -42,7 +42,6 @@ class ProfilController extends BaseController
 
     /**
      * @Rest\Get("/profils")
-     * @Route("/profil", name="profil_liste")
      * @QMLogger(message="Liste profil")
      */
     public function Get($id){
@@ -52,7 +51,6 @@ class ProfilController extends BaseController
 
     /**
      * @Rest\Delete("/profil/{id}")
-     * @Route("/profil/{id}", name="profil_delete")
      * @QMLogger(message="Supprimer profil")
      */
     public function Delete($id){
@@ -61,7 +59,6 @@ class ProfilController extends BaseController
 
     /**
      * @Rest\Put("/profil/{id}")
-     * @Route("/profil/{id}", name="profil_modifier")
      * @QMLogger(message="Modifier profil")
      */
     public function Put($id,Request $request){

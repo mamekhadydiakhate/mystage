@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use FOS\UserBundle\Model\UserInterface;
 
 /**
  * @ORM\Table(name="utilisateur")
@@ -18,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields="email", message="Le Email {{ value }} existe deja. Veuillez en choisir un nouveau")
  * @UniqueEntity(fields="username", message="Le username {{ value }} existe deja. Veuillez en choisir un nouveau")
  */
-class User extends BaseUser 
+class User extends BaseUser implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -47,6 +48,8 @@ class User extends BaseUser
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nom;
+
+    protected $roles = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -163,6 +166,24 @@ class User extends BaseUser
     public function setMatricule(?string $matricule): self
     {
         $this->matricule = $matricule;
+
+        return $this;
+    }
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_'.$this -> profil -> getLibelle();
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

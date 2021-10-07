@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
+use Assert\NotBlank;
 use App\Entity\Difficulte;
 use App\Entity\Historique;
 use App\Entity\TrancheHoraire;
@@ -9,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\PointDeCoordination;
 use App\Repository\ActiviteRepository;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -50,6 +53,7 @@ class Activite
 
     /**
      * @ORM\ManyToOne(targetEntity=trancheHoraire::class, inversedBy="activites")
+     * @Assert\NotBlank(message="Le Tranche Horaire est obligatoire")
      */
     private $trancheHoraire;
 

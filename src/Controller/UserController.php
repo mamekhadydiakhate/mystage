@@ -14,10 +14,10 @@ use App\Service\AccessControlService;
 use Psr\Container\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use FOS\RestBundle\Controller\Annotations\Get;
-use Symfony\Component\Routing\Route as entree;
+use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Post;
-use Symfony\Component\Routing\Annotation\Route;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -111,16 +111,14 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
 
     /**
      * @Rest\Post("/addUser")
-     * @Route("/addUser", name="user_add", methods={"POST","GET"})
      * @QMLogger(message="Ajout utilisateur")
      */
-    public function post(Request $request){
+    public function adduser(Request $request){
         $data=json_decode($request->getContent(),true);
-        return new JsonResponse($this->userManager->post($data));
+        return new JsonResponse($this->userManager->adduser($data));
     }
     /**
      * @Rest\Get("/user/{id}")
-     * @Route("/user/{id}", name="liste_user{id}", methods={"GET"})
      * @QMLogger(message="Details utilisateur")
      */
     public function get($id){
@@ -128,20 +126,23 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
     }
 
     /**
-     * @Rest\Get("/users")
-     * @Route("/users", name="liste_users", methods={"GET"})
+     * @Get("/users")
      * @QMLogger(message="Liste utilisateurs")
      */
-    public function listUsers(Request $request){
+    public function listUsers(Request $request)
+    { 
         $page = $request->query->get('page', 1);
         $limit = $request->query->get('limit', getenv('LIMIT'));
+        $user = $this->getDoctrine()->getRepository(User::class)->findAll();
+
         return new JsonResponse($this->userManager->listUsers($page,$limit));
-    }
+        
+    } 
 
     /**
-     * @Rest\Post("/user/{id}")
+     * @Rest\Put("/user/{id}")
      * @QMLogger(message="Modifier utilisateur")
-     * @Route("/put_user", name="put_user", methods={"PUT"})
+     * 
      */
     public function modifierUtilisateur(Request $request,$id){
         $data=json_decode($request->getContent(),true);

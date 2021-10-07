@@ -35,18 +35,15 @@ class UserManager extends BaseManager
         $errors = $this->validator->validate($user);
         if ($errors->count()>0){
             $err = json_decode( $this->serializer->serialize($errors, 'json'),true);
-        //    $filesystem = new Filesystem();
-        //    $filesystem->remove( $userData['images_directory']."/".$user->getAvatar());
             return array("code"=>500,"status"=>false,"message"=>$err['detail']);
         }
         $this->em->persist($user);
          $data = array(
             'to' => $user->getEmail(),
-            //'cc'=>   array( 'malick.coly1@orange-sonatel.com','thiernoamadou.guiro@orange-sonatel.com','astou.lo@orange-sonatel.com','mohamed.sall@orange-sonatel.com','binetou.diallo@orange-sonatel.com',"babacar.fall4@orange-sonatel.com",'mamadou.ndao@orange-sonatel.com'),
-            'cc'=>array('amadoudieye.leye@orange-sonatel.com','babacar.fall4@orange-sonatel.com','malick.coly1@orange-sonatel.com','fatoukine.dia@orange-sonatel.com'),
-            'subject' => 'Données de connexion à la plateforme KOLEURE',
+            'cc'=>array('mamekhady.diakhate@orange-sonatel.com','genevievesébiasylvie.mendy@orange-sonatel.com'),
+            'subject' => 'Données de connexion à la plateforme suivi des activités et road map',
             'body' => 'Bonjour '.$user->getPrenom().' '.$user->getNom().',
-            <br><br>Merci de recevoir vos données d\'autentification à la plateforme KOLEURE qui vous permettront de vous connecter !'. '<br>
+            <br><br>Merci de recevoir vos données d\'autentification à la plateforme suivi des activités et road map qui vous permettront de vous connecter !'. '<br>
             <strong>Email: </strong>' . $user->getEmail() . ' <br><strong>Password: </strong>' .  $allDataUser['password'].'<br><br><br><strong>Cordialement !</strong>'
         );
         $this->baseService->sendMail($data);
