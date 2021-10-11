@@ -1,0 +1,129 @@
+<?php //%255BApp%255CEntity%255CBlockedUser%2524CLASSMETADATA%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\ClassMetadata'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\ClassMetadata')),
+        clone ($p['Doctrine\\ORM\\Id\\IdentityGenerator'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Id\\IdentityGenerator')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'App\\Entity\\BlockedUser',
+            ],
+            'namespace' => [
+                'App\\Entity',
+            ],
+            'rootEntityName' => [
+                'App\\Entity\\BlockedUser',
+            ],
+            'customRepositoryClassName' => [
+                'App\\Repository\\BlockedUserRepository',
+            ],
+            'identifier' => [
+                [
+                    'id',
+                ],
+            ],
+            'generatorType' => [
+                4,
+            ],
+            'fieldMappings' => [
+                [
+                    'id' => [
+                        'fieldName' => 'id',
+                        'type' => 'integer',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'id' => true,
+                        'columnName' => 'id',
+                    ],
+                    'commentaire' => [
+                        'fieldName' => 'commentaire',
+                        'type' => 'text',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'commentaire',
+                    ],
+                    'dateAction' => [
+                        'fieldName' => 'dateAction',
+                        'type' => 'datetime',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'date_action',
+                    ],
+                    'libelle' => [
+                        'fieldName' => 'libelle',
+                        'type' => 'string',
+                        'scale' => 0,
+                        'length' => 255,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'libelle',
+                    ],
+                ],
+            ],
+            'fieldNames' => [
+                [
+                    'id' => 'id',
+                    'commentaire' => 'commentaire',
+                    'date_action' => 'dateAction',
+                    'libelle' => 'libelle',
+                ],
+            ],
+            'columnNames' => [
+                [
+                    'id' => 'id',
+                    'commentaire' => 'commentaire',
+                    'dateAction' => 'date_action',
+                    'libelle' => 'libelle',
+                ],
+            ],
+            'table' => [
+                [
+                    'name' => 'blocked_user',
+                ],
+            ],
+            'associationMappings' => [
+                [
+                    'interimaire' => [
+                        'fieldName' => 'interimaire',
+                        'targetEntity' => 'App\\Entity\\Interimaire',
+                        'joinColumns' => [],
+                        'mappedBy' => 'blockedUser',
+                        'inversedBy' => null,
+                        'cascade' => [
+                            'persist',
+                            'remove',
+                        ],
+                        'orphanRemoval' => false,
+                        'fetch' => 2,
+                        'type' => 1,
+                        'isOwningSide' => false,
+                        'sourceEntity' => 'App\\Entity\\BlockedUser',
+                        'isCascadeRemove' => true,
+                        'isCascadePersist' => true,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                    ],
+                ],
+            ],
+            'idGenerator' => [
+                $o[1],
+            ],
+        ],
+    ],
+    $o[0],
+    []
+); }];

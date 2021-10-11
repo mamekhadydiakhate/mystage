@@ -49,15 +49,7 @@ class UserMapping extends BaseMapping {
             $this->MATRICULE_KEY=>$user->getMatricule(),
             "service"=>$user->getService(),
           "etat"=>$user->isEnabled()==true?"Actif":"Inactif"
-          /*  "fonction"=>$user->getFonction(),
-            "isManager"=>$user->getIsManager(),
-            $this->PROFIL_KEY=>array(
-                "id"=> $user->getProfil()?$user->getProfil()->getId():null,
-                $this->LIBELLE_KEY=> $user->getProfil()?$user->getProfil()->getLibelle():null,
-                "description"=> $user->getProfil()?$user->getProfil()->getDescription():null,
-                ),
-            $this->AVATAR_KEY=>$user->getAvatar()?$_ENV["API_HOST"]."/public/uploads/images/".$user->getAvatar():null,
-        */);
+          );
     }
 
 
@@ -70,11 +62,7 @@ class UserMapping extends BaseMapping {
             $this->EMAIL_KEY=>$user->getEmail(),
             $this->MATRICULE_KEY=>$user->getMatricule(),
            "etat"=>$user->isEnabled()==true?"Actif":"Inactif"
-          /*  $this->PROFIL_KEY=>array(
-                "id"=> $user->getProfil()?$user->getProfil()->getId():null,
-                $this->LIBELLE_KEY=> $user->getProfil()?$user->getProfil()->getLibelle():null,
-                "description"=> $user->getProfil()?$user->getProfil()->getDescription():null,
-                ),*/
+        
            );
     }
 
@@ -89,22 +77,7 @@ class UserMapping extends BaseMapping {
             'matricule'=>$user->getMatricule(),
             'service'=>$user->getService(),
 
-           /*     "photo"=>$user->getAvatar()?$_ENV["API_HOST"]."/public/uploads/images/".$user->getAvatar():null,
-                'poste'=>$user->getFonction(),
-                'structure'=>array(
-                    $this->ID_KEY=>$user->getStructure()?$user->getStructure()->getId():null,
-                    $this->LIBELLE_KEY=>$user->getStructure()?$user->getStructure()->getLibelle():null,
-                    'pole'=>$user->getStructure()?$user->getStructure()->getPole():null,
-                    'departement'=>$user->getStructure()?$user->getStructure()->getDepartement():null,
-                    'typeStructure'=>array(
-                       "id"=> $user->getStructure()?$user->getStructure()->getTypeStructure()->getId():null,
-                       "libelle"=>$user->getStructure()?$user->getStructure()->getTypeStructure()->getLibelle():null,
-                    )
-                ),
-               "direction"=>array(
-                   "id"=>$user->getStructure()?$user->getStructure()->getDirection()?$user->getStructure()->getDirection()->getId():null:null,
-                   "libelle"=>$user->getStructure()?$user->getStructure()->getDirection()?$user->getStructure()->getDirection()->getLibelle():null:null,
-               )*/
+         
         );
     }
 

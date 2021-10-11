@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProfilRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Profil;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Repository\ProfilRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProfilRepository::class)
@@ -15,7 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields="libelle", message="Le profil avec le libelle {{ value }} existe deja. Veuillez en choisir un nouveau")
  */
 class Profil
-{
+{                                                  
+                                                                  
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

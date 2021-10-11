@@ -1,0 +1,63 @@
+<?php //%255BFOS%255CUserBundle%255CModel%255CGroup%2524CLASSMETADATA%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\ClassMetadata'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\ClassMetadata')),
+        clone ($p['Doctrine\\ORM\\Id\\AssignedGenerator'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Id\\AssignedGenerator')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'FOS\\UserBundle\\Model\\Group',
+            ],
+            'namespace' => [
+                'FOS\\UserBundle\\Model',
+            ],
+            'rootEntityName' => [
+                'FOS\\UserBundle\\Model\\Group',
+            ],
+            'isMappedSuperclass' => [
+                true,
+            ],
+            'fieldMappings' => [
+                [
+                    'name' => [
+                        'fieldName' => 'name',
+                        'type' => 'string',
+                        'columnName' => 'name',
+                        'length' => 180,
+                        'unique' => true,
+                    ],
+                    'roles' => [
+                        'fieldName' => 'roles',
+                        'type' => 'array',
+                        'columnName' => 'roles',
+                    ],
+                ],
+            ],
+            'fieldNames' => [
+                [
+                    'name' => 'name',
+                    'roles' => 'roles',
+                ],
+            ],
+            'columnNames' => [
+                [
+                    'name' => 'name',
+                    'roles' => 'roles',
+                ],
+            ],
+            'table' => [
+                [
+                    'name' => 'group',
+                ],
+            ],
+            'idGenerator' => [
+                $o[1],
+            ],
+        ],
+    ],
+    $o[0],
+    []
+); }];

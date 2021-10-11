@@ -10,13 +10,5 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StructureController extends BaseController
 {
-    /**
-     * @Route("/structure", name="structure")
-     */
-    public function index(): Response
-    {
-        return $this->render('structure/index.html.twig', [
-            'controller_name' => 'StructureController',
-        ]);
-    }
+    
 }

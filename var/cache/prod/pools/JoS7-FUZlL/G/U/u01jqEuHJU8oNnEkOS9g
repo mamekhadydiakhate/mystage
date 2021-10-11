@@ -1,0 +1,338 @@
+<?php //%255BApp%255CEntity%255CContrat%2524CLASSMETADATA%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\ClassMetadata'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\ClassMetadata')),
+        clone ($p['Doctrine\\ORM\\Id\\IdentityGenerator'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Id\\IdentityGenerator')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'App\\Entity\\Contrat',
+            ],
+            'namespace' => [
+                'App\\Entity',
+            ],
+            'rootEntityName' => [
+                'App\\Entity\\Contrat',
+            ],
+            'customRepositoryClassName' => [
+                'App\\Repository\\ContratRepository',
+            ],
+            'identifier' => [
+                [
+                    'id',
+                ],
+            ],
+            'generatorType' => [
+                4,
+            ],
+            'fieldMappings' => [
+                [
+                    'id' => [
+                        'fieldName' => 'id',
+                        'type' => 'integer',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'id' => true,
+                        'columnName' => 'id',
+                    ],
+                    'dateDebut' => [
+                        'fieldName' => 'dateDebut',
+                        'type' => 'datetime',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'date_debut',
+                    ],
+                    'dateFin' => [
+                        'fieldName' => 'dateFin',
+                        'type' => 'datetime',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'date_fin',
+                    ],
+                    'poste' => [
+                        'fieldName' => 'poste',
+                        'type' => 'string',
+                        'scale' => 0,
+                        'length' => 255,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'poste',
+                    ],
+                    'dateSignature' => [
+                        'fieldName' => 'dateSignature',
+                        'type' => 'datetime',
+                        'scale' => 0,
+                        'length' => null,
+                        'unique' => false,
+                        'nullable' => false,
+                        'precision' => 0,
+                        'columnName' => 'date_signature',
+                    ],
+                ],
+            ],
+            'fieldNames' => [
+                [
+                    'id' => 'id',
+                    'date_debut' => 'dateDebut',
+                    'date_fin' => 'dateFin',
+                    'poste' => 'poste',
+                    'date_signature' => 'dateSignature',
+                ],
+            ],
+            'columnNames' => [
+                [
+                    'id' => 'id',
+                    'dateDebut' => 'date_debut',
+                    'dateFin' => 'date_fin',
+                    'poste' => 'poste',
+                    'dateSignature' => 'date_signature',
+                ],
+            ],
+            'table' => [
+                [
+                    'name' => 'contrat',
+                ],
+            ],
+            'associationMappings' => [
+                [
+                    'interimaire' => [
+                        'fieldName' => 'interimaire',
+                        'joinColumns' => [
+                            [
+                                'name' => 'interimaire_id',
+                                'unique' => false,
+                                'nullable' => false,
+                                'onDelete' => null,
+                                'columnDefinition' => null,
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [
+                            'persist',
+                        ],
+                        'inversedBy' => null,
+                        'targetEntity' => 'App\\Entity\\Interimaire',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Contrat',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => true,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'interimaire_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'interimaire_id' => 'interimaire_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'interimaire_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                    'structure' => [
+                        'fieldName' => 'structure',
+                        'joinColumns' => [
+                            [
+                                'name' => 'structure_id',
+                                'unique' => false,
+                                'nullable' => false,
+                                'onDelete' => null,
+                                'columnDefinition' => null,
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [],
+                        'inversedBy' => null,
+                        'targetEntity' => 'App\\Entity\\Structure',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Contrat',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'structure_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'structure_id' => 'structure_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'structure_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                    'document' => [
+                        'fieldName' => 'document',
+                        'joinColumns' => [
+                            [
+                                'name' => 'document_id',
+                                'unique' => false,
+                                'nullable' => false,
+                                'onDelete' => null,
+                                'columnDefinition' => null,
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [],
+                        'inversedBy' => null,
+                        'targetEntity' => 'App\\Entity\\Document',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Contrat',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'document_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'document_id' => 'document_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'document_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                    'categorie' => [
+                        'fieldName' => 'categorie',
+                        'joinColumns' => [
+                            [
+                                'name' => 'categorie_id',
+                                'unique' => false,
+                                'nullable' => false,
+                                'onDelete' => null,
+                                'columnDefinition' => null,
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [],
+                        'inversedBy' => null,
+                        'targetEntity' => 'App\\Entity\\Categorie',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Contrat',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'categorie_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'categorie_id' => 'categorie_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'categorie_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                    'domaine' => [
+                        'fieldName' => 'domaine',
+                        'joinColumns' => [
+                            [
+                                'name' => 'domaine_id',
+                                'unique' => false,
+                                'nullable' => false,
+                                'onDelete' => null,
+                                'columnDefinition' => null,
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [],
+                        'inversedBy' => null,
+                        'targetEntity' => 'App\\Entity\\Domaine',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Contrat',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'domaine_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'domaine_id' => 'domaine_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'domaine_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                    'societe' => [
+                        'fieldName' => 'societe',
+                        'joinColumns' => [
+                            [
+                                'name' => 'societe_id',
+                                'unique' => false,
+                                'nullable' => false,
+                                'onDelete' => null,
+                                'columnDefinition' => null,
+                                'referencedColumnName' => 'id',
+                            ],
+                        ],
+                        'cascade' => [],
+                        'inversedBy' => null,
+                        'targetEntity' => 'App\\Entity\\Societe',
+                        'fetch' => 2,
+                        'type' => 2,
+                        'mappedBy' => null,
+                        'isOwningSide' => true,
+                        'sourceEntity' => 'App\\Entity\\Contrat',
+                        'isCascadeRemove' => false,
+                        'isCascadePersist' => false,
+                        'isCascadeRefresh' => false,
+                        'isCascadeMerge' => false,
+                        'isCascadeDetach' => false,
+                        'sourceToTargetKeyColumns' => [
+                            'societe_id' => 'id',
+                        ],
+                        'joinColumnFieldNames' => [
+                            'societe_id' => 'societe_id',
+                        ],
+                        'targetToSourceKeyColumns' => [
+                            'id' => 'societe_id',
+                        ],
+                        'orphanRemoval' => false,
+                    ],
+                ],
+            ],
+            'idGenerator' => [
+                $o[1],
+            ],
+        ],
+    ],
+    $o[0],
+    []
+); }];

@@ -172,7 +172,7 @@ class ResetPasswordController extends AbstractController
         $email= (new \Swift_Message('Réinitialisation mot de passe'))
                     ->setFrom(array('no-reply@orange-sonatel.com'=>'GDI SONATEL'))
                     ->setTo($user->getEmail())
-                    ->setCc("binetou.diallo@orange-sonatel.com")
+                    ->setCc("ddiatou1@gmail.com")
                     ->setBody($this->templating->render('reset_password/email.html.twig',array(
                         'resetToken' => $resetToken,
                         'url'=>getenv('BASE_URL').$resetToken->getToken(),

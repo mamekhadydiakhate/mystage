@@ -1,0 +1,31 @@
+<?php //App%255CController%255CProfilController%2523deleteProfil
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['FOS\\RestBundle\\Controller\\Annotations\\Delete'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('FOS\\RestBundle\\Controller\\Annotations\\Delete')),
+        clone ($p['App\\Annotation\\QMLogger'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('App\\Annotation\\QMLogger')),
+    ],
+    null,
+    [
+        'Symfony\\Component\\Routing\\Annotation\\Route' => [
+            'path' => [
+                '/profil/{id}',
+            ],
+            'methods' => [
+                [
+                    'DELETE',
+                ],
+            ],
+        ],
+        'stdClass' => [
+            'message' => [
+                1 => 'Supprimer profil',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+    ],
+    []
+); }];

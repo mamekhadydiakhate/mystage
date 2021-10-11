@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PeriodiciteRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Evenement;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PeriodiciteRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=PeriodiciteRepository::class)

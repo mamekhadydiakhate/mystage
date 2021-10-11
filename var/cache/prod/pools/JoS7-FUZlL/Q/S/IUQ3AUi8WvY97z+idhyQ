@@ -1,0 +1,136 @@
+<?php //%255BFOS%255CUserBundle%255CModel%255CUser%2524CLASSMETADATA%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\ClassMetadata'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\ClassMetadata')),
+        clone ($p['Doctrine\\ORM\\Id\\AssignedGenerator'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Id\\AssignedGenerator')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'name' => [
+                'FOS\\UserBundle\\Model\\User',
+            ],
+            'namespace' => [
+                'FOS\\UserBundle\\Model',
+            ],
+            'rootEntityName' => [
+                'FOS\\UserBundle\\Model\\User',
+            ],
+            'isMappedSuperclass' => [
+                true,
+            ],
+            'fieldMappings' => [
+                [
+                    'username' => [
+                        'fieldName' => 'username',
+                        'type' => 'string',
+                        'columnName' => 'username',
+                        'length' => 180,
+                    ],
+                    'usernameCanonical' => [
+                        'fieldName' => 'usernameCanonical',
+                        'type' => 'string',
+                        'columnName' => 'username_canonical',
+                        'length' => 180,
+                        'unique' => true,
+                    ],
+                    'email' => [
+                        'fieldName' => 'email',
+                        'type' => 'string',
+                        'columnName' => 'email',
+                        'length' => 180,
+                    ],
+                    'emailCanonical' => [
+                        'fieldName' => 'emailCanonical',
+                        'type' => 'string',
+                        'columnName' => 'email_canonical',
+                        'length' => 180,
+                        'unique' => true,
+                    ],
+                    'enabled' => [
+                        'fieldName' => 'enabled',
+                        'type' => 'boolean',
+                        'columnName' => 'enabled',
+                    ],
+                    'salt' => [
+                        'fieldName' => 'salt',
+                        'type' => 'string',
+                        'columnName' => 'salt',
+                        'nullable' => true,
+                    ],
+                    'password' => [
+                        'fieldName' => 'password',
+                        'type' => 'string',
+                        'columnName' => 'password',
+                    ],
+                    'lastLogin' => [
+                        'fieldName' => 'lastLogin',
+                        'type' => 'datetime',
+                        'columnName' => 'last_login',
+                        'nullable' => true,
+                    ],
+                    'confirmationToken' => [
+                        'fieldName' => 'confirmationToken',
+                        'type' => 'string',
+                        'columnName' => 'confirmation_token',
+                        'length' => 180,
+                        'unique' => true,
+                        'nullable' => true,
+                    ],
+                    'passwordRequestedAt' => [
+                        'fieldName' => 'passwordRequestedAt',
+                        'type' => 'datetime',
+                        'columnName' => 'password_requested_at',
+                        'nullable' => true,
+                    ],
+                    'roles' => [
+                        'fieldName' => 'roles',
+                        'type' => 'array',
+                        'columnName' => 'roles',
+                    ],
+                ],
+            ],
+            'fieldNames' => [
+                [
+                    'username' => 'username',
+                    'username_canonical' => 'usernameCanonical',
+                    'email' => 'email',
+                    'email_canonical' => 'emailCanonical',
+                    'enabled' => 'enabled',
+                    'salt' => 'salt',
+                    'password' => 'password',
+                    'last_login' => 'lastLogin',
+                    'confirmation_token' => 'confirmationToken',
+                    'password_requested_at' => 'passwordRequestedAt',
+                    'roles' => 'roles',
+                ],
+            ],
+            'columnNames' => [
+                [
+                    'username' => 'username',
+                    'usernameCanonical' => 'username_canonical',
+                    'email' => 'email',
+                    'emailCanonical' => 'email_canonical',
+                    'enabled' => 'enabled',
+                    'salt' => 'salt',
+                    'password' => 'password',
+                    'lastLogin' => 'last_login',
+                    'confirmationToken' => 'confirmation_token',
+                    'passwordRequestedAt' => 'password_requested_at',
+                    'roles' => 'roles',
+                ],
+            ],
+            'table' => [
+                [
+                    'name' => 'user',
+                ],
+            ],
+            'idGenerator' => [
+                $o[1],
+            ],
+        ],
+    ],
+    $o[0],
+    []
+); }];

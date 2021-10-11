@@ -1,0 +1,3 @@
+<?php //FOS%255CUserBundle%255CModel%255CFosUserInterface%2523setUsernameCanonical
+
+return [PHP_INT_MAX, []];

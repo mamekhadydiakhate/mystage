@@ -1,0 +1,29 @@
+<?php //App%255CController%255CResetPasswordController%2523request
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Symfony\\Component\\Routing\\Annotation\\Route'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Component\\Routing\\Annotation\\Route')),
+        clone ($p['App\\Annotation\\QMLogger'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('App\\Annotation\\QMLogger')),
+    ],
+    null,
+    [
+        'Symfony\\Component\\Routing\\Annotation\\Route' => [
+            'path' => [
+                '/reinitialisationMotDePass',
+            ],
+            'name' => [
+                'app_forgot_password_request',
+            ],
+        ],
+        'stdClass' => [
+            'message' => [
+                1 => 'Demande de reinitialisation mot de pass',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+    ],
+    []
+); }];

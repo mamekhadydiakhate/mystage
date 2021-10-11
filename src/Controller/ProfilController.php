@@ -4,21 +4,18 @@
 namespace App\Controller;
 
 
-use App\Entity\Profil;
+use ApiPlatform\Core\Validator\ValidatorInterface;
 use App\Annotation\QMLogger;
 use App\Model\ProfilManager;
-use App\Controller\BaseController;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
+use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\Route;
-use FOS\RestBundle\Controller\Annotations\Delete;
-use ApiPlatform\Core\Validator\ValidatorInterface;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ProfilController extends BaseController
@@ -32,10 +29,9 @@ class ProfilController extends BaseController
 
     /**
      * @Rest\Post("/profil")
-     * @Route("/profil", name="profil_add", methods={"POST"})
      * @QMLogger(message="Ajout profil")
      */
-    public function Post(Request $request){
+    public function ajouterProfil(Request $request){
         $data=json_decode($request->getContent(),true);
         return new JsonResponse($this->profilManager->addProfil($data));
     }
@@ -44,8 +40,8 @@ class ProfilController extends BaseController
      * @Rest\Get("/profils")
      * @QMLogger(message="Liste profil")
      */
-    public function Get($id){
-        return new JsonResponse($this->profilManager->Get());
+    public function listeProfils(){
+        return new JsonResponse($this->profilManager->listProfil());
     }
 
 
@@ -53,17 +49,17 @@ class ProfilController extends BaseController
      * @Rest\Delete("/profil/{id}")
      * @QMLogger(message="Supprimer profil")
      */
-    public function Delete($id){
-        return new JsonResponse($this->profilManager->Delete($id));
+    public function deleteProfil($id){
+        return new JsonResponse($this->profilManager->deleteProfil($id));
     }
 
     /**
      * @Rest\Put("/profil/{id}")
      * @QMLogger(message="Modifier profil")
      */
-    public function Put($id,Request $request){
+    public function modifierProfil($id,Request $request){
         $data=json_decode($request->getContent(),true);
-        return new JsonResponse($this->profilManager->put($data,$id));
+        return new JsonResponse($this->profilManager->updateProfil($data,$id));
     }
 
 }

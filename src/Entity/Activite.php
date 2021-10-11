@@ -53,7 +53,6 @@ class Activite
 
     /**
      * @ORM\ManyToOne(targetEntity=trancheHoraire::class, inversedBy="activites")
-     * @Assert\NotBlank(message="Le Tranche Horaire est obligatoire")
      */
     private $trancheHoraire;
 

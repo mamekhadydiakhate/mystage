@@ -1,0 +1,31 @@
+<?php //%255BApp%255CController%255CInterimaireController%2523listeInterimParContrat%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['FOS\\RestBundle\\Controller\\Annotations\\Post'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('FOS\\RestBundle\\Controller\\Annotations\\Post')),
+        clone ($p['App\\Annotation\\QMLogger'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('App\\Annotation\\QMLogger')),
+    ],
+    null,
+    [
+        'Symfony\\Component\\Routing\\Annotation\\Route' => [
+            'path' => [
+                '/interimaires/listeInterimParContrat',
+            ],
+            'methods' => [
+                [
+                    'POST',
+                ],
+            ],
+        ],
+        'stdClass' => [
+            'message' => [
+                1 => 'Lister des interimaires par contrat',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+    ],
+    []
+); }];

@@ -22,10 +22,6 @@ class AdminPP extends User
      */
     protected $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=interim::class, inversedBy="adminPPs")
-     */
-    private $interim;
 
     /**
      * @ORM\OneToMany(targetEntity=user::class, mappedBy="adminPP")
@@ -37,23 +33,23 @@ class AdminPP extends User
      */
     private $workflow;
 
+    /**
+     * @ORM\OneToMany(targetEntity=interim::class, mappedBy="adminPP")
+     */
+    private $interim;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->interim = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getInterim(): ?interim
-    {
-        return $this->interim;
-    }
-
-    public function setInterim(?interim $interim): self
-    {
-        $this->interim = $interim;
-
-        return $this;
-    }
 
     /**
      * @return Collection|user[]
@@ -102,6 +98,36 @@ class AdminPP extends User
             // set the owning side to null (unless already changed)
             if ($workflow->getAdminPP() === $this) {
                 $workflow->setAdminPP(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|interim[]
+     */
+    public function getInterim(): Collection
+    {
+        return $this->interim;
+    }
+
+    public function addInterim(interim $interim): self
+    {
+        if (!$this->interim->contains($interim)) {
+            $this->interim[] = $interim;
+            $interim->setAdminPP($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInterim(interim $interim): self
+    {
+        if ($this->interim->removeElement($interim)) {
+            // set the owning side to null (unless already changed)
+            if ($interim->getAdminPP() === $this) {
+                $interim->setAdminPP(null);
             }
         }
 

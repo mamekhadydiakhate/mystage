@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\HistoriqueEvenement;
+use App\Entity\Commentaire;
+use App\Entity\Periodicite;
+use App\Entity\Autorite;
 use App\Repository\EvenementRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -66,7 +69,7 @@ class Evenement
     private $commentaire;
 
     /**
-     * @ORM\OneToOne(targetEntity=historiqueEvenement::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=HistoriqueEvenement::class, cascade={"persist", "remove"})
      */
     private $historiqueEvenement;
 
@@ -195,7 +198,7 @@ class Evenement
         return $this->commentaire;
     }
 
-    public function addCommentaire(commentaire $commentaire): self
+    public function addCommentaire(Commentaire $commentaire): self
     {
         if (!$this->commentaire->contains($commentaire)) {
             $this->commentaire[] = $commentaire;

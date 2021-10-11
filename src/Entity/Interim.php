@@ -2,22 +2,24 @@
 
 namespace App\Entity;
 
-use App\Repository\InterimRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
+use App\Entity\AdminPP;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\InterimRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=InterimRepository::class)
  */
-class Interim
+class Interim extends User
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -30,14 +32,11 @@ class Interim
     private $id_utilisateur;
 
     /**
-     * @ORM\OneToMany(targetEntity=AdminPP::class, mappedBy="interim")
+     * @ORM\ManyToOne(targetEntity=AdminPP::class, inversedBy="interim")
      */
-    private $adminPPs;
+    private $adminPP;
 
-    public function __construct()
-    {
-        $this->adminPPs = new ArrayCollection();
-    }
+   
 
     public function getId(): ?int
     {
@@ -68,33 +67,19 @@ class Interim
         return $this;
     }
 
-    /**
-     * @return Collection|AdminPP[]
-     */
-    public function getAdminPPs(): Collection
+    public function getAdminPP(): ?AdminPP
     {
-        return $this->adminPPs;
+        return $this->adminPP;
     }
 
-    public function addAdminPP(AdminPP $adminPP): self
+    public function setAdminPP(?AdminPP $adminPP): self
     {
-        if (!$this->adminPPs->contains($adminPP)) {
-            $this->adminPPs[] = $adminPP;
-            $adminPP->setInterim($this);
-        }
+        $this->adminPP = $adminPP;
 
         return $this;
     }
 
-    public function removeAdminPP(AdminPP $adminPP): self
-    {
-        if ($this->adminPPs->removeElement($adminPP)) {
-            // set the owning side to null (unless already changed)
-            if ($adminPP->getInterim() === $this) {
-                $adminPP->setInterim(null);
-            }
-        }
+    
 
-        return $this;
-    }
+   
 }

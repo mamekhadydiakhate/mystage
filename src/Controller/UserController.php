@@ -110,7 +110,7 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
 
 
     /**
-     * @Rest\Post("/addUser")
+     * @Rest\Post("/user")
      * @QMLogger(message="Ajout utilisateur")
      */
     public function adduser(Request $request){
@@ -121,23 +121,19 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
      * @Rest\Get("/user/{id}")
      * @QMLogger(message="Details utilisateur")
      */
-    public function get($id){
-        return new JsonResponse($this->userManager->get($id));
+    public function detailsUser($id){
+        return new JsonResponse($this->userManager->detailsUser($id));
     }
 
     /**
-     * @Get("/users")
+     * @Rest\Get("/users")
      * @QMLogger(message="Liste utilisateurs")
      */
-    public function listUsers(Request $request)
-    { 
+    public function listUsers(Request $request){
         $page = $request->query->get('page', 1);
         $limit = $request->query->get('limit', getenv('LIMIT'));
-        $user = $this->getDoctrine()->getRepository(User::class)->findAll();
-
         return new JsonResponse($this->userManager->listUsers($page,$limit));
-        
-    } 
+    }
 
     /**
      * @Rest\Put("/user/{id}")

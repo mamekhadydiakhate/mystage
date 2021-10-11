@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\PointDeCoordinationRepository;
+use App\Entity\Activite;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PointDeCoordinationRepository;
 
 /**
  * @ORM\Entity(repositoryClass=PointDeCoordinationRepository::class)

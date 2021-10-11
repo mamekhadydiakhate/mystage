@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ExtractionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Structure;
+use App\Entity\TypePeriodicite;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ExtractionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ExtractionRepository::class)
@@ -30,12 +32,12 @@ class Extraction
     private $typeExtraction;
 
     /**
-     * @ORM\OneToMany(targetEntity=structure::class, mappedBy="extraction")
+     * @ORM\OneToMany(targetEntity=Structure::class, mappedBy="extraction")
      */
     private $structure;
 
     /**
-     * @ORM\ManyToOne(targetEntity=typePeriodicite::class, inversedBy="extractions")
+     * @ORM\ManyToOne(targetEntity=TypePeriodicite::class, inversedBy="extractions")
      */
     private $typePeriodicite;
 
