@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Service;
 use App\Entity\Activite;
 use App\Entity\Evenement;
 use App\Entity\Extraction;
@@ -10,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\StructureRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=StructureRepository::class)
@@ -20,11 +22,13 @@ class Structure
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"activite:read" ,"typeService:read", "evenement:read" ,"evenement:detail"})
      */
     private $libelle;
 
@@ -48,10 +52,19 @@ class Structure
      */
     private $evenement;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TypeService::class, mappedBy="structure")
+     */
+    private $typeServices;
+
+ 
+
     public function __construct()
     {
         $this->activite = new ArrayCollection();
         $this->evenement = new ArrayCollection();
+        $this->services = new ArrayCollection();
+        $this->typeServices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -154,4 +167,36 @@ class Structure
 
         return $this;
     }
+
+    /**
+     * @return Collection|TypeService[]
+     */
+    public function getTypeServices(): Collection
+    {
+        return $this->typeServices;
+    }
+
+    public function addTypeService(TypeService $typeService): self
+    {
+        if (!$this->typeServices->contains($typeService)) {
+            $this->typeServices[] = $typeService;
+            $typeService->setStructure($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTypeService(TypeService $typeService): self
+    {
+        if ($this->typeServices->removeElement($typeService)) {
+            // set the owning side to null (unless already changed)
+            if ($typeService->getStructure() === $this) {
+                $typeService->setStructure(null);
+            }
+        }
+
+        return $this;
+    }
+
+  
 }

@@ -40,7 +40,7 @@ class ProfilController extends BaseController
      * @Rest\Get("/profils")
      * @QMLogger(message="Liste profil")
      */
-    public function listeProfils(){
+    public function listProfil(){
         return new JsonResponse($this->profilManager->listProfil());
     }
 

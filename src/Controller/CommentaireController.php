@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Commentaire;
 use App\Annotation\QMLogger;
 use App\Controller\BaseController;
+use App\Repository\EvenementRepository;
 use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -24,11 +25,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommentaireController extends BaseController
 {
     private CommentaireRepository $commentaireRepo;
+    private EvenementRepository $evenementRepo;
 
-    public function __construct(CommentaireRepository $commentaireRepo)
+
+    public function __construct(CommentaireRepository $commentaireRepo, EvenementRepository $evenementRepo)
     {
         $this->commentaireRepo = $commentaireRepo;
-        $user= new User;
+        $this->evenementRepo = $evenementRepo;
+        
+       
     }
     /**
      * @Post("/commentaire", name="commentaires")
@@ -50,6 +55,8 @@ class CommentaireController extends BaseController
         ->setTo($user->getEmail())
         ->setBody("Votre commentaire est enregistré avec succé");
     $mailer->send($message);*/
+    $evenement= $this->evenementRepo->find($request->get('evenement'));
+    $commentaire->setEvenement($evenement);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($commentaire);
         $entityManager->flush();
@@ -66,7 +73,9 @@ class CommentaireController extends BaseController
        
          $commentaires = $this->commentaireRepo->findAll();
          
-        return $this->json($commentaires);
+         $response = $this->json($commentaires, 200, [], ['groups' => 'commentaire:read']);
+
+         return $response; 
     }
       /**
      * @Get("/commentaire/{id}")
@@ -74,7 +83,9 @@ class CommentaireController extends BaseController
      */
     public function detailsCommentaire($id){
         $commentaires = $this->commentaireRepo->find($id);
-        return $this->json($commentaires);
+        $response = $this->json($commentaires, 200, [], ['groups' => 'commentaire:read']);
+
+        return $response; 
     }
 
     /**

@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\Activite;
+use App\Entity\Evenement;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\TrancheHoraireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Activite;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TrancheHoraireRepository::class)
@@ -17,6 +19,7 @@ class TrancheHoraire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"activite:read"})
      */
     private $id;
 
@@ -24,6 +27,11 @@ class TrancheHoraire
      * @ORM\OneToMany(targetEntity=Activite::class, mappedBy="trancheHoraire")
      */
     private $activites;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=evenement::class, inversedBy="trancheHoraires")
+     */
+    private $evenement;
 
     public function __construct()
     {
@@ -61,6 +69,18 @@ class TrancheHoraire
                 $activite->setTrancheHoraire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEvenement(): ?evenement
+    {
+        return $this->evenement;
+    }
+
+    public function setEvenement(?evenement $evenement): self
+    {
+        $this->evenement = $evenement;
 
         return $this;
     }

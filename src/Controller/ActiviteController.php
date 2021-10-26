@@ -7,10 +7,22 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Activite;
+use PHPJasper\PHPJasper;
+use App\Entity\Evenement;
+use App\Entity\Structure;
+use App\Entity\Difficulte;
+use App\Entity\Periodicite;
 use App\Annotation\QMLogger;
+use App\Entity\TrancheHoraire;
 use FOS\UserBundle\Mailer\Mailer;
 use App\Controller\BaseController;
+use App\Repository\UserRepository;
+use App\Entity\PointDeCoordination;
 use App\Repository\ActiviteRepository;
+use App\Repository\StructureRepository;
+use App\Repository\TrancheHoraireRepository;
+use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
@@ -26,13 +38,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ActiviteController extends BaseController
 {
     private ActiviteRepository $activiteRepo;
+    private UserRepository $userRepo;
+    private StructureRepository $structurerepo;
+    private TrancheHoraireRepository $trancheHoraireRepo;
 
-    public function __construct(ActiviteRepository $activiteRepo)
+    public function __construct(ActiviteRepository $activiteRepo ,UserRepository $userRepo ,
+                StructureRepository $structureRepo ,TrancheHoraireRepository $trancheHoraireRepo)
     {
         $this->activiteRepo = $activiteRepo;
-        $user= new User;
+        $this->userRepo = $userRepo;
+        $this->structureRepo = $structureRepo;
+        $this->trancheHoraireRepo = $trancheHoraireRepo;
+        $serializer = new Serializer();
+
     }
-    
     /**
      * @Post("/activite", name="activites")
      */
@@ -47,7 +66,20 @@ class ActiviteController extends BaseController
         
         return new JsonResponse( $errorsString ,Response::HTTP_BAD_REQUEST,[],true);
     }
-    /*$message=(new\Swift_Message)
+    $user= $this->userRepo->find($request->get('user'));
+    //$user = $this->getUser();
+    $structure= $this->structureRepo->find($request->get('structure'));
+    $trancheHoraire= $this->trancheHoraireRepo->find($request->get('trancheHoraire'));
+        $activite->setUser($user);
+        $activite->setTrancheHoraire($trancheHoraire);
+        $activite->setStructure($structure);
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($activite);
+        $entityManager->flush();
+        return new JsonResponse("succes",Response::HTTP_CREATED,[],true);
+        $message=(new\Swift_Message)
         ->setSubject('DCIRE, PILOTAGE PERFORMANCE')
         ->setFrom('xxxxx@orange-sonatel.com')
         ->setTo('ddiatou1@gmail.com')
@@ -56,11 +88,7 @@ class ActiviteController extends BaseController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($region);
         $entityManager->flush();
-     */
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($activite);
-        $entityManager->flush();
-        return new JsonResponse("succes",Response::HTTP_CREATED,[],true);
+     ;
       
     }
 
@@ -69,10 +97,11 @@ class ActiviteController extends BaseController
      */
     public function listActivite(): Response
     {
-       
-         $activites = $this->activiteRepo->findAll();
-         
-        return $this->json($activites);
+        #$activiteJson=file_get_contents("https://server/reportserver/ReportService2010.asmx?wsdl");
+        $activites = $this->activiteRepo->findAll();
+        $response = $this->json($activites, 200, [], ['groups' => 'activite:read']);
+
+        return $response;    
     }
       /**
      * @Get("/activite/{id}")
@@ -80,7 +109,10 @@ class ActiviteController extends BaseController
      */
     public function detailsactivite($id){
         $activites = $this->activiteRepo->find($id);
-        return $this->json($activites);
+        
+        $response = $this->json($activites, 200, [], ['groups' => 'activite:read']);
+
+        return $response;
         
     }
     
@@ -117,4 +149,5 @@ class ActiviteController extends BaseController
 
         return new JsonResponse($this->activiteManager->modifiActivite($id));
     }
+    
 }

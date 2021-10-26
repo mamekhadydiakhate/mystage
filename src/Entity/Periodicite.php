@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PeriodiciteRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PeriodiciteRepository::class)
@@ -22,11 +23,15 @@ class Periodicite
 
     /**
      * @ORM\Column(type="datetime")
+     * @var string A "d-m-y " formatted value
+     * @Groups({"evenement:read" ,"evenement:detail"})
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="date")
+     * @var string A "d-m-y " formatted value
+     * @Groups({"evenement:read" ,"evenement:detail"})
      */
     private $dateFin;
 

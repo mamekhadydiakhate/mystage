@@ -11,33 +11,40 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\PointDeCoordination;
 use App\Repository\ActiviteRepository;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ActiviteRepository::class)
  */
 class Activite
 {
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"difficulte:read ,pointDeCoordination:read"})
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
+     * @Groups({"activite:read"})
      */
-    private $libelle;
+    protected $libelle;
 
     /**
      * @ORM\ManyToOne(targetEntity=Structure::class, inversedBy="activite")
+     * @Groups({"activite:read"})
+     * 
      */
     private $structure;
 
     /**
      * @ORM\ManyToOne(targetEntity=user::class, inversedBy="activites")
+     * @Groups({"activite:read"})
      */
     private $user;
 
@@ -47,30 +54,33 @@ class Activite
     private $pointDeCoordination;
 
     /**
-     * @ORM\OneToMany(targetEntity=difficulte::class, mappedBy="activite")
+     * @ORM\OneToMany(targetEntity=Difficulte::class, mappedBy="activite")
      */
     private $difficulte;
 
     /**
      * @ORM\ManyToOne(targetEntity=trancheHoraire::class, inversedBy="activites")
+     * @Groups({"activite:read"})
      */
     private $trancheHoraire;
 
     /**
-     * @ORM\OneToOne(targetEntity=historique::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Historique::class, cascade={"persist", "remove"})
+     * @Groups({"activite:read"})
      */
     private $historique;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Evenement::class, mappedBy="activite")
+     */
+    private $evenements;
+
     public function __construct()
     {
-        $this->pointDeCoordination = new ArrayCollection();
-        $this->difficulte = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    
 
     public function getLibelle(): ?string
     {
@@ -180,15 +190,45 @@ class Activite
         return $this;
     }
 
-    public function getHistorique(): ?historique
+    public function getHistorique(): ?Historique
     {
         return $this->historique;
     }
 
-    public function setHistorique(?historique $historique): self
+    public function setHistorique(?Historique $historique): self
     {
         $this->historique = $historique;
 
         return $this;
     }
+
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
+
+    public function addEvenement(Evenement $evenement): self
+    {
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->addActivite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenement $evenement): self
+    {
+        if ($this->evenements->removeElement($evenement)) {
+            $evenement->removeActivite($this);
+        }
+
+        return $this;
+    }
+
+
+    
 }

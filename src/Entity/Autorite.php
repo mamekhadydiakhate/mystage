@@ -6,11 +6,12 @@ use App\Entity\Personne;
 use App\Entity\Evenement;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AutoriteRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AutoriteRepository::class)
  */
-class Autorite extends Personne
+class Autorite 
 {
     /**
      * @ORM\Id
@@ -19,13 +20,29 @@ class Autorite extends Personne
      */
     private $id;
 
+
+   
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"autorite:read"})
      */
-    private $id_personne;
+    private $nom;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="autorite")
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"autorite:read"})
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"autorite:read"})
+     */
+    private $fonction;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=evenement::class, inversedBy="autorites")
+     * @Groups({"autorite:read"})
      */
     private $evenement;
 
@@ -34,24 +51,50 @@ class Autorite extends Personne
         return $this->id;
     }
 
-    public function getIdPersonne(): ?string
+    
+
+    public function getNom(): ?string
     {
-        return $this->id_personne;
+        return $this->nom;
     }
 
-    public function setIdPersonne(string $id_personne): self
+    public function setNom(string $nom): self
     {
-        $this->id_personne = $id_personne;
+        $this->nom = $nom;
 
         return $this;
     }
 
-    public function getEvenement(): ?Evenement
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getFonction(): ?string
+    {
+        return $this->fonction;
+    }
+
+    public function setFonction(string $fonction): self
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    public function getEvenement(): ?evenement
     {
         return $this->evenement;
     }
 
-    public function setEvenement(?Evenement $evenement): self
+    public function setEvenement(?evenement $evenement): self
     {
         $this->evenement = $evenement;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Activite;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\DifficulteRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=DifficulteRepository::class)
@@ -19,24 +20,34 @@ class Difficulte
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
+     * @Groups({"difficulte:read"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @var string A "d-m-y " formatted value
+     * @Groups({"difficulte:read"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"difficulte:read"})
      */
     private $cause;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Activite::class, inversedBy="difficulte")
+     * @ORM\ManyToOne(targetEntity=Activite::class, inversedBy="difficulte" ,cascade="persist")
+     * @Groups({"difficulte:read"})
      */
     private $activite;
+
+    public function __constructor()
+    {
+        //$this->createdAt = new \Datetime();
+    }
 
     public function getId(): ?int
     {

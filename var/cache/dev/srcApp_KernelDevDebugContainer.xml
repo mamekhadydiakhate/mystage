@@ -202,7 +202,7 @@
         <parameter>ROLE_USER</parameter>
       </parameter>
       <parameter key="ROLE_SUPER_ADMIN" type="collection">
-        <parameter>ROLE_ADMIN</parameter>
+        <parameter>ROLE_PP</parameter>
       </parameter>
     </parameter>
     <parameter key="security.access.denied_url">null</parameter>
@@ -598,22 +598,13 @@
     <service id="App\Controller\ActiviteController" class="App\Controller\ActiviteController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <argument type="service" id="App\Repository\ActiviteRepository"/>
-    </service>
-    <service id="App\Controller\AdminPPController" class="App\Controller\AdminPPController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
-      <argument type="service" id="swiftmailer.mailer.default"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="api_platform.validator"/>
+      <argument type="service" id="App\Repository\UserRepository"/>
+      <argument type="service" id="App\Repository\StructureRepository"/>
+      <argument type="service" id="App\Repository\TrancheHoraireRepository"/>
     </service>
     <service id="App\Controller\AutoriteController" class="App\Controller\AutoriteController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
-      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
-      <argument type="service" id="swiftmailer.mailer.default"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="api_platform.validator"/>
+      <argument type="service" id="App\Repository\AutoriteRepository"/>
     </service>
     <service id="App\Controller\BaseController" class="App\Controller\BaseController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -626,14 +617,22 @@
     <service id="App\Controller\CommentaireController" class="App\Controller\CommentaireController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <argument type="service" id="App\Repository\CommentaireRepository"/>
+      <argument type="service" id="App\Repository\EvenementRepository"/>
     </service>
     <service id="App\Controller\DifficulteController" class="App\Controller\DifficulteController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <argument type="service" id="App\Repository\DifficulteRepository"/>
+      <argument type="service" id="App\Repository\ActiviteRepository"/>
     </service>
     <service id="App\Controller\EvenementController" class="App\Controller\EvenementController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
+      <argument type="service" id="App\Repository\ActiviteRepository"/>
+      <argument type="service" id="App\Repository\UserRepository"/>
       <argument type="service" id="App\Repository\EvenementRepository"/>
+      <argument type="service" id="App\Repository\PeriodiciteRepository"/>
+      <argument type="service" id="App\Repository\StructureRepository"/>
+      <argument type="service" id="App\Repository\TrancheHoraireRepository"/>
+      <argument type="service" id="App\Repository\HistoriqueEvenementRepository"/>
     </service>
     <service id="App\Controller\ExceptionController" class="App\Controller\ExceptionController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -652,6 +651,7 @@
     </service>
     <service id="App\Controller\HistoriqueController" class="App\Controller\HistoriqueController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
+      <argument type="service" id="App\Model\HistoriqueManager"/>
       <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
       <argument type="service" id="swiftmailer.mailer.default"/>
       <argument type="service" id="security.token_storage"/>
@@ -672,15 +672,12 @@
     </service>
     <service id="App\Controller\PeriodiciteController" class="App\Controller\PeriodiciteController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
-      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
-      <argument type="service" id="swiftmailer.mailer.default"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="api_platform.validator"/>
+      <argument type="service" id="App\Repository\PeriodiciteRepository"/>
     </service>
     <service id="App\Controller\PointDeCoordinationController" class="App\Controller\PointDeCoordinationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <argument type="service" id="App\Repository\PointDeCoordinationRepository"/>
+      <argument type="service" id="App\Repository\ActiviteRepository"/>
     </service>
     <service id="App\Controller\ProfilController" class="App\Controller\ProfilController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -704,19 +701,11 @@
     </service>
     <service id="App\Controller\StructureController" class="App\Controller\StructureController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
-      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
-      <argument type="service" id="swiftmailer.mailer.default"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="api_platform.validator"/>
+      <argument type="service" id="App\Repository\StructureRepository"/>
     </service>
     <service id="App\Controller\TrancheHoraireController" class="App\Controller\TrancheHoraireController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
-      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
-      <argument type="service" id="swiftmailer.mailer.default"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="doctrine.orm.default_entity_manager"/>
-      <argument type="service" id="api_platform.validator"/>
+      <argument type="service" id="App\Repository\TrancheHoraireRepository"/>
     </service>
     <service id="App\Controller\TypePeriodiciteController" class="App\Controller\TypePeriodiciteController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -725,6 +714,15 @@
       <argument type="service" id="security.token_storage"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <argument type="service" id="api_platform.validator"/>
+    </service>
+    <service id="App\Controller\TypeServiceController" class="App\Controller\TypeServiceController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="App\Repository\TypeServiceRepository"/>
+      <argument type="service" id="App\Repository\StructureRepository"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\TypeServiceController"/>
+      </call>
     </service>
     <service id="App\Controller\TypeStructureController" class="App\Controller\TypeStructureController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
@@ -776,6 +774,9 @@
     <service id="App\Form\EvenementType" class="App\Form\EvenementType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\PeriodiciteType" class="App\Form\PeriodiciteType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\PointDeCoordinationType" class="App\Form\PointDeCoordinationType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -797,6 +798,14 @@
       <argument type="service" id="monolog.logger.trace"/>
     </service>
     <service id="App\Mapping\BaseMapping" class="App\Mapping\BaseMapping" autowire="true" autoconfigure="true">
+      <argument type="service" id="swiftmailer.mailer.default"/>
+      <argument type="service" id="App\Service\BaseService"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <argument type="service" id="api_platform.validator"/>
+      <argument type="service" id="serializer"/>
+      <argument type="service" id="security.user_password_encoder.generic"/>
+    </service>
+    <service id="App\Mapping\HistoriqueMapping" class="App\Mapping\HistoriqueMapping" autowire="true" autoconfigure="true">
       <argument type="service" id="swiftmailer.mailer.default"/>
       <argument type="service" id="App\Service\BaseService"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
@@ -827,6 +836,15 @@
       <argument type="service" id="debug.validator"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
+    <service id="App\Model\HistoriqueManager" class="App\Model\HistoriqueManager" autowire="true" autoconfigure="true">
+      <argument type="service" id="App\Mapping\HistoriqueMapping"/>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="App\Service\BaseService"/>
+      <argument type="service" id="swiftmailer.mailer.default"/>
+      <argument type="service" id="serializer"/>
+      <argument type="service" id="debug.validator"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+    </service>
     <service id="App\Model\ProfilManager" class="App\Model\ProfilManager" autowire="true" autoconfigure="true">
       <argument type="service" id="App\Repository\ProfilRepository"/>
       <argument type="service" id="App\Mapping\ProfilMapping"/>
@@ -846,10 +864,6 @@
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
     </service>
     <service id="App\Repository\ActiviteRepository" class="App\Repository\ActiviteRepository" autowire="true" autoconfigure="true">
-      <tag name="doctrine.repository_service"/>
-      <argument type="service" id="doctrine"/>
-    </service>
-    <service id="App\Repository\AdminPPRepository" class="App\Repository\AdminPPRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -914,6 +928,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\TypePeriodiciteRepository" class="App\Repository\TypePeriodiciteRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\TypeServiceRepository" class="App\Repository\TypeServiceRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1436,6 +1454,7 @@
         <argument>App\Form\CommentaireType</argument>
         <argument>App\Form\DifficulteType</argument>
         <argument>App\Form\EvenementType</argument>
+        <argument>App\Form\PeriodiciteType</argument>
         <argument>App\Form\PointDeCoordinationType</argument>
         <argument>App\Form\ResetPasswordRequestFormType</argument>
         <argument>App\Form\UserType</argument>
@@ -1788,7 +1807,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.PtzF6u_"/>
+      <argument type="service" id=".service_locator.HZwx3xW"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5330,6 +5349,27 @@
         <argument>null</argument>
       </call>
       <call method="add">
+        <argument type="service" id=".security.request_matcher.KXLSmyF"/>
+        <argument type="collection">
+          <argument>ROLE_PP</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.E.aiz.V"/>
+        <argument type="collection">
+          <argument>ROLE_PP</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.Eu0DWwU"/>
+        <argument type="collection">
+          <argument>ROLE_PP</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
         <argument type="service" id=".security.request_matcher.56Qk46c"/>
         <argument type="collection">
           <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
@@ -5367,7 +5407,7 @@
       <call method="add">
         <argument type="service" id=".security.request_matcher.5dJADCx"/>
         <argument type="collection">
-          <argument>ROLE_ADMIN</argument>
+          <argument>ROLE_PP</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -6150,6 +6190,15 @@
     <service id=".security.request_matcher.eKXDm4f" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/login$</argument>
     </service>
+    <service id=".security.request_matcher.KXLSmyF" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/addUser</argument>
+    </service>
+    <service id=".security.request_matcher.E.aiz.V" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/interim</argument>
+    </service>
+    <service id=".security.request_matcher.Eu0DWwU" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/addInterim</argument>
+    </service>
     <service id=".security.request_matcher.56Qk46c" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/reinitialisationMotDePass</argument>
     </service>
@@ -6333,7 +6382,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.RU5yIRt"/>
+      <argument type="service" id=".service_locator.fQMl_DR"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7584,7 +7633,7 @@
       <tag name="console.command" command="server:run"/>
       <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back/public</argument>
       <argument>dev</argument>
-      <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back</argument>
+      <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back/var/cache</argument>
       <call method="setName">
         <argument>server:run</argument>
       </call>
@@ -7593,21 +7642,21 @@
       <tag name="console.command" command="server:start"/>
       <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back/public</argument>
       <argument>dev</argument>
-      <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back</argument>
+      <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back/var/cache</argument>
       <call method="setName">
         <argument>server:start</argument>
       </call>
     </service>
     <service id="web_server.command.server_stop" class="Symfony\Bundle\WebServerBundle\Command\ServerStopCommand" public="false">
       <tag name="console.command" command="server:stop"/>
-      <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back</argument>
+      <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back/var/cache</argument>
       <call method="setName">
         <argument>server:stop</argument>
       </call>
     </service>
     <service id="web_server.command.server_status" class="Symfony\Bundle\WebServerBundle\Command\ServerStatusCommand" public="false">
       <tag name="console.command" command="server:status"/>
-      <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back</argument>
+      <argument>/home/mkd/Bureau/STAGE-SONATEL/Roadmap-Suivi-DCIRE-Back/var/cache</argument>
       <call method="setName">
         <argument>server:status</argument>
       </call>
@@ -8419,8 +8468,6 @@
     </service>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\ActiviteController" class="App\Controller\ActiviteController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ActiviteController" class="App\Controller\ActiviteController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\AdminPPController" class="App\Controller\AdminPPController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\AdminPPController" class="App\Controller\AdminPPController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\AutoriteController" class="App\Controller\AutoriteController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AutoriteController" class="App\Controller\AutoriteController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\BaseController" class="App\Controller\BaseController" autowire="true" abstract="true"/>
@@ -8454,6 +8501,9 @@
     <service id=".abstract.instanceof.App\Controller\TrancheHoraireController" class="App\Controller\TrancheHoraireController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\TypePeriodiciteController" class="App\Controller\TypePeriodiciteController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\TypePeriodiciteController" class="App\Controller\TypePeriodiciteController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\TypeServiceController" class="App\Controller\TypeServiceController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\TypeServiceController" class="App\Controller\TypeServiceController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\TypeServiceController" class="App\Controller\TypeServiceController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\TypeStructureController" class="App\Controller\TypeStructureController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\TypeStructureController" class="App\Controller\TypeStructureController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
@@ -8474,6 +8524,8 @@
     <service id=".abstract.instanceof.App\Form\DifficulteType" class="App\Form\DifficulteType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\EvenementType" class="App\Form\EvenementType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\EvenementType" class="App\Form\EvenementType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PeriodiciteType" class="App\Form\PeriodiciteType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\PeriodiciteType" class="App\Form\PeriodiciteType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PointDeCoordinationType" class="App\Form\PointDeCoordinationType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\PointDeCoordinationType" class="App\Form\PointDeCoordinationType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetPasswordRequestFormType" class="App\Form\ResetPasswordRequestFormType" autowire="true" abstract="true"/>
@@ -8482,8 +8534,6 @@
     <service id=".abstract.instanceof.App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ActiviteRepository" class="App\Repository\ActiviteRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ActiviteRepository" class="App\Repository\ActiviteRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AdminPPRepository" class="App\Repository\AdminPPRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\AdminPPRepository" class="App\Repository\AdminPPRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AutoriteRepository" class="App\Repository\AutoriteRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AutoriteRepository" class="App\Repository\AutoriteRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CommentaireRepository" class="App\Repository\CommentaireRepository" autowire="true" abstract="true"/>
@@ -8516,6 +8566,8 @@
     <service id=".abstract.instanceof.App\Repository\TrancheHoraireRepository" class="App\Repository\TrancheHoraireRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypePeriodiciteRepository" class="App\Repository\TypePeriodiciteRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TypePeriodiciteRepository" class="App\Repository\TypePeriodiciteRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypeServiceRepository" class="App\Repository\TypeServiceRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\TypeServiceRepository" class="App\Repository\TypeServiceRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TypeStructureRepository" class="App\Repository\TypeStructureRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\TypeStructureRepository" class="App\Repository\TypeStructureRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
@@ -8816,6 +8868,12 @@
         <argument key="viewhandler" type="service_closure" id="fos_rest.view_handler.default"/>
       </argument>
     </service>
+    <service id=".service_locator.BuqDmxr" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="serializer" type="service_closure" id="serializer"/>
+      </argument>
+    </service>
     <service id=".service_locator.kAC5Tn3" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8854,12 +8912,13 @@
         <argument key="validator" type="service_closure" id="debug.validator"/>
       </argument>
     </service>
-    <service id=".service_locator.Sa209mo" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.vw9IAYH" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ActiviteController::addActivite" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\ActiviteController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
-        <argument key="App\Controller\AdminPPController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
+        <argument key="App\Controller\AutoriteController::addAutorite" type="service_closure" id=".service_locator.xnfyvpp"/>
+        <argument key="App\Controller\AutoriteController::modifiAutorite" type="service_closure" id=".service_locator.BuqDmxr"/>
         <argument key="App\Controller\AutoriteController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\BaseController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\CommentaireController::addCommentaire" type="service_closure" id=".service_locator.xnfyvpp"/>
@@ -8875,15 +8934,19 @@
         <argument key="App\Controller\HistoriqueEvenementController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\InterimController::addInterim" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\InterimController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
+        <argument key="App\Controller\PeriodiciteController::addPeriodicite" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\PeriodiciteController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\PointDeCoordinationController::addPointDeCoordination" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\PointDeCoordinationController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\ProfilController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\ResetPasswordController::request" type="service_closure" id=".service_locator.iP8eVIx"/>
         <argument key="App\Controller\ResetPasswordController::reset" type="service_closure" id=".service_locator.l3CkAjY"/>
+        <argument key="App\Controller\StructureController::addStructure" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\StructureController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
+        <argument key="App\Controller\TrancheHoraireController::addTrancheHoraire" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\TrancheHoraireController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\TypePeriodiciteController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
+        <argument key="App\Controller\TypeServiceController::addTypeService" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\TypeStructureController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\UserController::passwordChange" type="service_closure" id=".service_locator.JXu6UWV"/>
         <argument key="App\Controller\UserController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
@@ -8891,7 +8954,8 @@
         <argument key="App\Controller\WorkflowController::setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\ActiviteController:addActivite" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\ActiviteController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
-        <argument key="App\Controller\AdminPPController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
+        <argument key="App\Controller\AutoriteController:addAutorite" type="service_closure" id=".service_locator.xnfyvpp"/>
+        <argument key="App\Controller\AutoriteController:modifiAutorite" type="service_closure" id=".service_locator.BuqDmxr"/>
         <argument key="App\Controller\AutoriteController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\BaseController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\CommentaireController:addCommentaire" type="service_closure" id=".service_locator.xnfyvpp"/>
@@ -8907,15 +8971,19 @@
         <argument key="App\Controller\HistoriqueEvenementController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\InterimController:addInterim" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\InterimController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
+        <argument key="App\Controller\PeriodiciteController:addPeriodicite" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\PeriodiciteController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\PointDeCoordinationController:addPointDeCoordination" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\PointDeCoordinationController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\ProfilController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\ResetPasswordController:request" type="service_closure" id=".service_locator.iP8eVIx"/>
         <argument key="App\Controller\ResetPasswordController:reset" type="service_closure" id=".service_locator.l3CkAjY"/>
+        <argument key="App\Controller\StructureController:addStructure" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\StructureController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
+        <argument key="App\Controller\TrancheHoraireController:addTrancheHoraire" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\TrancheHoraireController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\TypePeriodiciteController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
+        <argument key="App\Controller\TypeServiceController:addTypeService" type="service_closure" id=".service_locator.xnfyvpp"/>
         <argument key="App\Controller\TypeStructureController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
         <argument key="App\Controller\UserController:passwordChange" type="service_closure" id=".service_locator.JXu6UWV"/>
         <argument key="App\Controller\UserController:setViewHandler" type="service_closure" id=".service_locator.RGIiAl4"/>
@@ -8982,7 +9050,7 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.PtzF6u_" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.HZwx3xW" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\ActiviteType" type="service_closure" id="App\Form\ActiviteType"/>
@@ -8991,6 +9059,7 @@
         <argument key="App\Form\CommentaireType" type="service_closure" id="App\Form\CommentaireType"/>
         <argument key="App\Form\DifficulteType" type="service_closure" id="App\Form\DifficulteType"/>
         <argument key="App\Form\EvenementType" type="service_closure" id="App\Form\EvenementType"/>
+        <argument key="App\Form\PeriodiciteType" type="service_closure" id="App\Form\PeriodiciteType"/>
         <argument key="App\Form\PointDeCoordinationType" type="service_closure" id="App\Form\PointDeCoordinationType"/>
         <argument key="App\Form\ResetPasswordRequestFormType" type="service_closure" id="App\Form\ResetPasswordRequestFormType"/>
         <argument key="App\Form\UserType" type="service_closure" id="App\Form\UserType"/>
@@ -9027,11 +9096,10 @@
         <argument key="fos_user.user_listener" type="service_closure" id="fos_user.user_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.RU5yIRt" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.fQMl_DR" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ActiviteRepository" type="service_closure" id="App\Repository\ActiviteRepository"/>
-        <argument key="App\Repository\AdminPPRepository" type="service_closure" id="App\Repository\AdminPPRepository"/>
         <argument key="App\Repository\AutoriteRepository" type="service_closure" id="App\Repository\AutoriteRepository"/>
         <argument key="App\Repository\CommentaireRepository" type="service_closure" id="App\Repository\CommentaireRepository"/>
         <argument key="App\Repository\DifficulteRepository" type="service_closure" id="App\Repository\DifficulteRepository"/>
@@ -9048,6 +9116,7 @@
         <argument key="App\Repository\StructureRepository" type="service_closure" id="App\Repository\StructureRepository"/>
         <argument key="App\Repository\TrancheHoraireRepository" type="service_closure" id="App\Repository\TrancheHoraireRepository"/>
         <argument key="App\Repository\TypePeriodiciteRepository" type="service_closure" id="App\Repository\TypePeriodiciteRepository"/>
+        <argument key="App\Repository\TypeServiceRepository" type="service_closure" id="App\Repository\TypeServiceRepository"/>
         <argument key="App\Repository\TypeStructureRepository" type="service_closure" id="App\Repository\TypeStructureRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
         <argument key="App\Repository\WorkflowRepository" type="service_closure" id="App\Repository\WorkflowRepository"/>
@@ -9211,6 +9280,12 @@
     <service id=".service_locator.vdmMuyE.App\Controller\ResetPasswordController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\ResetPasswordController"/>
       <argument>App\Controller\ResetPasswordController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\TypeServiceController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\TypeServiceController"/>
+      <argument>App\Controller\TypeServiceController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
@@ -9390,12 +9465,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.Sa209mo"/>
+      <argument type="service" id=".service_locator.vw9IAYH"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.Sa209mo"/>
+      <argument type="service" id=".service_locator.vw9IAYH"/>
     </service>
     <service id="api_platform.serializer.mapping.class_metadata_factory.inner" class="Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory" public="false">
       <argument type="service" id="serializer.mapping.chain_loader"/>
@@ -10026,7 +10101,7 @@
     <service id="Swift_Mailer" alias="swiftmailer.mailer.default" public="false"/>
     <service id="Swift_Transport" alias="swiftmailer.mailer.default.transport.smtp" public="false"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.Sa209mo"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.vw9IAYH"/>
     <service id="Symfony\Component\Templating\EngineInterface" alias="templating.engine.delegating" public="false"/>
     <service id="Symfony\Bundle\FrameworkBundle\Templating\EngineInterface" alias="templating.engine.delegating" public="false"/>
     <service id="fos_rest.serializer" alias="fos_rest.serializer.symfony"/>

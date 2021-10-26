@@ -22,6 +22,9 @@ class EvenementType extends AbstractType
             ->add('structure')
             ->add('historiqueEvenement')
             ->add('periodicite')
+            ->add('Autorite')
+            ->add('Commentaire')
+            
         ;
     }
 

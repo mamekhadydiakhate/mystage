@@ -10,7 +10,7 @@ if (in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
 }
 
 require dirname(__DIR__, 3).'/vendor/autoload.php';
-require __DIR__.'/ContainerSNOcyVK/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerHd3otmh/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -37,7 +37,6 @@ $classes[] = 'Symfony\Bundle\FrameworkBundle\EventListener\ResolveControllerName
 $classes[] = 'Symfony\Component\HttpFoundation\RequestMatcher';
 $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
 $classes[] = 'App\Controller\ActiviteController';
-$classes[] = 'App\Controller\AdminPPController';
 $classes[] = 'App\Controller\AutoriteController';
 $classes[] = 'App\Controller\BaseController';
 $classes[] = 'App\Controller\CommentaireController';
@@ -46,6 +45,8 @@ $classes[] = 'App\Controller\EvenementController';
 $classes[] = 'App\Controller\ExceptionController';
 $classes[] = 'App\Controller\ExtractionController';
 $classes[] = 'App\Controller\HistoriqueController';
+$classes[] = 'App\Model\HistoriqueManager';
+$classes[] = 'App\Mapping\HistoriqueMapping';
 $classes[] = 'App\Controller\HistoriqueEvenementController';
 $classes[] = 'App\Controller\InterimController';
 $classes[] = 'App\Controller\PeriodiciteController';
@@ -60,6 +61,7 @@ $classes[] = 'SymfonyCasts\Bundle\ResetPassword\Generator\ResetPasswordRandomGen
 $classes[] = 'App\Controller\StructureController';
 $classes[] = 'App\Controller\TrancheHoraireController';
 $classes[] = 'App\Controller\TypePeriodiciteController';
+$classes[] = 'App\Controller\TypeServiceController';
 $classes[] = 'App\Controller\TypeStructureController';
 $classes[] = 'App\Controller\UserController';
 $classes[] = 'App\Model\UserManager';
@@ -71,12 +73,12 @@ $classes[] = 'App\Form\ChangePasswordFormType';
 $classes[] = 'App\Form\CommentaireType';
 $classes[] = 'App\Form\DifficulteType';
 $classes[] = 'App\Form\EvenementType';
+$classes[] = 'App\Form\PeriodiciteType';
 $classes[] = 'App\Form\PointDeCoordinationType';
 $classes[] = 'App\Form\ResetPasswordRequestFormType';
 $classes[] = 'App\Form\UserType';
 $classes[] = 'App\Listener\ExceptionListener';
 $classes[] = 'App\Repository\ActiviteRepository';
-$classes[] = 'App\Repository\AdminPPRepository';
 $classes[] = 'App\Repository\AutoriteRepository';
 $classes[] = 'App\Repository\CommentaireRepository';
 $classes[] = 'App\Repository\DifficulteRepository';
@@ -93,6 +95,7 @@ $classes[] = 'App\Repository\ResetPasswordRequestRepository';
 $classes[] = 'App\Repository\StructureRepository';
 $classes[] = 'App\Repository\TrancheHoraireRepository';
 $classes[] = 'App\Repository\TypePeriodiciteRepository';
+$classes[] = 'App\Repository\TypeServiceRepository';
 $classes[] = 'App\Repository\TypeStructureRepository';
 $classes[] = 'App\Repository\UserRepository';
 $classes[] = 'App\Repository\WorkflowRepository';

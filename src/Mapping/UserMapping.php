@@ -8,10 +8,11 @@ class UserMapping extends BaseMapping {
     public function createUser($data){
          $user=new User();
          $user=$this->setUserData($data,$user);
-         $user->setUsername(strtolower($data['prenom'])."".strtolower($data["nom"]).$this->genererChiffre(3));
+        $user->setUsername(strtolower($data["nom"]).$this->genererChiffre(4));
       //  $user->setProfil(isset($data['profil'])?$data['profil']:null);
         $user->setEnabled(true);
-        $password=$this->genererPassword(8);
+       # $password=$this->genererPassword(8);
+       $password= 'passer';
         $user->setPassword($this->encoder->encodePassword($user,$password));
         $retour["user"]=$user;
         $retour["password"]=$password;

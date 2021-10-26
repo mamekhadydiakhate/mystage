@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Annotation\QMLogger;
 use App\Controller\BaseController;
 use App\Entity\PointDeCoordination;
+use App\Repository\ActiviteRepository;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
@@ -24,11 +25,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PointDeCoordinationController extends BaseController
 {
     private PointDeCoordinationRepository $pointDeCoordinationRepo;
+    private ActiviteRepository $activiteRepo;
 
-    public function __construct(PointDeCoordinationRepository $pointDeCoordinationRepo)
+    public function __construct(PointDeCoordinationRepository $pointDeCoordinationRepo, ActiviteRepository $activiteRepo)
     {
         $this->pointDeCoordinationRepo = $pointDeCoordinationRepo;
-        $user= new User;
+        $this->activiteRepo = $activiteRepo;
     }
     /**
      * @Post("/pointDeCoordination", name="pointDeCoordinations")
@@ -50,6 +52,8 @@ class PointDeCoordinationController extends BaseController
         ->setTo($user->getEmail())
         ->setBody("Votre activité est enregistré avec succé");
     $mailer->send($message);*/
+    $activite= $this->activiteRepo->find($request->get('activite'));
+    $pointDeCoordination->setActivite($activite);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($region);
         $entityManager->flush();
@@ -65,8 +69,9 @@ class PointDeCoordinationController extends BaseController
     {
        
          $pointDeCoordinations = $this->pointDeCoordinationRepo->findAll();
-         
-        return $this->json($pointDeCoordinations);
+         $response = $this->json($pointDeCoordinations, 200, [], ['groups' => 'pointDeCoordination:read']);
+
+        return $response; 
     }
       /**
      * @Get("PointDeCoordination/{id}")

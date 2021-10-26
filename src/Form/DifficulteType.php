@@ -13,7 +13,6 @@ class DifficulteType extends AbstractType
     {
         $builder
             ->add('description')
-            ->add('createdAt')
             ->add('cause')
             ->add('activite')
         ;

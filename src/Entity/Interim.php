@@ -7,10 +7,12 @@ use App\Entity\AdminPP;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\InterimRepository;
 use Doctrine\Common\Collections\Collection;
+use FOS\RestBundle\Controller\Annotations\Post;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=InterimRepository::class)
+ * Post(Role("ROLE_PP"))
  */
 class Interim extends User
 {
@@ -31,10 +33,7 @@ class Interim extends User
      */
     private $id_utilisateur;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=AdminPP::class, inversedBy="interim")
-     */
-    private $adminPP;
+   
 
    
 
@@ -67,18 +66,7 @@ class Interim extends User
         return $this;
     }
 
-    public function getAdminPP(): ?AdminPP
-    {
-        return $this->adminPP;
-    }
-
-    public function setAdminPP(?AdminPP $adminPP): self
-    {
-        $this->adminPP = $adminPP;
-
-        return $this;
-    }
-
+    
     
 
    

@@ -5,15 +5,18 @@ use App\Entity\Profil;
 use App\Entity\Workflow;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Ldap\Ldap;
+use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\Common\Collections\Collection;
+use FOS\RestBundle\Controller\Annotations\Post;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use FOS\UserBundle\Model\UserInterface;
 
 /**
  * @ORM\Table(name="utilisateur")
+ * Post(Role("ROLE_PP"))
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="matricule", message="Le matricule {{ value }} existe deja. Veuillez en choisir un nouveau")
  * @UniqueEntity(fields="email", message="Le Email {{ value }} existe deja. Veuillez en choisir un nouveau")
@@ -31,6 +34,7 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @var string The hashed password
+     * 
      */
     protected $password;
 
@@ -46,6 +50,7 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user:read" ,"activite:read" ,"evenement:read" ,"evenement:detail"})
      */
     private $nom;
 
@@ -53,11 +58,14 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user:read" ,"activite:read" ,"evenement:read" ,"evenement:detail"})
+     * 
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user:read", "activite:read" ,"evenement:detail"})
      */
     private $matricule;
     /**
@@ -67,6 +75,7 @@ class User extends BaseUser implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=profil::class, inversedBy="users")
+     * @Groups({"user:read"})
      */
     private $profil;
 
@@ -85,10 +94,21 @@ class User extends BaseUser implements UserInterface
      */
     private $adminPP;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="user")
+     */
+    private $evenements;
+
+    /**
+     * @ORM\OneToOne(targetEntity=TypeService::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $typeService;
+
     public function __construct()
     {
         parent::__construct();
         $this->activites = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +189,7 @@ class User extends BaseUser implements UserInterface
 
         return $this;
     }
+
     /**
      * @see UserInterface
      */
@@ -176,8 +197,7 @@ class User extends BaseUser implements UserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_'.$this -> profil -> getLibelle();
-
+        $roles[] = 'ROLE_'.$this->profil->getLibelle();
         return array_unique($roles);
     }
 
@@ -269,6 +289,48 @@ class User extends BaseUser implements UserInterface
     public function setAdminPP(?AdminPP $adminPP): self
     {
         $this->adminPP = $adminPP;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getEvenements(): Collection
+    {
+        return $this->evenements;
+    }
+
+    public function addEvenement(Evenement $evenement): self
+    {
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenement(Evenement $evenement): self
+    {
+        if ($this->evenements->removeElement($evenement)) {
+            // set the owning side to null (unless already changed)
+            if ($evenement->getUser() === $this) {
+                $evenement->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTypeService(): ?TypeService
+    {
+        return $this->typeService;
+    }
+
+    public function setTypeService(?TypeService $typeService): self
+    {
+        $this->typeService = $typeService;
 
         return $this;
     }

@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\HistoriqueEvenementRepository;
+use App\Entity\Evenement;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HistoriqueEvenementRepository;
 
 /**
  * @ORM\Entity(repositoryClass=HistoriqueEvenementRepository::class)
@@ -22,6 +23,11 @@ class HistoriqueEvenement
      */
     private $id_utilisateur;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Evenement::class, cascade={"persist", "remove"})
+     */
+    private $evenement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +41,17 @@ class HistoriqueEvenement
     public function setIdUtilisateur(string $id_utilisateur): self
     {
         $this->id_utilisateur = $id_utilisateur;
+
+        return $this;
+    }
+    public function getEvenement(): ?Evenement
+    {
+        return $this->evenement;
+    }
+
+    public function setEvenement(?Evenement $evenement): self
+    {
+        $this->evenement = $evenement;
 
         return $this;
     }

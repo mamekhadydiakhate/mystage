@@ -5,10 +5,13 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Entity\Activite;
 use App\Entity\Difficulte;
 use App\Annotation\QMLogger;
+use App\Form\DifficulteType;
 use App\Controller\BaseController;
 use App\Repository\DifficulteRepository;
+use App\Repository\ActiviteRepository;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
@@ -18,16 +21,19 @@ use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations\Delete;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DifficulteController extends BaseController
 {
     private DifficulteRepository $difficulteRepo;
+    private activiteRepository $activiteRepo;
 
-    public function __construct(DifficulteRepository $difficulteRepo)
+    public function __construct(DifficulteRepository $difficulteRepo, ActiviteRepository $activiteRepo)
     {
         $this->difficulteRepo = $difficulteRepo;
+        $this->activiteRepo = $activiteRepo;
         $user= new User;
     }
     /**
@@ -49,8 +55,14 @@ class DifficulteController extends BaseController
         ->setFrom('xxxxx@orange-sonatel.com')
         ->setTo($user->getEmail())
         ->setBody("Votre difficulté est enregistré avec succé");
-    $mailer->send($message);*/
+    $mailer->send($message);*/  
+    #$form = $this->createForm(DifficulteType::class);
+        $activite= $this->activiteRepo->find($request->get('activite'));
+        //dd($activite);
+        $difficulte->setActivite($activite);
+        $difficulte->setCreatedAt(new \Datetime());
         $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($activite);
         $entityManager->persist($difficulte);
         $entityManager->flush();
     
@@ -65,8 +77,9 @@ class DifficulteController extends BaseController
     {
        
          $difficultes = $this->difficulteRepo->findAll();
-         
-        return $this->json($difficultes);
+         $response = $this->json($difficultes, 200, [], ['groups' => 'difficulte:read']);
+
+        return $response; 
     }
       /**
      * @Get("/difficulte/{id}")

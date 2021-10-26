@@ -14,10 +14,10 @@ use App\Service\AccessControlService;
 use Psr\Container\ContainerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use FOS\RestBundle\Controller\Annotations\Put;
-use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -101,7 +101,7 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
     }
 
     /**
-     * @Rest\Get("/deconnexion")
+     * @Get("/deconnexion")
      * @QMLogger(message="deconnexion")
      */
     public function deconnexion(){
@@ -110,35 +110,37 @@ public function __construct(UserRepository $userRepository,UserManager $userMana
 
 
     /**
-     * @Rest\Post("/user")
+     * @Rest\Post("/addUser")
      * @QMLogger(message="Ajout utilisateur")
      */
-    public function adduser(Request $request){
+    public function addUser(Request $request){
         $data=json_decode($request->getContent(),true);
-        return new JsonResponse($this->userManager->adduser($data));
+        return new JsonResponse($this->userManager->addUser($data));
     }
     /**
      * @Rest\Get("/user/{id}")
      * @QMLogger(message="Details utilisateur")
      */
     public function detailsUser($id){
+        $users = $this->userRepository->find($id);
         return new JsonResponse($this->userManager->detailsUser($id));
+        $response = $this->json($users, 200, [], ['groups' => 'user:read']);
     }
 
     /**
-     * @Rest\Get("/users")
+     * @Rest\Get("/user")
      * @QMLogger(message="Liste utilisateurs")
      */
     public function listUsers(Request $request){
         $page = $request->query->get('page', 1);
-        $limit = $request->query->get('limit', getenv('LIMIT'));
+        $limit = $request->query->get('limit', getenv('LIMIT')); 
+         
         return new JsonResponse($this->userManager->listUsers($page,$limit));
     }
 
     /**
      * @Rest\Put("/user/{id}")
      * @QMLogger(message="Modifier utilisateur")
-     * 
      */
     public function modifierUtilisateur(Request $request,$id){
         $data=json_decode($request->getContent(),true);

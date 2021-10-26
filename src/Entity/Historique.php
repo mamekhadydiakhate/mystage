@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\HistoriqueRepository;
+use App\Entity\User;
+use App\Entity\Activite;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HistoriqueRepository;
 
 /**
  * @ORM\Entity(repositoryClass=HistoriqueRepository::class)
@@ -18,24 +20,82 @@ class Historique
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $id_utilisateur;
+    private $details;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $addresseIp;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="historiques")
+     */
+    private $user;
+
+    public function __construct()
+    {
+        $this->date=new \DateTime("now");
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdUtilisateur(): ?string
+    public function getDetails(): ?string
     {
-        return $this->id_utilisateur;
+        return $this->details;
     }
 
-    public function setIdUtilisateur(string $id_utilisateur): self
+    public function setDetails(string $details): self
     {
-        $this->id_utilisateur = $id_utilisateur;
+        $this->details = $details;
 
         return $this;
     }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getAddresseIp(): ?string
+    {
+        return $this->addresseIp;
+    }
+
+    public function setAddresseIp(?string $addresseIp): self
+    {
+        $this->addresseIp = $addresseIp;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    
 }

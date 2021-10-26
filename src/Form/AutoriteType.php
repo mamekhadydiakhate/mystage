@@ -14,8 +14,7 @@ class AutoriteType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('tel')
-            ->add('id_personne')
+            ->add('fonction')
             ->add('evenement')
         ;
     }

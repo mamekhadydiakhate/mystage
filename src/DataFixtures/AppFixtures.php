@@ -32,7 +32,7 @@ public function __construct(UserPasswordEncoderInterface $encoder )
         $profil ->setLibelle ($libelle );
         $manager ->persist ($profil );
         $manager ->flush();
-   for ($i=0; $i <=1 ; $i++)
+   for ($i=0; $i <=1; $i++)
     {
         $user = new User() ;
         $user ->setProfil ($profil )

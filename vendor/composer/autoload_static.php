@@ -51,6 +51,7 @@ class ComposerStaticInitb54c374fbdec4a603ca520aec1d4aac6
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Contracts\\Cache\\' => 24,
             'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\Workflow\\' => 27,
             'Symfony\\Component\\WebLink\\' => 26,
             'Symfony\\Component\\VarExporter\\' => 30,
             'Symfony\\Component\\VarDumper\\' => 28,
@@ -123,6 +124,7 @@ class ComposerStaticInitb54c374fbdec4a603ca520aec1d4aac6
             'Pagerfanta\\Adapter\\' => 19,
             'Pagerfanta\\' => 11,
             'PackageVersions\\' => 16,
+            'PHPJasper\\' => 10,
         ),
         'N' => 
         array (
@@ -259,6 +261,10 @@ class ComposerStaticInitb54c374fbdec4a603ca520aec1d4aac6
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Symfony\\Component\\Workflow\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/workflow',
         ),
         'Symfony\\Component\\WebLink\\' => 
         array (
@@ -535,6 +541,10 @@ class ComposerStaticInitb54c374fbdec4a603ca520aec1d4aac6
         'PackageVersions\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions',
+        ),
+        'PHPJasper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/geekcom/phpjasper/src',
         ),
         'Nelmio\\CorsBundle\\' => 
         array (

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Role\Role;
 use FOS\RestBundle\Controller\Annotations\Post;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations\Delete;
@@ -33,7 +34,8 @@ class InterimController extends BaseController
     }
     
     /**
-     * @Post("/interim", name="interims")
+     * @Post("/addInterim", name="interims" )
+     * 
      */
     public function addInterim(Request $request ,ValidatorInterface $validator ,SerializerInterface $serializer): Response
     {
@@ -74,7 +76,7 @@ class InterimController extends BaseController
         return $this->json($interims);
     }
       /**
-     * @Get("/interim/{id}")
+     * @Get("/interim/{id}" )
      * @QMLogger(message="Details interim")
      */
     public function detailsInterim($id){
@@ -84,7 +86,7 @@ class InterimController extends BaseController
     }
 
     /**
-    * @Delete("/interim/{id}", name="delete_interim")
+    * @Delete("/interim/{id}", name="delete_interim" )
     */
     public function deleteInterim(int $id): Response
     {
@@ -96,7 +98,7 @@ class InterimController extends BaseController
     return $this->redirectToRoute("interims");
     }
      /**
-     * @Put("/interim/{id}")
+     * @Put("/interim/{id}" )
      * @QMLogger(message="modifier interim")
      */
     public function modifiInterim($id){

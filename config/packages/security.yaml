@@ -4,7 +4,7 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_SUPER_ADMIN: ROLE_PP
     
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -75,9 +75,14 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/addUser, roles: ROLE_PP }
+        - { path: ^/interim, roles: ROLE_PP }
+        - { path: ^/addInterim, roles: ROLE_PP }
         - { path: ^/reinitialisationMotDePass, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/reset, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/check-email, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/test, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/,       roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_PP }
+       
+        

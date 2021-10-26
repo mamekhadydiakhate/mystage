@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Activite;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PointDeCoordinationRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PointDeCoordinationRepository::class)
@@ -19,22 +20,26 @@ class PointDeCoordination
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
+     * @Groups({"pointDeCoordination:read"})
      */
     private $libelle;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"pointDeCoordination:read"})
      */
     private $structure_impactee;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"pointDeCoordination:read"})
      */
     private $createAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activite::class, inversedBy="pointDeCoordination")
+     * @Groups({"pointDeCoordination:read"})
      */
     private $activite;
 

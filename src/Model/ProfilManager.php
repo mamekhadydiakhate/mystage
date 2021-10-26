@@ -25,9 +25,9 @@ class ProfilManager extends BaseManager
         parent::__construct($baseService, $mailer, $serializer, $validator, $em);
     }
 
-    public function post($data)
+    public function addprofil($data)
     {
-        $profil =$this->profilMapping->post($data);
+        $profil =$this->profilMapping->addProfil($data);
         $errors = $this->validator->validate($profil);
         if ($errors->count()>0){
             $err = json_decode( $this->serializer->serialize($errors, 'json'),true);
@@ -53,7 +53,7 @@ class ProfilManager extends BaseManager
         return array("code"=>200,"status"=>true,$this->MESSAGE_KEY=>"Profil modifié avec succes!");
     }
 
-    public function get()
+    public function listprofil()
     {
         //$connectedUser=ConnectedUserService::getConnectedUser($this->tokenStorage,$this->em->getRepository(User::class));
          $profils = $this->profilRepository->findAll();
@@ -64,7 +64,7 @@ class ProfilManager extends BaseManager
     }
 
 
-    public function delete($id)
+    public function deleteProfil($id)
     {
         $profil=$this->profilRepository->find($id);
         if (!$profil) {
