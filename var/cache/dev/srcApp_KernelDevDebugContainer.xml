@@ -6657,6 +6657,9 @@
       <call method="setCheckDatabasePlatform">
         <argument>true</argument>
       </call>
+      <call method="setTransactional">
+        <argument>true</argument>
+      </call>
       <call method="setMetadataStorageConfiguration">
         <argument type="service" id="doctrine.migrations.storage.table_storage"/>
       </call>

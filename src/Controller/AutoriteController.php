@@ -123,9 +123,12 @@ class AutoriteController extends BaseController
      * @QMLogger(message="modifier autorite")
      */
     public function modifiAutorite(Request $request ,SerializerInterface $serializer, $id, $autoriteManager){
-        $autorite = $this->autoriteRepo->find($id);
-        $autorite = $serializer->deserialize($request->getContent(), Autorite::class,'json');
+       
+        $entityManager = $this->getDoctrine()->getManager();
+        $autorite = $autoriteManager->getRepository(Autorite::class)->find($id);
 
-        return new JsonResponse($this->autoriteManager->modifiautorite($id));
+        $autoriteManager->flush();
+        return new JsonResponse($this->entityManager->modifiAutorite($id));
     }
+
 }
